@@ -14,11 +14,12 @@ class RunSimulations():
 
     def run_simulations():
         with open(self.TB_DIR_FILE) as fp:
-            for line in fp:
-                tb = line.strip()
-                Assembly(tb)
-                EnergyEstimate(tb)
-                Simulate(tb)
-                Compare(tb)
+            tb = line.strip()
+            assembly = Assembly(tb)
+            for component in assembly.active_components:
+                Simulation(tb,component,assembly.active_window)
+                Simulation(tb,component,assembly.inactive_window)
+                Simulation(tb,assembly.all_cycles)
+            EnergyEstimator(tb,assembly.active_components,assembly.active_window,assembly.inactive_window,assembly.all_cycles)
 
 RunSimulations()
