@@ -7,12 +7,6 @@ class ISA():
         self.active_cycles = {}
         self.set_ISA()
         self.clock_period = 12
-#        self.set_route(1)
-#        self.set_sram(1)
-#        self.set_refi(6,0,0)
-#        self.print_instr_attributes()
-#        self.print_instr_active_components()
-#        self.print_instr_active_component_cycles()
 
     def set_attributes(self):
         self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}

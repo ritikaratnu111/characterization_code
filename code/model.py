@@ -9,4 +9,5 @@ class Model():
     def set_model(self,name, attribute_values):
         self.ISA.attributes[name] = attribute_values
         self.ISA.set_active_cycles()
+
 Model()
