@@ -21,9 +21,9 @@ class Assembly():
     def set_instructions(self):
         #These values will be read from the yaml assembly file
         if (self.ASSEMBLY_FILE == '/home/ritika/silago/SiLagoNN/tb/char/data_transfer/assembly.txt'):
-            self.instructions = {'route': {'instr_delay': 0, 'no_of_hops' : 1} ,
-                                'sram': {'instr_delay': 1, 'no_of_hops' : 1} ,
-                                'refi': {'instr_delay': 2, 'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
+            self.instructions = {'route': {'instr_delay': 234, 'no_of_hops' : 1} ,
+                                'sram': {'instr_delay': 246, 'no_of_hops' : 1} ,
+                                'refi': {'instr_delay': 258, 'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
                                 }
             self.total_assembly_cycles = 12 
 

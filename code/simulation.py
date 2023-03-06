@@ -1,8 +1,10 @@
 import os
 
 class Simulate():
-    def __init__(self,tb):
+    def __init__(self,tb,component,active_window):
         self.TB_DIR_FILE = None
+        self.component = None
+        self.active_window = None
         self.run(tb)
 
     def run(self,tb):
