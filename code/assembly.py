@@ -1,6 +1,6 @@
 from ISA import ISA
 from model import Model
-from power import Power
+#from power import Power
 
 class Assembly():
     def __init__(self,tb):

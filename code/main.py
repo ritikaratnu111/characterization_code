@@ -1,6 +1,7 @@
 import os
 from assembly import Assembly
 from simulation import Simulation
+from energy_calculator import EnergyCalculator
 
 class RunSimulations():
     def __init__(self):
@@ -17,16 +18,19 @@ class RunSimulations():
         self.TB_DIR_FILE = "../input_files/TB_DIR_FILE.txt"
         os.environ['VCD_DIR'] ='./vcd/'
 
+    def simulate(self,tb,inactive_windows):
+        Simulation(tb,inactive_windows)
+
     def run_simulations(self):
         with open(self.TB_DIR_FILE) as fp:
             Lines = fp.readlines()
             for line in Lines:
                 tb = line.strip()
                 assembly = Assembly(tb)
-                os.environ['SUFFIX'] ='active'
-                Simulation(tb,assembly.active_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
-                os.environ['SUFFIX'] ='inactive'
-                Simulation(tb,assembly.inactive_window)     #SE,IE component_inactive.vcd
-#            EnergyEstimator(tb,assembly.active_components,assembly.active_window,assembly.inactive_window,assembly.all_cycles)
-
+#                os.environ['SUFFIX'] ='active'
+#                Simulation(tb,assembly.active_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
+#                os.environ['SUFFIX'] ='inactive'
+#                Simulation(tb,assembly.inactive_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
+                     #SE,IE component_inactive.vcd
+            EnergyCalculator(tb,assembly.active_components,assembly.active_windows,assembly.inactive_windows,assembly.total_assembly_cycles)
 RunSimulations()
