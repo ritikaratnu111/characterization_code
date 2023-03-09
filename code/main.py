@@ -2,6 +2,7 @@ import os
 from assembly import Assembly
 from simulation import Simulation
 from energy_calculator import EnergyCalculator
+from multiprocessing import Pool, cpu_count
 
 class RunSimulations():
     def __init__(self):
@@ -9,7 +10,7 @@ class RunSimulations():
 #        self.set_fabric_path()
         self.set_fabric_path()
         self.set_tb_dir_file()
-        self.run_simulations()
+#        self.run_simulations()
     
     def set_fabric_path(self):
         os.environ['FABRIC_PATH'] ='/home/ritika/silago/SiLagoNN/'
@@ -33,4 +34,8 @@ class RunSimulations():
 #                Simulation(tb,assembly.inactive_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
                      #SE,IE component_inactive.vcd
             EnergyCalculator(tb,assembly.active_components,assembly.active_windows,assembly.inactive_windows,assembly.total_assembly_cycles)
-RunSimulations()
+
+job = RunSimulations()
+job.run_simulations()
+#p = Pool(processes=cpu_count())
+#p.map(job.run_simulations(), range(cpu_count()))
