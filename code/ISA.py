@@ -9,9 +9,14 @@ class ISA():
         self.clock_period = 12
 
     def set_attributes(self):
-        self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}
-        self.attributes['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
-        self.attributes['refi'] = {'instr_delay': 0,'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
+#        self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}
+#        self.attributes['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
+#        self.attributes['refi'] = {'instr_delay': 0,'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
+
+# Attributes is the segment values of each instruction
+        self.attributes['ROUTE'] = {"direction":0,"horizontal_dir":1,"horizontal_hops":0,"select_drra_row":0,"vertical_dir":0,"vertical_hops":0} 
+        self.attributes['SRAM'] = {"hops":0,"init_addr":0,"init_addr_sd":0,"init_delay":0,"init_delay_sd":0,"l1_delay":0,"l1_delay_sd":0,"l1_iter":0,"l1_iter_sd":0,"l1_step":0,"l1_step_sd":0,"l2_delay":0,"l2_delay_sd":0,"l2_iter":0,"l2_iter_sd":0,"l2_step":0,"l2_step_sd":0,"rw":0} 
+        self.attributes['REFI'] = {"compress":0,"dimarch":1,"extra":2,"init_addr":0,"init_addr_sd":0,"init_delay":4,"init_delay_sd":0,"l1_delay":0,"l1_delay_ext":0,"l1_delay_sd":0,"l1_iter":0,"l1_iter_sd":0,"l1_step":1,"l1_step_sd":0,"l1_step_sign":0,"l2_delay":0,"l2_delay_sd":0,"l2_iter":0,"l2_iter_ext":0,"l2_iter_sd":0,"l2_step":0,"l2_step_ext":0,"port_no":0,"unused_0":2,"unused_1":3,"unused_2":0,"unused_3":0}
 
     def set_components(self):
         self.components['route'] = {'sequencer' : ['seq_gen'] ,'noc' : ['noc', 'partition', 'splitter'] }
@@ -31,12 +36,16 @@ class ISA():
                                         'dimarch_agu': {'start': 0,'end': 0},
                                         'sram': {'start': 0,'end': 0},
                                         'dimarch': {'start': 0,'end': 0}}
-        start = self.attributes['sram']['instr_delay']
-        self.active_cycles['sram']['sequencer'] = {'start': start,'end': start + 1 * self.clock_period }
-        self.active_cycles['sram']['wait'] =  {'start': start + 1 * self.clock_period , 'end':start + 2 * self.clock_period }
-        self.active_cycles['sram']['dimarch_agu'] =  {'start': start + 2 * self.clock_period , 'end':start + 4 * self.clock_period }
-        self.active_cycles['sram']['sram'] =  {'start': start + 4 * self.clock_period , 'end':start + 6 * self.clock_period }
-        self.active_cycles['sram']['dimarch'] =  {'start': start + 5 * self.clock_period , 'end':start + 5 * self.clock_period  + self.attributes['sram']['no_of_hops'] * self.clock_period  + 1 * self.clock_period  }
+        offset = self.attributes['sram']['instr_delay']
+        self.active_cycles['sram']['sequencer'] = {'start': offset,'end': offset + 1 * self.clock_period }
+        offset = self.active_cycles['sram']['sequencer']['end']
+        self.active_cycles['sram']['wait'] =  {'start': offset , 'end': offset + self.attributes['sram']['no_of_hops'] * self.clock_period}
+        offset = self.active_cycles['sram']['wait']['end']
+        self.active_cycles['sram']['dimarch_agu'] =  {'start': offset , 'end':offset + 2 * self.clock_period }
+        offset = self.active_cycles['sram']['dimarch_agu']['end']
+        self.active_cycles['sram']['sram'] =  {'start': offset , 'end':offset + 2 * self.clock_period }
+        offset = self.active_cycles['sram']['sram']['end']
+        self.active_cycles['sram']['dimarch'] =  {'start': offset , 'end':offset  + self.attributes['sram']['no_of_hops'] * self.clock_period  + 1 * self.clock_period  }
 
         self.active_cycles['refi'] = {'sequencer':{'start': 0,'end': 0},
                                         'wait': {'start': 0,'end': 0},
