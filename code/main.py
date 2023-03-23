@@ -28,11 +28,7 @@ class RunSimulations():
             for line in Lines:
                 tb = line.strip()
                 assembly = Assembly(tb)
-#                os.environ['SUFFIX'] ='active'
-#                Simulation(tb,assembly.active_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
-#                os.environ['SUFFIX'] ='inactive'
-#                Simulation(tb,assembly.inactive_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
-                     #SE,IE component_inactive.vcd
+                Simulation(tb,assembly.active_components,assembly.active_windows,assembly.inactive_windows)       #SE,IE component_active.vcd for each component, SE,IE,LE inactive_components and LE of inactive components for 'total'
             EnergyCalculator(tb,assembly.active_components,assembly.active_windows,assembly.inactive_windows,assembly.total_assembly_cycles)
 
 job = RunSimulations()
