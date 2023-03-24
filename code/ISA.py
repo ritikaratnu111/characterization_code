@@ -1,30 +1,13 @@
 class ISA():
 
+    CLOCK_PERIOD = 12
+
     def __init__(self):
 
         self.attributes = {}
         self.components = {}
         self.active_cycles = {}
-        self.clock_period = 12
         self.set_ISA()
-
-    def set_attributes(self):
-#        self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}
-#        self.attributes['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
-#        self.attributes['refi'] = {'instr_delay': 0,'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
-
-# Attributes is the segment values of each instruction
-        self.attributes['ROUTE'] = {"direction":0,"horizontal_dir":1,"horizontal_hops":0,"select_drra_row":0,"vertical_dir":0,"vertical_hops":0} 
-        self.attributes['SRAM'] = {"hops":0,"init_addr":0,"init_addr_sd":0,"init_delay":0,"init_delay_sd":0,"l1_delay":0,"l1_delay_sd":0,"l1_iter":0,"l1_iter_sd":0,"l1_step":0,"l1_step_sd":0,"l2_delay":0,"l2_delay_sd":0,"l2_iter":0,"l2_iter_sd":0,"l2_step":0,"l2_step_sd":0,"rw":0} 
-        self.attributes['REFI'] = {"compress":0,"dimarch":1,"extra":2,"init_addr":0,"init_addr_sd":0,"init_delay":4,"init_delay_sd":0,"l1_delay":0,"l1_delay_ext":0,"l1_delay_sd":0,"l1_iter":0,"l1_iter_sd":0,"l1_step":1,"l1_step_sd":0,"l1_step_sign":0,"l2_delay":0,"l2_delay_sd":0,"l2_iter":0,"l2_iter_ext":0,"l2_iter_sd":0,"l2_step":0,"l2_step_ext":0,"port_no":0,"unused_0":2,"unused_1":3,"unused_2":0,"unused_3":0}
-
-    def set_components(self):
-        self.components['ROUTE'] = {'sequencer' : ['seq_gen'] ,'noc' : ['noc', 'partition', 'splitter'] }
-        self.components['SRAM'] = {'sequencer' : ['seq_gen'] ,'dimarch_agu' : ['DiMArch*AGU'] ,'SRAM' : ['SRAM'] ,'dimarch' : ['DiMArch']}
-        self.components['REFI'] = {'sequencer' : ['seq_gen'] ,'regfile_agu' : ['reg_top*addr'],'reg_file' : ['reg_top']}
-
-    def get_components(self,instr_name):
-        return self.components[instr_name]
 
     def set_active_cycles(self,start):
         offset = start
@@ -60,6 +43,100 @@ class ISA():
         self.active_cycles['REFI']['regfile_agu'] = {'start': offset ,'end': offset  + 2 * self.clock_period }
         offset = self.active_cycles['REFI']['regfile_agu']['end']
         self.active_cycles['REFI']['reg_file'] = {'start': offset - 1 * self.clock_period ,'end': start + 1 * self.clock_period  + self.attributes['REFI']['init_delay'] * self.clock_period  -3 * self.clock_period  + 1 * self.clock_period  + self.attributes['REFI']['l1_iter'] * self.attributes['REFI']['l2_iter'] * self.clock_period  + 1 * self.clock_period } 
+    def set_attributes(self):
+#        self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}
+#        self.attributes['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
+#        self.attributes['refi'] = {'instr_delay': 0,'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
+
+# Attributes is the segment values of each instruction
+        self.attributes = {
+            'ROUTE': {
+                'direction': 0,
+                'horizontal_dir': 1,
+                'horizontal_hops': 0,
+                'select_drra_row': 0,
+                'vertical_dir': 0,
+                'vertical_hops': 0
+            },
+            'SRAM': {
+                'hops': 0,
+                'init_addr': 0,
+                'init_addr_sd': 0,
+                'init_delay': 0,
+                'init_delay_sd': 0,
+                'l1_delay': 0,
+                'l1_delay_sd': 0,
+                'l1_iter': 0,
+                'l1_iter_sd': 0,
+                'l1_step': 0,
+                'l1_step_sd': 0,
+                'l2_delay': 0,
+                'l2_delay_sd': 0,
+                'l2_iter': 0,
+                'l2_iter_sd': 0,
+                'l2_step': 0,
+                'l2_step_sd': 0,
+                'rw': 0
+            },
+            'REFI': {
+                'compress': 0,
+                'dimarch': 1,
+                'extra': 2,
+                'init_addr': 0,
+                'init_addr_sd': 0,
+                'init_delay': 4,
+                'init_delay_sd': 0,
+                'l1_delay': 0,
+                'l1_delay_ext': 0,
+                'l1_delay_sd': 0,
+                'l1_iter': 0,
+                'l1_iter_sd': 0,
+                'l1_step': 1,
+                'l1_step_sd': 0,
+                'l1_step_sign': 0,
+                'l2_delay': 0,
+                'l2_delay_sd': 0,
+                'l2_iter': 0,
+                'l2_iter_ext': 0,
+                'l2_iter_sd': 0,
+                'l2_step': 0,
+                'l2_step_ext': 0,
+                'port_no': 0,
+                'unused_0': 2,
+                'unused_1': 3,
+                'unused_2': 0,
+                'unused_3': 0
+            }
+        }
+
+
+
+    def set_components(self):
+        self.components = {
+            'ROUTE': {
+                'sequencer': ['seq_gen'],
+                'noc': ['noc', 'partition', 'splitter']
+            },
+            'SRAM': {
+                'sequencer': ['seq_gen'],
+                'dimarch_agu': ['DiMArch*AGU'],
+                'SRAM': ['SRAM'],
+                'dimarch': ['DiMArch']
+            },
+            'REFI': {
+                'sequencer': ['seq_gen'],
+                'regfile_agu': ['reg_top*addr'],
+                'reg_file': ['reg_top']
+            },
+            'WAIT': {
+            },
+            'HALT': {
+            }
+        }
+
+    def get_components(self,instr_name):
+        return self.components[instr_name]
+
 
     def set_ISA(self):
         #Here we read the ISA file and find the instructions, their attributes, typical value of the attributes, their active components, cycle model.
