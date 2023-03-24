@@ -11,38 +11,88 @@ class ISA():
 
     def set_active_cycles(self,start):
         offset = start
-        self.active_cycles['ROUTE'] = {'sequencer':{'start': 0,'end': 0},
-                                        'noc': {'start': 0,'end': 0} }
-        self.active_cycles['ROUTE']['sequencer'] = {'start': offset,'end': offset + 1 * self.clock_period}
-        offset = self.active_cycles['ROUTE']['sequencer']['end']
-        self.active_cycles['ROUTE']['noc'] =  {'start': offset, 'end': offset + 1 * self.clock_period + (self.attributes['ROUTE']['horizontal_hops'] + self.attributes['ROUTE']['vertical_hops']) * self.clock_period  + 1 * self.clock_period  }
-
-        self.active_cycles['SRAM'] = {'sequencer':{'start': 0,'end': 0},
-                                        'wait': {'start': 0,'end': 0},
-                                        'dimarch_agu': {'start': 0,'end': 0},
-                                        'sram': {'start': 0,'end': 0},
-                                        'dimarch': {'start': 0,'end': 0}}
-        self.active_cycles['SRAM']['sequencer'] = {'start': offset,'end': offset + 1 * self.clock_period }
-        offset = self.active_cycles['SRAM']['sequencer']['end']
-        self.active_cycles['SRAM']['wait'] =  {'start': offset , 'end': offset + self.attributes['SRAM']['hops'] * self.clock_period}
-        offset = self.active_cycles['SRAM']['wait']['end']
-        self.active_cycles['SRAM']['dimarch_agu'] =  {'start': offset , 'end':offset + 2 * self.clock_period }
-        offset = self.active_cycles['SRAM']['dimarch_agu']['end']
-        self.active_cycles['SRAM']['SRAM'] =  {'start': offset , 'end':offset + 2 * self.clock_period }
+        self.active_cycles['ROUTE'] = {
+            'sequencer': {'start': 0, 'end': 0},
+            'noc': {'start': 0, 'end': 0}
+        }
+        sequencer_end = offset + 1 * self.CLOCK_PERIOD
+        self.active_cycles['ROUTE']['sequencer'] = {
+            'start': offset,
+            'end': sequencer_end
+        }
+        offset = sequencer_end
+        noc_end = offset + 1 * self.CLOCK_PERIOD + (self.attributes['ROUTE']['horizontal_hops'] + self.attributes['ROUTE']['vertical_hops']) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
+        self.active_cycles['ROUTE']['noc'] = {
+            'start': offset,
+            'end': noc_end
+        }
         offset = start
-        self.active_cycles['SRAM']['dimarch'] =  {'start': offset , 'end':offset  + self.attributes['SRAM']['hops'] * self.clock_period  + 1 * self.clock_period  }
+        self.active_cycles['SRAM'] = {
+            'sequencer': {'start': 0, 'end': 0},
+            'wait': {'start': 0, 'end': 0},
+            'dimarch_agu': {'start': 0, 'end': 0},
+            'sram': {'start': 0, 'end': 0},
+            'dimarch': {'start': 0, 'end': 0}
+        }
+        sequencer_end = offset + 1 * self.CLOCK_PERIOD
+        self.active_cycles['SRAM']['sequencer'] = {
+            'start': offset,
+            'end': sequencer_end
+        }
+        offset = sequencer_end
+        wait_end = offset + self.attributes['SRAM']['hops'] * self.CLOCK_PERIOD
+        self.active_cycles['SRAM']['wait'] = {
+            'start': offset,
+            'end': wait_end
+        }
+        offset = wait_end
+        dimarch_agu_end = offset + 2 * self.CLOCK_PERIOD
+        self.active_cycles['SRAM']['dimarch_agu'] = {
+            'start': offset,
+            'end': dimarch_agu_end
+        }
+        offset = dimarch_agu_end
+        sram_end = offset + 2 * self.CLOCK_PERIOD
+        self.active_cycles['SRAM']['sram'] = {
+            'start': offset,
+            'end': sram_end
+        }
+        offset = start
+        dimarch_end = offset + self.attributes['SRAM']['hops'] * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
+        self.active_cycles['SRAM']['dimarch'] = {
+            'start': offset,
+            'end': dimarch_end
+        }
 
-        self.active_cycles['REFI'] = {'sequencer':{'start': 0,'end': 0},
-                                        'wait': {'start': 0,'end': 0},
-                                        'regfile_agu': {'start': 0,'end': 0},
-                                        'reg_file': {'start': 0,'end': 0}}
-        self.active_cycles['REFI']['sequencer'] = {'offset': offset,'end': offset + 1 * self.clock_period }
-        offset = self.active_cycles['REFI']['sequencer']['end']
-        self.active_cycles['REFI']['wait'] = {'start': offset ,'end': offset  + self.attributes['REFI']['init_delay'] * self.clock_period  -3 * self.clock_period  }
-        offset = self.active_cycles['REFI']['wait']['end']
-        self.active_cycles['REFI']['regfile_agu'] = {'start': offset ,'end': offset  + 2 * self.clock_period }
-        offset = self.active_cycles['REFI']['regfile_agu']['end']
-        self.active_cycles['REFI']['reg_file'] = {'start': offset - 1 * self.clock_period ,'end': start + 1 * self.clock_period  + self.attributes['REFI']['init_delay'] * self.clock_period  -3 * self.clock_period  + 1 * self.clock_period  + self.attributes['REFI']['l1_iter'] * self.attributes['REFI']['l2_iter'] * self.clock_period  + 1 * self.clock_period } 
+        offset = start
+        self.active_cycles['REFI'] = {
+            'sequencer': {'start': 0, 'end': 0},
+            'wait': {'start': 0, 'end': 0},
+            'regfile_agu': {'start': 0, 'end': 0},
+            'reg_file': {'start': 0, 'end': 0},
+        }
+        sequencer_end = offset + 1 * self.CLOCK_PERIOD
+
+        self.active_cycles['REFI']['sequencer'] = {
+            'start': offset,
+            'end': sequencer_end
+        }
+        offset = sequencer_end
+
+        wait_end = offset + self.attributes['REFI']['init_delay'] * self.CLOCK_PERIOD -3 * self.CLOCK_PERIOD
+        self.active_cycles['REFI']['wait'] = {
+            'start': offset,
+            'end': wait_end
+        }
+        offset = wait_end
+        regfile_agu_end = offset  + 2 * self.CLOCK_PERIOD
+        self.active_cycles['REFI']['regfile_agu'] = {
+            'start': offset,
+            'end': regfile_agu_end
+        }
+        offset = wait_end + 1 * self.CLOCK_PERIOD
+        regfile_end = offset + + self.attributes['REFI']['l1_iter'] * self.attributes['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 1 * self.CLOCK_PERIOD
+
     def set_attributes(self):
 #        self.attributes['route'] = {'instr_delay': 0,'no_of_hops' : 1}
 #        self.attributes['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
