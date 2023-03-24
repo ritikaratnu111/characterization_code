@@ -59,7 +59,7 @@ class Assembly():
             print(self.cells)
 
     def set_model(self):
-        ISA = ISA()
+        my_isa = ISA()
         for id in self.cells:
             row = self.cells[id]['row']
             col = self.cells[id]['col']
@@ -67,11 +67,11 @@ class Assembly():
             active_component_cycles = []
             for instr in self.cells[id]['instr_list']:
                 instr_name = instr['name']
-                instr_components = ISA.get_components(instr_name) 
+                instr_components = my_isa.get_components(instr_name)
                 for component in instr_components:
                     if (component not in active_components):
                          active_components.append(component)
-                instr_active_component_cycles = self.model.ISA.active_cycles[instr]
+#                instr_active_component_cycles = my_isa.get_active_cycles[instr]
                 
 
     def set_active_components(self):
