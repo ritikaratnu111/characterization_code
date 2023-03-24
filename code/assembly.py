@@ -1,11 +1,11 @@
-#from ISA import ISA
+from ISA import ISA
 #from model import Model
 import json
 import re
 #from power import Power
 
 class Assembly():
-    def __init__(self,tb):
+    def __init__(self):
         self.ASSEMBLY_FILE = ""
         self.PACKAGE_FILE = ""
         self.clock_period = 10
@@ -13,16 +13,14 @@ class Assembly():
         self.execution_start_time = 0
         self.total_assembly_cycles = 0
         self.cells = {}
-#        self.instructions = {}
-        self.active_components = {}
-        self.instr_active_component_cycles = {}
-        self.active_component_cycles = {}
-        self.active_windows = {}
-        self.inactive_windows = {}
+        self.model = {}
 #        self.model = Model()
-        self.set_assembly_file(tb)
-        self.set_execution_start_time()
-        self.set_assembly()
+
+#        self.active_components = {}
+#        self.instr_active_component_cycles = {}
+#        self.active_component_cycles = {}
+#        self.active_windows = {}
+#        self.inactive_windows = {}
 
     def set_assembly_file(self, tb):
         self.ASSEMBLY_FILE = tb + "/sync_instr.json"
@@ -57,12 +55,24 @@ class Assembly():
                 instr_segment_values = instr['segment_values']
                 my_instr = {'id': instr_id, 'name': instr_name, 'start_time' : instr_start_time ,'segment_values': instr_segment_values}
                 instr_list.append(my_instr)
-            self.cells[cell_id] = {'row' : row, 'col' : col, 'instr_list' : instr_list}
+            self.cells[cell_id] = { 'row' : row, 'col' : col, 'instr_list' : instr_list}
             print(self.cells)
 
-    def set_model_attributes(self):
-        for instr in self.instructions:
-            self.model.set_model(instr,self.instructions[instr])
+    def set_model(self):
+        ISA = ISA()
+        for id in self.cells:
+            row = self.cells[id]['row']
+            col = self.cells[id]['col']
+            active_components = []
+            active_component_cycles = []
+            for instr in self.cells[id]['instr_list']:
+                instr_name = instr['name']
+                instr_components = ISA.get_components(instr_name) 
+                for component in instr_components:
+                    if (component not in active_components):
+                         active_components.append(component)
+                instr_active_component_cycles = self.model.ISA.active_cycles[instr]
+                
 
     def set_active_components(self):
         for instr in self.instructions:
@@ -109,10 +119,14 @@ class Assembly():
 
     def set_assembly(self):
         self.set_instructions()
-#        self.set_model_attributes()
+        self.set_model()
 #        self.set_active_components()
 #        self.set_instr_active_component_cycles()
 #        self.set_component_active_cycles()
 #        self.set_component_inactive_cycles()
 
-Assembly('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
+assembly = Assembly()
+assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
+assembly.set_execution_start_time()
+assembly.set_instructions()
+assembly.set_model()
