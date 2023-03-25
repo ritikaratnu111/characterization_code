@@ -3,34 +3,33 @@ from ISA import ISA
 import json
 import re
 #from power import Power
-
 class Assembly():
+
+    CLOCK_PERIOD = 12
+
     def __init__(self):
         self.ASSEMBLY_FILE = ""
         self.PACKAGE_FILE = ""
-        self.clock_period = 10
+        self.CLOCK_PERIOD = 10
         self.half_period = 5
         self.execution_start_time = 0
         self.total_assembly_cycles = 0
         self.cells = {}
-        self.model = {}
-#        self.model = Model()
-
-#        self.active_components = {}
-#        self.instr_active_component_cycles = {}
-#        self.active_component_cycles = {}
-#        self.active_windows = {}
-#        self.inactive_windows = {}
 
     def set_assembly_file(self, tb):
-        self.ASSEMBLY_FILE = tb + "/sync_instr.json"
-        self.PACKAGE_FILE = tb + "/const_package.vhd"
+        self.ASSEMBLY_FILE = f"{tb}/sync_instr.json"
+        self.PACKAGE_FILE = f"{tb}/const_package.vhd"
 
     def set_execution_start_time(self):
         with open(self.PACKAGE_FILE) as file:
             file_contents = file.read()
-        execution_start_cycle = int(re.search('CONSTANT execution_start_cycle\s*:\s*integer\s*:=\s*(\d+)\s*;', file_contents).group(1))
-        self.execution_start_time = self.clock_period * execution_start_cycle + self.half_period
+        execution_start_cycle = int(
+            re.search(
+                "CONSTANT execution_start_cycle\s*:\s*integer\s*:=\s*(\d+)\s*;",
+                file_contents,
+            ).group(1)
+        )
+        self.execution_start_time = self.CLOCK_PERIOD * execution_start_cycle + self.half_period
 
     def set_instructions(self):
         #These values will be read from the yaml assembly file
@@ -46,62 +45,48 @@ class Assembly():
             row = cell['row']
             col = cell['col']
             extracted_instr_list = cell['instr_list']
-            cell_id = "cell" + "_" + str(row) + "_" + str(col)
-            instr_list = []
-            for instr in extracted_instr_list:
-                instr_id = instr['start']
-                instr_start_time = self.execution_start_time + instr_id * self.clock_period
-                instr_name = instr['name']
-                instr_segment_values = instr['segment_values']
-                my_instr = {'id': instr_id, 'name': instr_name, 'start_time' : instr_start_time ,'segment_values': instr_segment_values}
-                instr_list.append(my_instr)
-            self.cells[cell_id] = { 'row' : row, 'col' : col, 'instr_list' : instr_list}
-            print(self.cells)
+            cell_id = f"cell_{row}_{col}"
+            instr_list = [
+                {
+                    "id": instr["start"],
+                    "name": instr["name"],
+                    "start_time": self.execution_start_time + instr["start"] * self.CLOCK_PERIOD,
+                    "segment_values": instr["segment_values"],
+                }
+                for instr in extracted_instr_list
+            ]
+            self.cells[cell_id] = {"row": row, "col": col, "instr_list": instr_list}
+        f.close()
 
-    def set_model(self):
-        my_isa = ISA()
+    def set_active_components(self):
         for id in self.cells:
-            row = self.cells[id]['row']
-            col = self.cells[id]['col']
+            my_isa = ISA()
             active_components = []
-            active_component_cycles = []
             for instr in self.cells[id]['instr_list']:
-                instr_name = instr['name']
-                instr_components = my_isa.get_components(instr_name)
+                instr_components = my_isa.get_components(instr["name"])
                 for component in instr_components:
                     if (component not in active_components):
                          active_components.append(component)
-#                instr_active_component_cycles = my_isa.get_active_cycles[instr]
+                self.cells[id]["active_components"] = active_components
                 
-
-    def set_active_components(self):
-        for instr in self.instructions:
-            instr_components = self.model.ISA.components[instr]
-            for component in instr_components:
-                if (component not in self.active_components):
-                    self.active_components[component] = instr_components[component]
-#        print(self.active_components)
-
     def set_instr_active_component_cycles(self):
-        for instr in self.instructions:
-            self.instr_active_component_cycles[instr] = self.model.ISA.active_cycles[instr]
-#            print(instr, self.instr_active_component_cycles[instr])
-
-#    def active_component_cycles(self):
-#        for component in self.active_components:
-#            cycles = {}
-#            for instr in self.instructions:
-#                cycles = self.instructions[instr]
+        for id in self.cells:
+            my_isa = ISA()
+            active_component_cycles = []
+            for idx, instr in enumerate(self.cells[id]['instr_list']):
+                self.cells[id]['instr_list'][idx]['component_active_cycles'] = my_isa.get_active_cycles(instr)
 
     def set_component_active_cycles(self):
-        for component in self.active_components:
-#            print(component)
-            active_window = []
-            for instr in self.instructions:
-                if component in (self.instr_active_component_cycles[instr]):
-                    active_window.append(self.instr_active_component_cycles[instr][component])
-            self.active_windows[component] = active_window
-        self.active_windows['total'] = [self.total_assembly_cycles]
+        for id in self.cells:
+            self.cells[id]["component_active_cycles"] = {}
+            my_isa = ISA()
+            for component in self.cells[id]["active_components"]:
+                active_window = []
+                for idx, instr in enumerate(self.cells[id]['instr_list']):
+                    if component in self.cells[id]['instr_list'][idx]['component_active_cycles']:
+                        active_window.append(self.cells[id]['instr_list'][idx]['component_active_cycles'][component])                         
+                self.cells[id]["component_active_cycles"][component] = active_window
+        print(self.cells)
 
     def set_component_inactive_cycles(self):
         for component in self.active_components:
@@ -119,9 +104,8 @@ class Assembly():
 
     def set_assembly(self):
         self.set_instructions()
-        self.set_model()
-#        self.set_active_components()
-#        self.set_instr_active_component_cycles()
+        self.set_active_components()
+        self.set_instr_active_component_cycles()
 #        self.set_component_active_cycles()
 #        self.set_component_inactive_cycles()
 
@@ -129,4 +113,6 @@ assembly = Assembly()
 assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
 assembly.set_execution_start_time()
 assembly.set_instructions()
-assembly.set_model()
+assembly.set_active_components()
+assembly.set_instr_active_component_cycles()
+assembly.set_component_active_cycles()
