@@ -2,16 +2,17 @@ from ISA import ISA
 #from model import Model
 import json
 import re
+import pprint
+
 #from power import Power
 class Assembly():
 
     CLOCK_PERIOD = 12
+    HALF_PERIOD = 6
 
     def __init__(self):
         self.ASSEMBLY_FILE = ""
         self.PACKAGE_FILE = ""
-        self.CLOCK_PERIOD = 10
-        self.half_period = 5
         self.execution_start_time = 0
         self.total_assembly_cycles = 0
         self.cells = {}
@@ -29,16 +30,17 @@ class Assembly():
                 file_contents,
             ).group(1)
         )
-        self.execution_start_time = self.CLOCK_PERIOD * execution_start_cycle + self.half_period
+        total_execution_cycle = int(
+            re.search(
+                "CONSTANT total_execution_cycle\s*:\s*integer\s*:=\s*(\d+)\s*;",
+                file_contents,
+            ).group(1)
+        )
+        self.execution_start_time = self.CLOCK_PERIOD * execution_start_cycle + self.HALF_PERIOD
+        self.execution_end_time = self.CLOCK_PERIOD * total_execution_cycle + self.HALF_PERIOD
+
 
     def set_instructions(self):
-        #These values will be read from the yaml assembly file
-#        if (self.ASSEMBLY_FILE == '/home/ritika/silago/SiLagoNN/tb/char/data_transfer/assembly.txt'):
-#            self.instructions = {'route': {'instr_delay': 234, 'no_of_hops' : 1} ,
-#                                'sram': {'instr_delay': 246, 'no_of_hops' : 1} ,
-#                                'refi': {'instr_delay': 258, 'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
-#                                }
-#            self.total_assembly_cycles = {'start': 234, 'end':330} 
         f = open(self.ASSEMBLY_FILE)
         data = json.load(f)
         for cell in data:
@@ -55,7 +57,7 @@ class Assembly():
                 }
                 for instr in extracted_instr_list
             ]
-            self.cells[cell_id] = {"row": row, "col": col, "instr_list": instr_list}
+            self.cells[cell_id] = {"row": row, "col": col, "instr_list": instr_list, 'total_execution_cycles' : {'start' : self.execution_start_time, 'end' : self.execution_end_time}}
         f.close()
 
     def set_active_components(self):
@@ -89,25 +91,23 @@ class Assembly():
         print(self.cells)
 
     def set_component_inactive_cycles(self):
-        for component in self.active_components:
-            inactive_window = []
-            start = self.total_assembly_cycles['start']
-            for window in self.active_windows[component]:
-                end = window['start']
+        for id in self.cells:
+            self.cells[id]["component_inactive_cycles"] = {}
+            my_isa = ISA()
+            for component in self.cells[id]["active_components"]:
+                inactive_window = []
+                start = self.cells[id]['total_execution_cycles']['start']
+                for window in self.cells[id]['component_active_cycles'][component]:
+                    end = window['start']
+                    if (start != end):
+                        inactive_window.append({'start': start, 'end': end})
+                    start = window['end']
+                end = self.cells[id]['total_execution_cycles']['start']
                 if (start != end):
                     inactive_window.append({'start': start, 'end': end})
-                start = window['end']
-            end = self.total_assembly_cycles['end']
-            if (start != end):
-                inactive_window.append({'start': start, 'end': end})
-            self.inactive_windows[component] = inactive_window
+                self.cells[id]["component_inactive_cycles"][component] = inactive_window
+            pprint.PrettyPrinter(width=20).pprint(self.cells)   
 
-    def set_assembly(self):
-        self.set_instructions()
-        self.set_active_components()
-        self.set_instr_active_component_cycles()
-#        self.set_component_active_cycles()
-#        self.set_component_inactive_cycles()
 
 assembly = Assembly()
 assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
@@ -116,3 +116,4 @@ assembly.set_instructions()
 assembly.set_active_components()
 assembly.set_instr_active_component_cycles()
 assembly.set_component_active_cycles()
+assembly.set_component_inactive_cycles()
