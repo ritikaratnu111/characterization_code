@@ -1,5 +1,6 @@
 import logging
 from power import Power
+import json
 
 class EnergyCalculator():
     def __init__(self):
@@ -89,12 +90,12 @@ class EnergyCalculator():
         for window in active_windows:
             file_path = f"{self.tb}/vcd/{id}_{component}_active_{window['start']}_{window['end']}.vcd.pwr" #choose active window power file
             duration = f"{window['start']}_{window['end']}"
-
+    
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(active_signals)
 
-            power, active_nets = self.NetPower.get_active_component_power(signals)
-            power_types = self.cell['id']['power_types']
+            power, active_nets = self.NetPower.get_active_component_power(active_signals)
+            power_types = self.cells[id]['power_types']
             for power_type in power_types:
                 self.cells[id]['power']['active_components'][component][power_type]['active'][duration] = power[power_type]
             
@@ -102,19 +103,19 @@ class EnergyCalculator():
 
     def set_inactive_window_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Active power for {component}: {signals}")
+        logging.debug(f"Active power for {component}: {active_signals}")
 
-        active_windows = self.cells[id]['component_active_cycles'][component]
+        inactive_windows = self.cells[id]['component_inactive_cycles'][component]
 
-        for window in active_windows:
-            file_path = f"{self.tb}/vcd/{self.id}_{component}_inactive_{window['start']}_{window['end']}.vcd.pwr" # choose inactive window power file
+        for window in inactive_windows:
+            file_path = f"{self.tb}/vcd/{id}_{component}_inactive_{window['start']}_{window['end']}.vcd.pwr" # choose inactive window power file
             duration = f"{window['start']}_{window['end']}"
 
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(active_signals)
 
-            power, active_nets = self.NetPower.get_active_component_power(signals)
-            power_types = self.cell['id']['power_types']
+            power, active_nets = self.NetPower.get_active_component_power(active_signals)
+            power_types = self.cells[id]['power_types']
             for power_type in power_types:
                 self.cells[id]['power']['active_components'][component][power_type]['inactive'][duration] = power[power_type]
             
@@ -133,10 +134,13 @@ class EnergyCalculator():
     def set_inactive_component_power(self,id):
         logging.debug("Computing inactive component power... ")
 
-        file_path = f"{self.tb}/vcd/{self.cell_id}_total__{self.total_window['start']}_{self.total_window['end']}.vcd.pwr"
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end']
+
+        file_path = f"{self.tb}/vcd/{id}_total__{start}_{end}.vcd.pwr"
         self.NetPower.set_nets(file_path)
 
-        duration = f"{self.total_window['start']}_{self.total_window['end']}"
         active_components = self.cells[id]['active_components']
 
         for component in active_components:
@@ -145,7 +149,7 @@ class EnergyCalculator():
 
         power, inactive_nets = self.NetPower.get_inactive_component_power()
 
-        power_types = self.cell['id']['power_types']
+        power_types = self.cells[id]['power_types']
         for power_type in power_types:
             self.cells[id]['power']['inactive_components'][power_type] = power[power_type]
 
@@ -153,10 +157,14 @@ class EnergyCalculator():
 
     def set_total_power(self,id):
         logging.debug("Computing total component power... ")
-        file_path = f"{self.tb}/vcd/{self.cell_id}_total__{self.total_window['start']}_{self.total_window['end']}.vcd.pwr"
 
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end']
+
+        file_path = f"{self.tb}/vcd/{id}_total__{start}_{end}.vcd.pwr"
         active_components = self.cells[id]['active_components']
-        power_types = self.cell['id']['power_types']
+        power_types = self.cells[id]['power_types']
         active_component_power = {ptype: 0 for ptype in power_types}
 
         for component in active_components:
@@ -165,7 +173,7 @@ class EnergyCalculator():
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(signals)
             power, count = self.NetPower.get_active_component_power(signals)
-            power_types = self.cell['id']['power_types']
+            power_types = self.cells[id]['power_types']
             for power_type in power_types:
                 active_component_power[power_type] += power[power_type]
 
@@ -192,7 +200,7 @@ class EnergyCalculator():
         
         active_components = self.cells[id]['active_components']
 
-        power_types = self.cell['id']['power_types']
+        power_types = self.cells[id]['power_types']
 
         for component in active_components:
             power = self.cells[id]['power']['active_components'][component]
@@ -204,14 +212,16 @@ class EnergyCalculator():
                         start, end = map(int, duration.split('_'))
                         time = end - start
                         energy = time * power[power_type][state][duration]
-                        self.cells[id]['active_components'][component][power_type][state][duration] = energy
+                        self.cells[id]['energy']['active_components'][component][power_type][state][duration] = energy
 
     def set_inactive_component_energy(self,id):
         logging.debug("Computing inactive component energy... ")
-        start, end = map(int, duration.split('_'))
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end']
         time = end - start
         power = self.cells[id]['power']['inactive_components']
-        power_types = self.cell['id']['power_types']
+        power_types = self.cells[id]['power_types']
         
         energy = { power_type: time * power[power_type] 
                 for power_type in power_types}
@@ -220,10 +230,12 @@ class EnergyCalculator():
 
     def set_total_energy(self,id):
         logging.debug("Computing total component energy... ")
-        start, end = map(int, duration.split('_'))
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end']
         time = end - start
         power = self.cells[id]['power']['total']
-        power_types = self.cell[id]['power_types']
+        power_types = self.cells[id]['power_types']
         energy = {power_type: time * power[power_type] 
                 for power_type in power_types}
 
@@ -232,13 +244,13 @@ class EnergyCalculator():
     def set_energy_error(self,id):
         inactive_energy = self.cells[id]['energy']['inactive_components']
         total_energy = self.cells[id]['energy']['total']
-        power_types = self.cell[id]['power_types']
+        power_types = self.cells[id]['power_types']
 
         active_energy = {power_type: sum(
-                    self.cells[id]['active_components'][component][power_type][state][duration]
+                    self.cells[id]['energy']['active_components'][component][power_type][state][duration]
         for component in self.cells[id]['active_components']
-        for state in states
-        for duration in durations)
+        for state in self.cells[id]['energy']['active_components'][component][power_type]
+        for duration in self.cells[id]['energy']['active_components'][component][power_type][state])
                      for power_type in power_types}
 
         estimated_energy = {power_type: active_energy[power_type] + inactive_energy[power_type]
@@ -248,8 +260,8 @@ class EnergyCalculator():
                     max(total_energy[power_type], estimated_energy[power_type])
                     for power_type in power_types}
 
-        self.cells[id]['energy']['estimate'][power_type] = estimate
-        self.cells[id]['energy']['error'][power_type] = error
+        self.cells[id]['energy']['estimate'] = estimated_energy
+        self.cells[id]['energy']['error'] = energy_error
 
     def set_energy(self):
         for id in self.cells:
@@ -267,10 +279,10 @@ class EnergyCalculator():
 
     def print_energy(self):
         for id in self.cells:
-            power_types = self.cell[id]['power_types']
+            power_types = self.cells[id]['power_types']
             energy = self.cells[id]['energy']
             for power_type in power_types:
                 actual_energy = energy['total'][power_type]
-                estimated_energy = energy['estimated'][power_type]
+                estimated_energy = energy['estimate'][power_type]
                 energy_error = energy['error'][power_type]
                 print(f"{power_type.capitalize()}: actual={actual_energy}, estimate={estimated_energy}, error={energy_error}")
