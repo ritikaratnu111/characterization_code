@@ -101,7 +101,7 @@ class ISA():
             'REFI': {
                 'sequencer': ['seq_gen'],
                 'regfile_agu': ['reg_top*addr'],
-                'reg_file': ['reg_top']
+                'regfile': ['reg_top']
             },
             'WAIT': {
                 'sequencer' : ['seq_gen']
@@ -164,8 +164,8 @@ class ISA():
             'start': offset,
             'end': sram_end
         }
-        offset = start
-        dimarch_end = offset + self.segment_values['SRAM']['hops'] * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
+        offset = sram_end
+        dimarch_end = offset + (self.segment_values['SRAM']['hops'] + 1 ) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
         self.active_cycles['SRAM']['dimarch'] = {
             'start': offset,
             'end': dimarch_end
@@ -199,8 +199,12 @@ class ISA():
             'end': regfile_agu_end
         }
         offset = wait_end + 1 * self.CLOCK_PERIOD
-        regfile_end = offset + + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 1 * self.CLOCK_PERIOD
+        regfile_end = offset + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 1 * self.CLOCK_PERIOD
 
+        self.active_cycles['REFI']['regfile'] = {
+            'start': offset,
+            'end': regfile_end
+        }
 
     def set_active_cycles_wait(self,start):        
         offset = start

@@ -1,1 +1,1 @@
-/home/ritika/silago/SiLagoNN/tb/char/data_transfer
+/home/ritika/silago/SiLagoNN/tb/char/data_transfer_1_hop

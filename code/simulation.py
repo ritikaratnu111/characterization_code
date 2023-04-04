@@ -1,27 +1,84 @@
 import os
 #from threading import Thread
 #from time import sleep
-from joblib import Parallel, delayed
+#from joblib import Parallel, delayed
 
 class Simulation():
-    def __init__(self,tb,active_components,active_windows,inactive_windows):
+    def __init__(self):
         self.TB_DIR_FILE = None
-        self.component = None
-        self.active_components = active_components
-        self.active_windows = active_windows
-        self.inactive_windows = inactive_windows
-        self.run(tb)
+        self.cells = {}
 
-    def run_sim(self,component,start,end,suffix):
+    def set_input(self,assembly):
+        self.cells = assembly.cells
+
+    def run_sim_active(self,component,window):
+        start = str(window['start'])
+        end = str(window['end'])
+        suffix = 'active'
         print(component,start,end)
-        os.system("COMPONENT=" + component + " START_TIME=" + start + " END_TIME=" + end + " SUFFIX=" + suffix + " vsim -64 -c -do get_activity.do")
-        os.system("COMPONENT=" + component + " START_TIME=" + start + " END_TIME=" + end + " SUFFIX=" + suffix + " innovus -stylus -no_gui -files get_power.tcl")
+        os.system( "CELL=" + self.cell_id + 
+                    " COMPONENT=" + component + 
+                    " START_TIME=" + start + 
+                    " END_TIME=" + end + 
+                    " SUFFIX=" + suffix + 
+                    " vsim -64 -c -do get_activity.do"
+                    )
+        os.system("CELL=" + self.cell_id + 
+                " COMPONENT=" + component + 
+                " START_TIME=" + start + 
+                " END_TIME=" + end + 
+                " SUFFIX=" + suffix + 
+                " innovus -stylus -no_gui -files get_power.tcl"
+                )
+
+    def run_sim_inactive(self,component,window):
+        start = str(window['start'])
+        end = str(window['end'])
+        suffix = 'inactive'
+        print(component,start,end)
+        os.system( "CELL=" + self.cell_id + 
+                    " COMPONENT=" + component + 
+                    " START_TIME=" + start + 
+                    " END_TIME=" + end + 
+                    " SUFFIX=" + suffix + 
+                    " vsim -64 -c -do get_activity.do"
+                    )
+        os.system("CELL=" + self.cell_id + 
+                " COMPONENT=" + component + 
+                " START_TIME=" + start + 
+                " END_TIME=" + end + 
+                " SUFFIX=" + suffix + 
+                " innovus -stylus -no_gui -files get_power.tcl"
+                )
+
+    def run_sim_total(self,window):
+        start = str(window['start'])
+        end = str(window['end'])
+        component = 'total'
+        suffix = ''
+        print(component,start,end)
+        os.system( "CELL=" + self.cell_id + 
+                    " COMPONENT=" + component + 
+                    " START_TIME=" + start + 
+                    " END_TIME=" + end + 
+                    " SUFFIX=" + suffix + 
+                    " vsim -64 -c -do get_activity.do"
+                    )
+        os.system("CELL=" + self.cell_id + 
+                " COMPONENT=" + component + 
+                " START_TIME=" + start + 
+                " END_TIME=" + end + 
+                " SUFFIX=" + suffix + 
+                " innovus -stylus -no_gui -files get_power.tcl"
+                )
 
     def run(self,tb):
         os.chdir(tb)
-        for component in self.active_components:
-            for window in self.active_windows[component]:
-                self.run_sim_active_windows(component, str(window['start']), str(window['end']), 'active')
-            for window in self.inactive_windows[component]:
-                self.run_sim_inactive_windows(component, str(window['start']), str(window['end']), 'inactive')
-#            Parallel(n_jobs=4)(delayed(self.run_sim)(component, str(window['start']), str(window['end'])) for window in self.active_windows[component])
+        for id in self.cells:
+            self.run_sim_total(self.cells[id]['total_window'])
+            for component in self.cells[id]["active_components"]:
+                for window in self.active_windows[component]:
+                    self.run_sim_active(component, window)
+                for window in self.inactive_windows[component]:
+                    self.run_sim_inactive(component, window)
+                    
