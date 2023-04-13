@@ -3,10 +3,15 @@ from power import Power
 import json
 
 class EnergyCalculator():
+
+    CLOCK_PERIOD = 12
+    HALF_PERIOD = 6
+
     def __init__(self):
         self.tb = ""
         self.cells = {}
         self.NetPower = Power()
+        logging.basicConfig(filename='output.log', level=logging.DEBUG)
 
     def set_assembly_file(self, tb):
         self.tb = tb
@@ -67,9 +72,8 @@ class EnergyCalculator():
                     'switching' : {
                         'active' : {}, 
                         'inactive' : {}},
-                    'leakage' : {
-                        'active' : {}, 
-                        'inactive' : {}}}
+                    'leakage' : 0
+                    }
                 self.cells[id]['energy']['active_components'][component] = {
                     'internal' : {
                         'active' : {}, 
@@ -77,33 +81,49 @@ class EnergyCalculator():
                     'switching' : {
                         'active' : {}, 
                         'inactive' : {}},
-                    'leakage' : {
-                        'active' : {}, 
-                        'inactive' : {}}}
+                    'leakage' : 0
+                    }
 
-    def set_active_window_power(self,id,component):
+    def set_active_window_dynamic_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Active power for {component}: {active_signals}")
+        logging.debug(f"Active dynamic power for {component}: {active_signals}")
 
-        active_windows = self.cells[id]['component_active_cycles'][component]
+        component_active_windows = self.cells[id]['component_active_cycles'][component]
+#        print(active_windows)
+        active_windows = []
+        total_window = self.cells[id]['total_window']
+        start = total_window['start']
+        end = total_window['end']
+        next = start + self.CLOCK_PERIOD
+        while next <= end:
+            active_windows.append({'start': start, 'end': next}) 
+            start = next
+            next = start + self.CLOCK_PERIOD
+        print(component, "active window: ", component_active_windows)        
 
         for window in active_windows:
-            file_path = f"{self.tb}/vcd/{id}_{component}_active_{window['start']}_{window['end']}.vcd.pwr" #choose active window power file
+#            file_path = f"{self.tb}/vcd/{id}_{component}_active_{window['start']}_{window['end']}.vcd.pwr" #choose active window power file
+            file_path = f"{self.tb}/vcd/{id}_all__{window['start']}_{window['end']}.vcd.pwr" #choose active window power file
             duration = f"{window['start']}_{window['end']}"
     
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(active_signals)
 
-            power, active_nets = self.NetPower.get_active_component_power(active_signals)
-            power_types = self.cells[id]['power_types']
-            for power_type in power_types:
-                self.cells[id]['power']['active_components'][component][power_type]['active'][duration] = power[power_type]
+            power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
+#            power_types = self.cells[id]['power_types']
+#            for power_type in power_types:
+#                self.cells[id]['power']['active_components'][component][power_type]['active'][duration] = power[power_type]
+
+            print(window,power)
+            self.cells[id]['power']['active_components'][component]['internal']['active'][duration] = power['internal']
+            self.cells[id]['power']['active_components'][component]['switching']['active'][duration] = power['switching']
+            logging.debug(f"Switching power in window {duration}: {power['switching']}")
             
             self.cells[id]['nets']['active_component_nets'][component] = active_nets
 
-    def set_inactive_window_power(self,id,component):
+    def set_inactive_window_dynamic_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Active power for {component}: {active_signals}")
+        logging.debug(f"Inactive dynamic power for {component}: {active_signals}")
 
         inactive_windows = self.cells[id]['component_inactive_cycles'][component]
 
@@ -114,12 +134,27 @@ class EnergyCalculator():
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(active_signals)
 
-            power, active_nets = self.NetPower.get_active_component_power(active_signals)
-            power_types = self.cells[id]['power_types']
-            for power_type in power_types:
-                self.cells[id]['power']['active_components'][component][power_type]['inactive'][duration] = power[power_type]
+            power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
+#            power_types = self.cells[id]['power_types']
+#            for power_type in power_types:
+#                self.cells[id]['power']['active_components'][component][power_type]['inactive'][duration] = power[power_type]
             
-            self.cells[id]['nets']['active_component_nets'][component] = active_nets
+            self.cells[id]['power']['active_components'][component]['internal']['inactive'][duration] = power['internal']
+            self.cells[id]['power']['active_components'][component]['switching']['inactive'][duration] = power['switching']
+            
+    def set_leakage_power(self,id,component):
+        active_signals = self.cells[id]['active_components'][component]
+        logging.debug(f"Leakage power for {component}: {active_signals}")
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end']
+
+        file_path = f"{self.tb}/vcd/{id}_total__{start}_{end}.vcd.pwr"
+        self.NetPower.set_nets(file_path)
+        self.NetPower.set_active_nets(active_signals)
+        leakage_power, active_nets = self.NetPower.get_active_component_leakage_power(active_signals)
+
+        self.cells[id]['power']['active_components'][component]['leakage'] = leakage_power
 
     def set_active_component_power(self,id):
         logging.debug("Computing active component power...")
@@ -127,9 +162,10 @@ class EnergyCalculator():
         active_components = self.cells[id]['active_components']
 
         for component in active_components:
-            self.set_active_window_power(id,component)
-            self.set_inactive_window_power(id,component)
-            self.cells[id]['nets']['count']['active'] += self.cells[id]['nets']['active_component_nets'][component]
+            self.set_active_window_dynamic_power(id,component)
+#            self.set_inactive_window_dynamic_power(id,component)
+#            self.set_leakage_power(id,component)
+#            self.cells[id]['nets']['count']['active'] += self.cells[id]['nets']['active_component_nets'][component]
 
     def set_inactive_component_power(self,id):
         logging.debug("Computing inactive component power... ")
@@ -167,15 +203,18 @@ class EnergyCalculator():
         power_types = self.cells[id]['power_types']
         active_component_power = {ptype: 0 for ptype in power_types}
 
+        active_windows = self.cells[id]['component_active_cycles'][component]
+
         for component in active_components:
             signals = self.cells[id]['active_components'][component]
             logging.debug(f"Actual power for: {component} {signals}")
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(signals)
-            power, count = self.NetPower.get_active_component_power(signals)
-            power_types = self.cells[id]['power_types']
-            for power_type in power_types:
-                active_component_power[power_type] += power[power_type]
+            dynamic_power, count = self.NetPower.get_active_component_dynamic_power(signals)
+            leakage_power, count = self.NetPower.get_active_component_leakage_power(signals)
+            active_component_power['internal'] += dynamic_power['internal']
+            active_component_power['switching'] += dynamic_power['switching']
+            active_component_power['leakage'] += leakage_power
 
         for power_type in power_types:
             active_power = active_component_power[power_type]
@@ -186,33 +225,40 @@ class EnergyCalculator():
     def set_power(self):
         for id in self.cells:
             self.set_active_component_power(id)
-            self.set_inactive_component_power(id)
-            self.set_total_power(id)
-            self.cells[id]['nets']['count']['total'] = self.cells[id]['nets']['count']['active'] + self.cells[id]['nets']['count']['inactive']
-            logging.debug('Net count... :')
-            logging.debug('Active components: ', self.cells[id]['nets']['count']['active'],
-                         ' Inactive components: ', self.cells[id]['nets']['count']['inactive'],
-                         ' Total: ', self.cells[id]['nets']['count']['total'])
+#            self.set_inactive_component_power(id)
+#            self.set_total_power(id)
+#            self.cells[id]['nets']['count']['total'] = self.cells[id]['nets']['count']['active'] + self.cells[id]['nets']['count']['inactive']
+#            logging.debug('Net count... :')
+#            logging.debug('Active components: ', self.cells[id]['nets']['count']['active'],
+#                         ' Inactive components: ', self.cells[id]['nets']['count']['inactive'],
+#                         ' Total: ', self.cells[id]['nets']['count']['total'])
 
     def set_active_component_energy(self,id):
-        logging.debug("Computing active component energy... ")
-        logging.debug('Active component, state, duration:')
-        
+        logging.debug("Computing active component dynamic energy... ")
         active_components = self.cells[id]['active_components']
-
-        power_types = self.cells[id]['power_types']
 
         for component in active_components:
             power = self.cells[id]['power']['active_components'][component]
-            for power_type in power_types:
-                states = power[power_type]
-                for state in states:
-                    durations = power[power_type][state]
-                    for duration in durations:
-                        start, end = map(int, duration.split('_'))
-                        time = end - start
-                        energy = time * power[power_type][state][duration]
-                        self.cells[id]['energy']['active_components'][component][power_type][state][duration] = energy
+            states = {'active', 'inactive'}
+            for state in states:
+                durations = power['internal'][state]
+                for duration in durations:
+                    start, end = map(int, duration.split('_'))
+                    time = end - start
+                    energy = time * power['internal'][state][duration]
+                    self.cells[id]['energy']['active_components'][component]['internal'][state][duration] = energy
+                    energy = time * power['switching'][state][duration]
+                    self.cells[id]['energy']['active_components'][component]['switching'][state][duration] = energy
+
+        logging.debug("Computing active component leakage energy... ")
+        for component in active_components:
+            power = self.cells[id]['power']['active_components'][component]
+            window = self.cells[id]['total_window']
+            start = window['start']
+            end = window['end']
+            time = end - start
+            energy = time * power['leakage']
+            self.cells[id]['energy']['active_components'][component]['leakage'] = energy
 
     def set_inactive_component_energy(self,id):
         logging.debug("Computing inactive component energy... ")
@@ -246,12 +292,18 @@ class EnergyCalculator():
         total_energy = self.cells[id]['energy']['total']
         power_types = self.cells[id]['power_types']
 
-        active_energy = {power_type: sum(
-                    self.cells[id]['energy']['active_components'][component][power_type][state][duration]
-        for component in self.cells[id]['active_components']
-        for state in self.cells[id]['energy']['active_components'][component][power_type]
-        for duration in self.cells[id]['energy']['active_components'][component][power_type][state])
-                     for power_type in power_types}
+        active_energy = {ptype: 0 for ptype in power_types}
+
+        for component in self.cells[id]['active_components']:
+            states = {'active', 'inactive'}
+            for state in states:
+                durations = self.cells[id]['energy']['active_components'][component]['internal'][state] 
+                for duration in durations:
+                    active_energy['internal'] += self.cells[id]['energy']['active_components'][component]['internal'][state][duration]
+                    active_energy['switching'] += self.cells[id]['energy']['active_components'][component]['switching'][state][duration]
+
+        for component in self.cells[id]['active_components']:
+            active_energy['leakage'] += self.cells[id]['energy']['active_components'][component]['leakage']
 
         estimated_energy = {power_type: active_energy[power_type] + inactive_energy[power_type]
                         for power_type in power_types}

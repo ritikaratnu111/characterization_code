@@ -5,8 +5,8 @@ class Power():
 
     def set_nets(self,powerfile):
         self.POWER_FILE = powerfile
-        header = 103
-        tail = 13
+        header = 104
+        tail = 15
         with open(self.POWER_FILE) as file:
             lines = file.readlines()[header:-tail]
             for line in lines:
@@ -30,6 +30,19 @@ class Power():
             total += 1
 #        print("Active: ", active, " Inactive: ", inactive, ' added: ', inactive + active, ' Total: ', total)
 
+
+    def find_active_nets(self,signals):
+        count = 0
+        for signal in signals:
+            signal_substrings = signal.split('*')
+            for name in self.nets:
+                net = self.nets[name]
+                label = net['label']
+                if (label == 'inactive'):
+                    if all(substring in name for substring in signal_substrings):
+                        if (net['internal'] == 0):
+                            print(net)
+
     def set_active_nets(self,signals):
         count = 0
         for signal in signals:
@@ -42,7 +55,7 @@ class Power():
                         self.nets[name]['label'] = signal
                         count += 1
 
-    def get_active_component_power(self, signals):
+    def get_active_component_dynamic_power(self, signals):
         count = 0
         for signal in signals:
             internal_power = 0
@@ -56,10 +69,22 @@ class Power():
                     leakage_power += net['leakage']
                     count += 1
         power = {'internal': internal_power, 
-                    'switching': switching_power,
-                    'leakage': leakage_power
+                    'switching': switching_power
                     }
         return(power,count)
+
+    def get_active_component_leakage_power(self, signals):
+        count = 0
+        for signal in signals:
+            internal_power = 0
+            switching_power = 0
+            leakage_power = 0
+            for name in self.nets:
+                net = self.nets[name]
+                if(net['label'] == signal):
+                    leakage_power += net['leakage']
+                    count += 1
+        return(leakage_power,count)
 
     def get_inactive_component_power(self):
         internal_power = 0
