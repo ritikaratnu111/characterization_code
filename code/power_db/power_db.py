@@ -13,11 +13,17 @@ class Power():
             for line in lines:
                 line = " ".join(line.split()).split(" ")
                 name = line[0]
-                self.nets[name] = {'internal' : float(line[2]), 'switching' : float(line[3]), 'leakage' : float(line[4])}
+                self.nets[name] = {'internal' : float(line[3]), 'switching' : float(line[4]), 'leakage' : float(line[5])}
         for signal in signals:
             signal_substrings = signal.split('*')
             for name in self.nets:
                 net = self.nets[name]
                 if all(substring in name for substring in signal_substrings):
                     self.filtered_nets[name] = net
+#                    if (name == 'Silago_top_l_corner_inst_0_0/SILEGO_cell/MTRF_cell/seq_gen/instr_start_reg'):
+#                        print("power_db ", self.filtered_nets[name])
         return self.filtered_nets
+
+    def clear_nets(self):
+        self.nets = {}
+        self.filtered_nets = {}

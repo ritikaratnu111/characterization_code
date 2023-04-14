@@ -79,8 +79,11 @@ class Simulation():
     
 
     def run_sim_cycle(self, window, id):
-        start = window['start']
-        end = window['end']
+#        start = window['start']
+#        end = window['end']
+#        next = start + self.CLOCK_PERIOD
+        start = window['end']
+        end = start + 5 * self.CLOCK_PERIOD
         next = start + self.CLOCK_PERIOD
         component = 'all'
         suffix = ''
