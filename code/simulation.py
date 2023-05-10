@@ -58,27 +58,25 @@ class Simulation():
     #             " innovus -stylus -no_gui -files " + POWER_FILE
     #             )
 
-    # def run_sim_total(self, window, id):
-    #     start = str(window['start'])
-    #     end = str(window['end'])
-    #     component = 'total'
-    #     suffix = ''
-    #     print(component, start, end)
-    #     args_vsim = ["vsim", "-64", "-c", "-do", "get_activity.do"]
-    #     env_vsim = {"CELL": id, "COMPONENT": component, "START_TIME": start, "END_TIME": end, "SUFFIX": suffix}
-    #     try:
-    #         subprocess.run(args_vsim, env=env_vsim, check=True)
-    #     except subprocess.CalledProcessError as e:
-    #         print(f"Error running vsim: {e}")
-    #         return
-    #     args_innovus = ["innovus", "-stylus", "-no_gui", "-files", "get_power.tcl"]
-    #     env_innovus = {"CELL": id, "COMPONENT": component, "START_TIME": start, "END_TIME": end, "SUFFIX": suffix}
-    #     try:
-    #         subprocess.run(args_innovus, env=env_innovus, check=True)
-    #     except subprocess.CalledProcessError as e:
-    #         print(f"Error running innovus: {e}")
-    #         return
-    
+    def run_sim_total(self, window, id):
+        start = str(window['start'])
+        end = window['end'] + 5 * self.CLOCK_PERIOD
+#        os.system(
+#                " START_TIME=" + str(start) + 
+#                " END_TIME=" + str(end) + 
+#                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
+#                " CELL_ID=" + id +
+#                " PER_CYCLE_FLAG=false" +
+#                " vsim -64 -c -do " + ACTIVITY_FILE
+#                )
+        os.system(
+                " START_TIME=" + str(start) + 
+                " END_TIME=" + str(end) + 
+                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
+                " CELL_ID=" + id + 
+                " PER_CYCLE_FLAG=false" +
+                " innovus -stylus -no_gui -files " + POWER_FILE
+                )
 
     def run_sim_cycle(self, window, id):
         start = window['start']
@@ -88,6 +86,7 @@ class Simulation():
                 " END_TIME=" + str(end) + 
                 " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
                 " CELL_ID=" + id + 
+                " PER_CYCLE_FLAG=true" +
                 " vsim -64 -c -do " + ACTIVITY_FILE
                 )
         os.system(
@@ -95,15 +94,17 @@ class Simulation():
                 " END_TIME=" + str(end) + 
                 " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
                 " CELL_ID=" + id + 
+                " PER_CYCLE_FLAG=true" +
                 " innovus -stylus -no_gui -files " + POWER_FILE
                 )
 
     def run(self,tb):
         os.chdir(tb)
-        os.mkdir("vcd")
+        os.makedirs("vcd", exist_ok=True)
+
         for id in self.cells:
             total_window = self.cells[id]['total_window']
-            self.run_sim_cycle(total_window,id)
+            self.run_sim_total(total_window,id)
 #            active_components = self.cells[id]["active_components"]
 #            self.run_sim_total(total_window, id)
 #            for component in active_components:

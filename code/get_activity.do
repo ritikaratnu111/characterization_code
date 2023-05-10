@@ -4,6 +4,7 @@ set START_TIME $::env(START_TIME)
 set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
 set VCD_DIR $::env(VCD_DIR)
+set PER_CYCLE_FLAG $::env(PER_CYCLE_FLAG)
 vlib work
 vlib dware
 
@@ -28,17 +29,28 @@ vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd
 
 vcom -2008 -work work const_package.vhd
 vcom -2008 -work work testbench_rtl.vhd
-
-set i ${START_TIME}
-while {$i < ${END_TIME}} {
+if {${PER_CYCLE_FLAG}==true} {
+    set i ${START_TIME}
+    while {$i < ${END_TIME}} {
+        vsim work.testbench -t ps -vopt -voptargs=+acc;
+        run $i ns;
+        set RUN_TIME [expr $i + $CLOCK_PERIOD];
+        set VCDNAME "${VCD_DIR}/${CELL_ID}_${i}_${RUN_TIME}.vcd";
+        vcd file $VCDNAME;
+        vcd add -r {sim:/testbench/DUT/* }; 
+        run $CLOCK_PERIOD ns;
+        set i ${RUN_TIME};
+        quit -sim;
+    }
+} else {
     vsim work.testbench -t ps -vopt -voptargs=+acc;
-    run $i ns;
-    set RUN_TIME [expr $i + $CLOCK_PERIOD];
-    set VCDNAME "${VCD_DIR}/${CELL_ID}_${i}_${RUN_TIME}.vcd";
+    run $START_TIME ns;
+    set RUN_TIME [expr $END_TIME - $START_TIME];
+    set VCDNAME "${VCD_DIR}/${CELL_ID}_total.vcd";
     vcd file $VCDNAME;
     vcd add -r {sim:/testbench/DUT/* }; 
-    run $CLOCK_PERIOD ns;
-    set i ${RUN_TIME};
+    run $RUN_TIME ns;
     quit -sim;
 }
+
 exit
