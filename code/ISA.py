@@ -87,6 +87,28 @@ class ISA():
 
 
     def set_components(self):
+        self.component_hierarchy = [
+            'sequencer',
+            'noc',
+            'dimarch_agu',
+            'dimarch',
+            'regfile_agu',
+            'regfile'
+        ]
+
+        self.DRRA_components = [
+            'sequencer',
+            'noc',
+            'regfile_agu',
+            'regfile'
+        ]
+
+        self.DIMARCH_components = [
+            'noc',
+            'dimarch_agu',
+            'dimarch'
+        ]
+
         self.components = {
             'ROUTE': {
                 'sequencer': ['seq_gen'],
@@ -111,8 +133,94 @@ class ISA():
             }
         }
 
-    def get_components(self,instr_name):
-        return self.components[instr_name]
+    def update_DRRA_cell_info(self, component_signals, row, col):
+        cell_signals = []
+        if (row == 0 and col == 0):
+            for signal in component_signals:
+                cell_signal = "Silago_top_l_corner_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 0 and col < 7):
+            for signal in component_signals:
+                cell_signal = "Silago_top_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 0 and col == 7):
+            for signal in component_signals:
+                cell_signal = "Silago_top_r_corner_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 1 and col == 0):
+            for signal in component_signals:
+                cell_signal = "Silago_bot_l_corner_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 1 and col < 7):
+            for signal in component_signals:
+                cell_signal = "Silago_bot_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 1 and col == 7):
+            for signal in component_signals:
+                cell_signal = "Silago_bot_r_corner_inst*" + str(col) + "*" + signal
+                cell_signals.append(cell_signal)
+        return cell_signals            
+
+    def update_DIMARCH_cell_info(self, component_signals, segment_values):
+        col = segment_values['horizontal_hops']
+        row = segment_values['vertical_hops'] + 1
+        cell_signals = []
+        if ( row == 1 and col == 0):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_bot_l_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 1 and col < 7):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_bot_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 0 and col == 7):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_bot_r_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 2 and col == 0):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_top_l_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 2 and col < 7):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_top_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        elif (row == 2 and col == 7):
+            for signal in component_signals:
+                cell_signal = "DiMArchTile_top_r_inst_" + str(col) + "_" + str(row) + "*" + signal
+                cell_signals.append(cell_signal)
+        return cell_signals            
+
+
+    def get_components(self,instr_name,row,col,segment_values):
+        if (instr_name == "ROUTE"):
+            self.dimarch_info = segment_values         
+        dict_of_components = self.components[instr_name]
+        updated_dict_of_components = {}
+        for component in dict_of_components:
+            component_signals = dict_of_components[component]
+            if component in updated_dict_of_components:
+                cell_signals = updated_dict_of_components[component]
+            else:
+                cell_signals = []
+
+            if component in self.DRRA_components:
+                new_cell_signals = self.update_DRRA_cell_info(component_signals,row,col)
+                for signal in new_cell_signals:
+                    if signal not in cell_signals:
+                        cell_signals.append(signal)
+            else:
+                pass
+            if component in self.DIMARCH_components:
+                new_cell_signals = self.update_DIMARCH_cell_info(component_signals,self.dimarch_info)
+                for signal in new_cell_signals:
+                    if signal not in cell_signals:
+                        cell_signals.append(signal)
+            else:
+                pass
+
+            updated_dict_of_components[component] = cell_signals
+        return(updated_dict_of_components)
 
     def set_active_cycles_route(self,start):
         offset = start

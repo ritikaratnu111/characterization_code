@@ -1,4 +1,3 @@
-import logging
 from power import Power
 import json
 
@@ -11,7 +10,6 @@ class EnergyCalculator():
         self.tb = ""
         self.cells = {}
         self.NetPower = Power()
-        logging.basicConfig(filename='output.log', level=logging.DEBUG)
 
     def set_assembly_file(self, tb):
         self.tb = tb
@@ -34,6 +32,17 @@ class EnergyCalculator():
                     'total' : 0}
             }
             self.cells[id]['power'] = {
+                'active_components' : {},
+                'inactive_components' : {
+                    'internal': 0,
+                    'switching' : 0,
+                    'leakage' : 0 },
+                'total' : {
+                    'internal': 0,
+                    'switching' : 0,
+                    'leakage' : 0 },
+            }
+            self.cells[id]['per_cycle_power'] = {
                 'active_components' : {},
                 'inactive_components' : {
                     'internal': 0,
@@ -74,6 +83,11 @@ class EnergyCalculator():
                         'inactive' : {}},
                     'leakage' : 0
                     }
+                self.cells[id]['per_cycle_power']['active_components'][component] = {
+                    'internal' : {},
+                    'switching' : {},
+                    'leakage' : {}
+                    }
                 self.cells[id]['energy']['active_components'][component] = {
                     'internal' : {
                         'active' : {}, 
@@ -86,7 +100,6 @@ class EnergyCalculator():
 
     def set_active_window_dynamic_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Active dynamic power for {component}: {active_signals}")
 
         component_active_windows = self.cells[id]['component_active_cycles'][component]
 #        print(active_windows)
@@ -117,13 +130,11 @@ class EnergyCalculator():
             print(window,power)
             self.cells[id]['power']['active_components'][component]['internal']['active'][duration] = power['internal']
             self.cells[id]['power']['active_components'][component]['switching']['active'][duration] = power['switching']
-            logging.debug(f"Switching power in window {duration}: {power['switching']}")
             
             self.cells[id]['nets']['active_component_nets'][component] = active_nets
 
     def set_inactive_window_dynamic_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Inactive dynamic power for {component}: {active_signals}")
 
         inactive_windows = self.cells[id]['component_inactive_cycles'][component]
 
@@ -141,10 +152,28 @@ class EnergyCalculator():
             
             self.cells[id]['power']['active_components'][component]['internal']['inactive'][duration] = power['internal']
             self.cells[id]['power']['active_components'][component]['switching']['inactive'][duration] = power['switching']
-            
+
+    def set_per_cycle_power(self,id,component):
+        window = self.cells[id]['total_window']
+        start = window['start']
+        end = window['end'] + 5 * self.CLOCK_PERIOD
+        active_signals = self.cells[id]['active_components'][component]
+        next = start
+        while (next < end):
+            print(next)
+            file_path = f"{self.tb}/vcd/{id}_{next}_{next + self.CLOCK_PERIOD}.vcd.pwr"
+            next = next + self.CLOCK_PERIOD
+            duration = f"{next}_{next + self.CLOCK_PERIOD}"
+            self.NetPower.set_nets(file_path)
+            self.NetPower.set_active_nets(active_signals)
+            power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
+            leakage_power, active_nets = self.NetPower.get_active_component_leakage_power(active_signals)
+            self.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration] = power['internal']
+            self.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration] = power['switching']
+            self.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration] = leakage_power
+
     def set_leakage_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
-        logging.debug(f"Leakage power for {component}: {active_signals}")
         window = self.cells[id]['total_window']
         start = window['start']
         end = window['end']
@@ -157,18 +186,16 @@ class EnergyCalculator():
         self.cells[id]['power']['active_components'][component]['leakage'] = leakage_power
 
     def set_active_component_power(self,id):
-        logging.debug("Computing active component power...")
-
         active_components = self.cells[id]['active_components']
-
         for component in active_components:
-            self.set_active_window_dynamic_power(id,component)
+            print(component)
+            self.set_per_cycle_power(id,component)
+#            self.set_active_window_dynamic_power(id,component)
 #            self.set_inactive_window_dynamic_power(id,component)
 #            self.set_leakage_power(id,component)
 #            self.cells[id]['nets']['count']['active'] += self.cells[id]['nets']['active_component_nets'][component]
 
     def set_inactive_component_power(self,id):
-        logging.debug("Computing inactive component power... ")
 
         window = self.cells[id]['total_window']
         start = window['start']
@@ -192,7 +219,6 @@ class EnergyCalculator():
         self.cells[id]['nets']['count']['inactive'] = inactive_nets
 
     def set_total_power(self,id):
-        logging.debug("Computing total component power... ")
 
         window = self.cells[id]['total_window']
         start = window['start']
@@ -207,7 +233,6 @@ class EnergyCalculator():
 
         for component in active_components:
             signals = self.cells[id]['active_components'][component]
-            logging.debug(f"Actual power for: {component} {signals}")
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(signals)
             dynamic_power, count = self.NetPower.get_active_component_dynamic_power(signals)
@@ -228,13 +253,10 @@ class EnergyCalculator():
 #            self.set_inactive_component_power(id)
 #            self.set_total_power(id)
 #            self.cells[id]['nets']['count']['total'] = self.cells[id]['nets']['count']['active'] + self.cells[id]['nets']['count']['inactive']
-#            logging.debug('Net count... :')
-#            logging.debug('Active components: ', self.cells[id]['nets']['count']['active'],
 #                         ' Inactive components: ', self.cells[id]['nets']['count']['inactive'],
 #                         ' Total: ', self.cells[id]['nets']['count']['total'])
 
     def set_active_component_energy(self,id):
-        logging.debug("Computing active component dynamic energy... ")
         active_components = self.cells[id]['active_components']
 
         for component in active_components:
@@ -250,7 +272,6 @@ class EnergyCalculator():
                     energy = time * power['switching'][state][duration]
                     self.cells[id]['energy']['active_components'][component]['switching'][state][duration] = energy
 
-        logging.debug("Computing active component leakage energy... ")
         for component in active_components:
             power = self.cells[id]['power']['active_components'][component]
             window = self.cells[id]['total_window']
@@ -261,7 +282,6 @@ class EnergyCalculator():
             self.cells[id]['energy']['active_components'][component]['leakage'] = energy
 
     def set_inactive_component_energy(self,id):
-        logging.debug("Computing inactive component energy... ")
         window = self.cells[id]['total_window']
         start = window['start']
         end = window['end']
@@ -275,7 +295,6 @@ class EnergyCalculator():
         self.cells[id]['energy']['inactive_components'] = energy
 
     def set_total_energy(self,id):
-        logging.debug("Computing total component energy... ")
         window = self.cells[id]['total_window']
         start = window['start']
         end = window['end']

@@ -61,14 +61,15 @@ class Assembly():
             my_isa = ISA()
             active_components = {}
             for instr in self.cells[id]['instr_list']:
-                instr_components = my_isa.get_components(instr["name"])
-                print(instr_components)
-                for component in instr_components:
+                row = self.cells[id]["row"]
+                col = self.cells[id]["col"]
+                #print(instr)
+                instr_active_components = my_isa.get_components(instr["name"],row,col,instr["segment_values"])
+                for component in instr_active_components:
                     if (component not in active_components):
-                         active_components[component] = instr_components[component]
-                         print(active_components)
+                         active_components[component] = instr_active_components[component]
                 self.cells[id]["active_components"] = active_components
-                
+
     def set_instr_active_component_cycles(self):
         for id in self.cells:
             my_isa = ISA()
@@ -111,7 +112,6 @@ class Assembly():
         self.set_instr_active_component_cycles()
         self.set_component_active_cycles()
         self.set_component_inactive_cycles()
-        print(self.cells)
 
 assembly = Assembly()
 assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')

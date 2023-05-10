@@ -30,7 +30,6 @@ class Power():
             total += 1
 #        print("Active: ", active, " Inactive: ", inactive, ' added: ', inactive + active, ' Total: ', total)
 
-
     def find_active_nets(self,signals):
         count = 0
         for signal in signals:
@@ -57,10 +56,10 @@ class Power():
 
     def get_active_component_dynamic_power(self, signals):
         count = 0
+        internal_power = 0
+        switching_power = 0
+        leakage_power = 0
         for signal in signals:
-            internal_power = 0
-            switching_power = 0
-            leakage_power = 0
             for name in self.nets:
                 net = self.nets[name]
                 if(net['label'] == signal):
@@ -75,10 +74,10 @@ class Power():
 
     def get_active_component_leakage_power(self, signals):
         count = 0
+        internal_power = 0
+        switching_power = 0
+        leakage_power = 0
         for signal in signals:
-            internal_power = 0
-            switching_power = 0
-            leakage_power = 0
             for name in self.nets:
                 net = self.nets[name]
                 if(net['label'] == signal):
