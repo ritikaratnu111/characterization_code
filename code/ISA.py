@@ -236,7 +236,11 @@ class ISA():
         offset = sequencer_end
         noc_end = offset + 1 * self.CLOCK_PERIOD + (self.segment_values['ROUTE']['horizontal_hops'] + self.segment_values['ROUTE']['vertical_hops']) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
         self.active_cycles['ROUTE']['noc'] = {
-            'start': offset,
+            'start': start,
+            'end': noc_end
+        }
+        self.active_cycles['ROUTE']['dimarch'] = {
+            'start': start,
             'end': noc_end
         }
 
@@ -255,16 +259,17 @@ class ISA():
             'end': sequencer_end
         }
         offset = sequencer_end
-        wait_end = offset + self.segment_values['SRAM']['hops'] * self.CLOCK_PERIOD
+        wait_end = offset + (self.segment_values['SRAM']['hops'] + 1) * self.CLOCK_PERIOD
         self.active_cycles['SRAM']['wait'] = {
             'start': offset,
             'end': wait_end
         }
         offset = wait_end
         dimarch_agu_end = offset + 2 * self.CLOCK_PERIOD
+        dimarch_agu_end_bug_fix = offset + 4 * self.CLOCK_PERIOD
         self.active_cycles['SRAM']['dimarch_agu'] = {
             'start': offset,
-            'end': dimarch_agu_end
+            'end': dimarch_agu_end_bug_fix
         }
         offset = dimarch_agu_end
         sram_end = offset + 2 * self.CLOCK_PERIOD
@@ -273,9 +278,9 @@ class ISA():
             'end': sram_end
         }
         offset = sram_end
-        dimarch_end = offset + (self.segment_values['SRAM']['hops'] + 1 ) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
+        dimarch_end = offset + (self.segment_values['SRAM']['hops'] + 1 ) * self.CLOCK_PERIOD 
         self.active_cycles['SRAM']['dimarch'] = {
-            'start': offset,
+            'start': wait_end,
             'end': dimarch_end
         }
 

@@ -162,15 +162,14 @@ class EnergyCalculator():
         while (next < end):
             print(next)
             file_path = f"{self.tb}/vcd/{id}_{next}_{next + self.CLOCK_PERIOD}.vcd.pwr"
-            next = next + self.CLOCK_PERIOD
             duration = f"{next}_{next + self.CLOCK_PERIOD}"
+            next = next + self.CLOCK_PERIOD
             self.NetPower.set_nets(file_path)
             self.NetPower.set_active_nets(active_signals)
             power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
-            leakage_power, active_nets = self.NetPower.get_active_component_leakage_power(active_signals)
             self.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration] = power['internal']
             self.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration] = power['switching']
-            self.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration] = leakage_power
+            self.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration] = power['leakage']
 
     def set_leakage_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]

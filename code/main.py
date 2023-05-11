@@ -40,13 +40,13 @@ class RunSimulations():
                     for component in assembly.cells[id]['active_components']:
                         logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
                         logging.info('     %s', assembly.cells[id]['component_active_cycles'][component])
-#                # Run simulations
-                simulation.set_input(assembly)
-                simulation.run(tb)
+                # Run simulations
+#                simulation.set_input(assembly)
+#                simulation.run(tb)
                 # Set energy
-#                energy_calculator.set_assembly_file(tb)
-#                energy_calculator.set_input(assembly)
-#                energy_calculator.set_model()
+                energy_calculator.set_assembly_file(tb)
+                energy_calculator.set_input(assembly)
+                energy_calculator.set_model()
 #                energy_calculator.set_power()
 #                # Log the active components line by line for all cells in assembly self.cells dictionary in a nice format.
 #                for id in assembly.cells:

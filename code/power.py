@@ -16,7 +16,7 @@ class Power():
                     label = self.nets[name]['label']
                 else:
                     label = 'inactive'
-                self.nets[name] = {'internal' : float(line[2]), 'switching' : float(line[3]), 'leakage' : float(line[4]), 'label' : label}
+                self.nets[name] = {'internal' : float(line[3]), 'switching' : float(line[4]), 'leakage' : float(line[5]), 'label' : label}
         inactive = 0
         total = 0
         active = 0
@@ -68,7 +68,8 @@ class Power():
                     leakage_power += net['leakage']
                     count += 1
         power = {'internal': internal_power, 
-                    'switching': switching_power
+                    'switching': switching_power,
+                    'leakage': leakage_power
                     }
         return(power,count)
 
