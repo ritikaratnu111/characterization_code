@@ -92,14 +92,14 @@ class ISA():
             'noc',
             'dimarch_agu',
             'dimarch',
-            'regfile_agu',
+#            'regfile_agu',
             'regfile'
         ]
 
         self.DRRA_components = [
             'sequencer',
             'noc',
-            'regfile_agu',
+#            'regfile_agu',
             'regfile'
         ]
 
@@ -122,7 +122,7 @@ class ISA():
             },
             'REFI': {
                 'sequencer': ['seq_gen'],
-                'regfile_agu': ['reg_top*addr'],
+ #               'regfile_agu': ['reg_top*addr'],
                 'regfile': ['reg_top']
             },
             'WAIT': {
@@ -289,7 +289,7 @@ class ISA():
         self.active_cycles['REFI'] = {
             'sequencer': {'start': 0, 'end': 0},
             'wait': {'start': 0, 'end': 0},
-            'regfile_agu': {'start': 0, 'end': 0},
+ #           'regfile_agu': {'start': 0, 'end': 0},
             'reg_file': {'start': 0, 'end': 0},
         }
         sequencer_end = offset + 1 * self.CLOCK_PERIOD
@@ -306,16 +306,16 @@ class ISA():
             'end': wait_end
         }
         offset = wait_end
-        regfile_agu_end = offset  + 2 * self.CLOCK_PERIOD
-        self.active_cycles['REFI']['regfile_agu'] = {
-            'start': offset,
-            'end': regfile_agu_end
-        }
-        offset = wait_end + 1 * self.CLOCK_PERIOD
+#        regfile_agu_end = offset  + 2 * self.CLOCK_PERIOD
+#        self.active_cycles['REFI']['regfile_agu'] = {
+#            'start': offset,
+#            'end': regfile_agu_end
+#        }
+#        offset = wait_end + 1 * self.CLOCK_PERIOD
         regfile_end = offset + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 1 * self.CLOCK_PERIOD
 
         self.active_cycles['REFI']['regfile'] = {
-            'start': offset,
+            'start': start,
             'end': regfile_end
         }
 

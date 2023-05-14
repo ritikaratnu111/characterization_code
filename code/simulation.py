@@ -105,6 +105,7 @@ class Simulation():
         for id in self.cells:
             total_window = self.cells[id]['total_window']
             self.run_sim_total(total_window,id)
+            self.run_sim_cycle(total_window,id)
 #            active_components = self.cells[id]["active_components"]
 #            self.run_sim_total(total_window, id)
 #            for component in active_components:
