@@ -1,1 +1,1 @@
-/home/ritika/silago/SiLagoNN/tb/char/data_transfer_signal_db_debug/
+/home/ritika/silago/SiLagoNN/tb/char/data_transfer/

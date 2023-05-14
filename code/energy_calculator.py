@@ -153,23 +153,27 @@ class EnergyCalculator():
             self.cells[id]['power']['active_components'][component]['internal']['inactive'][duration] = power['internal']
             self.cells[id]['power']['active_components'][component]['switching']['inactive'][duration] = power['switching']
 
-    def set_per_cycle_power(self,id,component):
-        window = self.cells[id]['total_window']
-        start = window['start']
-        end = window['end'] + 5 * self.CLOCK_PERIOD
-        active_signals = self.cells[id]['active_components'][component]
-        next = start
-        while (next < end):
-            print(next)
-            file_path = f"{self.tb}/vcd/{id}_{next}_{next + self.CLOCK_PERIOD}.vcd.pwr"
-            duration = f"{next}_{next + self.CLOCK_PERIOD}"
-            next = next + self.CLOCK_PERIOD
-            self.NetPower.set_nets(file_path)
-            self.NetPower.set_active_nets(active_signals)
-            power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
-            self.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration] = power['internal']
-            self.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration] = power['switching']
-            self.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration] = power['leakage']
+    def set_per_cycle_power(self,id):
+        for id in self.cells:
+            active_components = self.cells[id]['active_components']
+            for component in active_components:
+                print(component)
+                window = self.cells[id]['total_window']
+                start = window['start']
+                end = window['end'] + 5 * self.CLOCK_PERIOD
+                active_signals = self.cells[id]['active_components'][component]
+                next = start
+                while (next < end):
+                    print(next)
+                    file_path = f"{self.tb}/vcd/{id}_{next}_{next + self.CLOCK_PERIOD}.vcd.pwr"
+                    duration = f"{next}_{next + self.CLOCK_PERIOD}"
+                    next = next + self.CLOCK_PERIOD
+                    self.NetPower.set_nets(file_path)
+                    self.NetPower.set_active_nets(active_signals)
+                    power, active_nets = self.NetPower.get_active_component_dynamic_power(active_signals)
+                    self.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration] = power['internal']
+                    self.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration] = power['switching']
+                    self.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration] = power['leakage']
 
     def set_leakage_power(self,id,component):
         active_signals = self.cells[id]['active_components'][component]
@@ -189,10 +193,10 @@ class EnergyCalculator():
         for component in active_components:
             print(component)
             self.set_per_cycle_power(id,component)
-#            self.set_active_window_dynamic_power(id,component)
-#            self.set_inactive_window_dynamic_power(id,component)
-#            self.set_leakage_power(id,component)
-#            self.cells[id]['nets']['count']['active'] += self.cells[id]['nets']['active_component_nets'][component]
+            self.set_active_window_dynamic_power(id,component)
+            self.set_inactive_window_dynamic_power(id,component)
+            self.set_leakage_power(id,component)
+            self.cells[id]['nets']['count']['active'] += self.cells[id]['nets']['active_component_nets'][component]
 
     def set_inactive_component_power(self,id):
 

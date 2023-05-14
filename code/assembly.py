@@ -113,10 +113,3 @@ class Assembly():
         self.set_component_active_cycles()
         self.set_component_inactive_cycles()
 
-assembly = Assembly()
-assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
-assembly.set_instructions()
-assembly.set_active_components()
-assembly.set_instr_active_component_cycles()
-assembly.set_component_active_cycles()
-assembly.set_component_inactive_cycles()

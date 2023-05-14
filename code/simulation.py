@@ -61,14 +61,14 @@ class Simulation():
     def run_sim_total(self, window, id):
         start = str(window['start'])
         end = window['end'] + 5 * self.CLOCK_PERIOD
-#        os.system(
-#                " START_TIME=" + str(start) + 
-#                " END_TIME=" + str(end) + 
-#                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
-#                " CELL_ID=" + id +
-#                " PER_CYCLE_FLAG=false" +
-#                " vsim -64 -c -do " + ACTIVITY_FILE
-#                )
+        os.system(
+                " START_TIME=" + str(start) + 
+                " END_TIME=" + str(end) + 
+                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
+                " CELL_ID=" + id +
+                " PER_CYCLE_FLAG=false" +
+                " vsim -64 -c -do " + ACTIVITY_FILE
+                )
         os.system(
                 " START_TIME=" + str(start) + 
                 " END_TIME=" + str(end) + 
