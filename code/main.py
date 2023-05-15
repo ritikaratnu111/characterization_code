@@ -36,28 +36,30 @@ class RunSimulations():
                 logging.info('Cell ids: %s', assembly.cells.keys())
                 # Log the active components line by line for all cells in assembly self.cells dictionary in a nice format.
                 for id in assembly.cells:
+                    for instr in assembly.cells[id]['instr_list']:
+                        logging.info('%s %s ',instr['name'],instr['start_time'])
                     logging.info('Active components for cell %s:', id)
                     for component in assembly.cells[id]['active_components']:
                         logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
                         logging.info('     %s', assembly.cells[id]['component_active_cycles'][component])
-                # Run simulations
-                simulation.set_input(assembly)
-                simulation.run(tb)
+#                # Run simulations
+#                simulation.set_input(assembly)
+#                simulation.run(tb)
                 # Set energy
-                energy_calculator.set_assembly_file(tb)
-                energy_calculator.set_input(assembly)
-                energy_calculator.set_model()
-                energy_calculator.set_power()
+#                energy_calculator.set_assembly_file(tb)
+#                energy_calculator.set_input(assembly)
+#                energy_calculator.set_model()
+#                energy_calculator.set_per_cycle_power()
                 # Log the active components line by line for all cells in assembly self.cells dictionary in a nice format.
-                for id in assembly.cells:
-                    logging.info('Active components for cell %s:', id)
-                    for component in assembly.cells[id]['active_components']:
-                        logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
-                        for duration in energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal']:
-                            logging.info('     Duration %s: internal: %s, switching: %s, leakage: %s ', duration, 
-                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration],
-                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration],
-                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration])
+#                for id in assembly.cells:
+#                    logging.info('Active components for cell %s:', id)
+#                    for component in assembly.cells[id]['active_components']:
+#                        logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
+#                        for duration in energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal']:
+#                            logging.info('     Duration %s: internal: %s, switching: %s, leakage: %s ', duration, 
+#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration],
+#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration],
+#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration])
 #                energy_calculator.set_energy()
 #                energy_calculator.print_energy()
 #                energy_calculator.write_reports()

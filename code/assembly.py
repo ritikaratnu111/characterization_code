@@ -34,8 +34,8 @@ class Assembly():
                 file_contents,
             ).group(1)
         )
-        execution_start_time = self.CLOCK_PERIOD * execution_start_cycle + self.HALF_PERIOD
-        execution_end_time = self.CLOCK_PERIOD * total_execution_cycle + self.HALF_PERIOD
+        execution_start_time = self.CLOCK_PERIOD * execution_start_cycle + self.HALF_PERIOD - 3 * self.CLOCK_PERIOD
+        execution_end_time = self.CLOCK_PERIOD * total_execution_cycle + self.HALF_PERIOD -3 * self.CLOCK_PERIOD
 
         f = open(self.ASSEMBLY_FILE)
         data = json.load(f)
@@ -77,6 +77,22 @@ class Assembly():
             for idx, instr in enumerate(self.cells[id]['instr_list']):
                 self.cells[id]['instr_list'][idx]['component_active_cycles'] = my_isa.get_active_cycles(instr)
 
+    def sort_window(self,intervals):
+        merged_intervals = []
+        intervals = sorted(intervals, key=lambda x: x['start'])
+        for interval in intervals:
+            if not merged_intervals or interval['start'] > merged_intervals[-1]['end']:
+                merged_intervals.append(interval)
+            else:
+                merged_intervals[-1]['end'] = max(merged_intervals[-1]['end'], interval['end'])
+        merged_adjacent_intervals = []
+        for interval in merged_intervals:
+            if not merged_adjacent_intervals or interval['start'] > merged_adjacent_intervals[-1]['end']:
+                merged_adjacent_intervals.append(interval)
+            else:
+                merged_adjacent_intervals[-1]['end'] = max(merged_adjacent_intervals[-1]['end'], interval['end'])
+        return merged_adjacent_intervals
+
     def set_component_active_cycles(self):
         for id in self.cells:
             self.cells[id]["component_active_cycles"] = {}
@@ -85,8 +101,10 @@ class Assembly():
                 active_window = []
                 for idx, instr in enumerate(self.cells[id]['instr_list']):
                     if component in self.cells[id]['instr_list'][idx]['component_active_cycles']:
-                        active_window.append(self.cells[id]['instr_list'][idx]['component_active_cycles'][component])                         
-                self.cells[id]["component_active_cycles"][component] = active_window
+                        active_window.append(self.cells[id]['instr_list'][idx]['component_active_cycles'][component])
+                sorted_active_window = self.sort_window(active_window)
+                self.cells[id]["component_active_cycles"][component] = sorted_active_window
+
 
     def set_component_inactive_cycles(self):
         for id in self.cells:

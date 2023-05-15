@@ -233,8 +233,7 @@ class ISA():
             'start': offset,
             'end': sequencer_end
         }
-        offset = sequencer_end
-        noc_end = offset + 1 * self.CLOCK_PERIOD + (self.segment_values['ROUTE']['horizontal_hops'] + self.segment_values['ROUTE']['vertical_hops']) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
+        noc_end = sequencer_end + 1 * self.CLOCK_PERIOD + (self.segment_values['ROUTE']['horizontal_hops'] + self.segment_values['ROUTE']['vertical_hops']) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
         self.active_cycles['ROUTE']['noc'] = {
             'start': start,
             'end': noc_end
@@ -259,17 +258,17 @@ class ISA():
             'end': sequencer_end
         }
         offset = sequencer_end
-        wait_end = offset + (self.segment_values['SRAM']['hops'] + 1) * self.CLOCK_PERIOD
+        wait_end = sequencer_end + (self.segment_values['SRAM']['hops'] ) * self.CLOCK_PERIOD
         self.active_cycles['SRAM']['wait'] = {
             'start': offset,
             'end': wait_end
         }
         offset = wait_end
-        dimarch_agu_end = offset + 2 * self.CLOCK_PERIOD
+        dimarch_agu_end = offset + 3 * self.CLOCK_PERIOD
         dimarch_agu_end_bug_fix = offset + 4 * self.CLOCK_PERIOD
         self.active_cycles['SRAM']['dimarch_agu'] = {
             'start': offset,
-            'end': dimarch_agu_end_bug_fix
+            'end': dimarch_agu_end
         }
         offset = dimarch_agu_end
         sram_end = offset + 2 * self.CLOCK_PERIOD
@@ -278,7 +277,7 @@ class ISA():
             'end': sram_end
         }
         offset = sram_end
-        dimarch_end = offset + (self.segment_values['SRAM']['hops'] + 1 ) * self.CLOCK_PERIOD 
+        dimarch_end = offset + (self.segment_values['SRAM']['hops'] ) * self.CLOCK_PERIOD 
         self.active_cycles['SRAM']['dimarch'] = {
             'start': wait_end,
             'end': dimarch_end
@@ -312,7 +311,7 @@ class ISA():
 #            'end': regfile_agu_end
 #        }
 #        offset = wait_end + 1 * self.CLOCK_PERIOD
-        regfile_end = offset + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 1 * self.CLOCK_PERIOD
+        regfile_end = offset + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 4 * self.CLOCK_PERIOD
 
         self.active_cycles['REFI']['regfile'] = {
             'start': start,
@@ -324,7 +323,7 @@ class ISA():
         self.active_cycles['WAIT'] = {
             'sequencer': {'start': 0, 'end': 0},
         }
-        sequencer_end = offset + 1 * self.CLOCK_PERIOD
+        sequencer_end = offset + self.segment_values['WAIT']['cycle'] * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
 
         self.active_cycles['WAIT']['sequencer'] = {
             'start': offset,
@@ -340,7 +339,7 @@ class ISA():
 
         self.active_cycles['HALT']['sequencer'] = {
             'start': offset,
-            'end': sequencer_end
+            'end': offset
         }
 
     def set_active_cycles(self,instr,start):

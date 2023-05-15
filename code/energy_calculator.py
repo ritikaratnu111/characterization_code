@@ -153,13 +153,13 @@ class EnergyCalculator():
             self.cells[id]['power']['active_components'][component]['internal']['inactive'][duration] = power['internal']
             self.cells[id]['power']['active_components'][component]['switching']['inactive'][duration] = power['switching']
 
-    def set_per_cycle_power(self,id):
+    def set_per_cycle_power(self):
         for id in self.cells:
             active_components = self.cells[id]['active_components']
             for component in active_components:
                 print(component)
                 window = self.cells[id]['total_window']
-                start = window['start']
+                start = window['start'] - 5 * self.CLOCK_PERIOD
                 end = window['end'] + 5 * self.CLOCK_PERIOD
                 active_signals = self.cells[id]['active_components'][component]
                 next = start
@@ -192,7 +192,6 @@ class EnergyCalculator():
         active_components = self.cells[id]['active_components']
         for component in active_components:
             print(component)
-            self.set_per_cycle_power(id,component)
             self.set_active_window_dynamic_power(id,component)
             self.set_inactive_window_dynamic_power(id,component)
             self.set_leakage_power(id,component)
