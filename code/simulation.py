@@ -59,8 +59,8 @@ class Simulation():
     #             )
 
     def run_sim_total(self, window, id):
-        start = str(window['start'])
-        end = window['end'] + 5 * self.CLOCK_PERIOD
+        start = window['start']
+        end = window['end'] 
         os.system(
                 " START_TIME=" + str(start) + 
                 " END_TIME=" + str(end) + 

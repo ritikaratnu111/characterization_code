@@ -22,7 +22,6 @@ proc compile_vhdl_files { library file_list } {
 }
 compile_vhdl_files "work" $FABRIC_PATH/rtl/pkg_hierarchy.txt
 vlog -work work /opt/stdc_libs/28HPC/stclib/9-track/30p140/nvt/TSMCHOME/digital/Front_End/verilog/tcbn28hpcbwp30p140_100a/tcbn28hpcbwp30p140.v
-vlog $FABRIC_PATH/phy/db/sequencer.v
 vlog -work work /opt/stdc_libs/28HPC/SRAM/Macros/ts1n28hpcsvtb128x128m4swbasod_170b/VERILOG/ts1n28hpcsvtb128x128m4swbasod_170b_tt0p9v0p9v25c.v
 vlog -work work $FABRIC_PATH/phy/db/silagonn_simulation.v
 vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd

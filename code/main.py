@@ -2,7 +2,7 @@ import os
 import logging
 from assembly import Assembly
 from simulation import Simulation
-from energy_calculator import EnergyCalculator
+from energy import EnergyCalculator
 
 class RunSimulations():
     def __init__(self):
@@ -28,7 +28,7 @@ class RunSimulations():
                 # Create classes
                 assembly = Assembly()
                 simulation = Simulation()
-                energy_calculator = EnergyCalculator()
+                energy = EnergyCalculator()
                 # Set assembly
                 assembly.set_assembly_file(tb)
                 assembly.set_model()
@@ -38,31 +38,61 @@ class RunSimulations():
                 for id in assembly.cells:
                     for instr in assembly.cells[id]['instr_list']:
                         logging.info('%s %s ',instr['name'],instr['start_time'])
+                    logging.info('Active window for cell %s: start: %s end: %s', id, 
+                                                            assembly.cells[id]['total_window']['start'], 
+                                                            assembly.cells[id]['total_window']['end'])
                     logging.info('Active components for cell %s:', id)
                     for component in assembly.cells[id]['active_components']:
                         logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
-                        logging.info('     %s', assembly.cells[id]['component_active_cycles'][component])
-#                # Run simulations
+                        logging.info('Active window       %s', assembly.cells[id]['component_active_cycles'][component])
+                        logging.info('Inactive window     %s', assembly.cells[id]['component_inactive_cycles'][component])
+                # Run simulations
 #                simulation.set_input(assembly)
 #                simulation.run(tb)
                 # Set energy
-#                energy_calculator.set_assembly_file(tb)
-#                energy_calculator.set_input(assembly)
-#                energy_calculator.set_model()
-#                energy_calculator.set_per_cycle_power()
-                # Log the active components line by line for all cells in assembly self.cells dictionary in a nice format.
-#                for id in assembly.cells:
-#                    logging.info('Active components for cell %s:', id)
-#                    for component in assembly.cells[id]['active_components']:
-#                        logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
-#                        for duration in energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal']:
-#                            logging.info('     Duration %s: internal: %s, switching: %s, leakage: %s ', duration, 
-#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration],
-#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration],
-#                                               energy_calculator.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration])
-#                energy_calculator.set_energy()
-#                energy_calculator.print_energy()
-#                energy_calculator.write_reports()
-
+                energy.set_assembly_file(tb)
+                energy.set_input(assembly)
+                energy.set_model()
+                energy.set_per_cycle_power()
+                # Set active component active window internal and switching energy using per cycle power reports
+                energy.set_active_component_active_window_dynamic_energy()
+                print("set_active_component_active_window_dynamic_energy() complete!")
+                # Set active component inactive window internal and switching energy using per cycle power reports
+                energy.set_active_component_inactive_window_dynamic_energy()
+                print("set_active_component_inactive_window_dynamic_energy() complete!")
+                # Set active component leakage energy using per cycle power reports
+                energy.set_active_component_static_energy()
+                print("set_active_component_static_energy() complete!")
+                # Set inactive component energy using total power report
+                energy.set_inactive_component_energy()
+                print("set_inactive_component_energy() complete!")
+                # Set model energy using the above active and inactive energy
+                energy.set_model_energy()
+                # Set reference energy using the total power report
+                energy.set_reference_energy()
+                # Set energy error between reference energy and model energy
+                energy.set_energy_error()
+               # Log the active components line by line for all cells in assembly self.cells dictionary in a nice format.
+                for id in assembly.cells:
+                    logging.info('Active components for cell %s:', id)
+                    for component in assembly.cells[id]['active_components']:
+                        logging.info('     %s: %s', component, assembly.cells[id]['active_components'][component])
+                        for duration in energy.cells[id]['per_cycle_power']['active_components'][component]['internal']:
+                            logging.info('     Duration %s: internal: %s, switching: %s, leakage: %s ', duration, 
+                                               energy.cells[id]['per_cycle_power']['active_components'][component]['internal'][duration],
+                                               energy.cells[id]['per_cycle_power']['active_components'][component]['switching'][duration],
+                                               energy.cells[id]['per_cycle_power']['active_components'][component]['leakage'][duration])
+                    logging.info('     Model energy: internal: %s, switching: %s, leakage: %s ', 
+                                                    energy.cells[id]['energy']['model']['internal'],
+                                                    energy.cells[id]['energy']['model']['switching'],
+                                                    energy.cells[id]['energy']['model']['leakage'])
+                    logging.info('     Reference energy: internal: %s, switching: %s, leakage: %s ', 
+                                                    energy.cells[id]['energy']['reference']['internal'],
+                                                    energy.cells[id]['energy']['reference']['switching'],
+                                                    energy.cells[id]['energy']['reference']['leakage'])
+                    logging.info('     Energy error: internal: %s, switching: %s, leakage: %s ', 
+                                                    energy.cells[id]['energy']['error']['internal'],
+                                                    energy.cells[id]['energy']['error']['switching'],
+                                                    energy.cells[id]['energy']['error']['leakage'])
 job = RunSimulations()
 job.run_simulations()
