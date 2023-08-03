@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-03T12:54:17.816Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="FFQf2Pn4ZElOqvnc0WMf" version="20.8.21" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-03T12:58:45.852Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="83LeJwdeOAKrH4EjWzf_" version="20.8.21" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1605" dy="942" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -139,7 +139,7 @@
         <mxCell id="wMOOJaim9DH7x2-_k4i8-61" value="5. energy" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="wMOOJaim9DH7x2-_k4i8-48">
           <mxGeometry y="175" width="260" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="wMOOJaim9DH7x2-_k4i8-51" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;ISA info&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="wMOOJaim9DH7x2-_k4i8-51" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;ISA&amp;nbsp; class&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
           <mxGeometry x="880" y="465" width="300" height="215" as="geometry" />
         </mxCell>
         <mxCell id="wMOOJaim9DH7x2-_k4i8-52" value="1. segment values of each instruction" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="wMOOJaim9DH7x2-_k4i8-51">
@@ -193,7 +193,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="wMOOJaim9DH7x2-_k4i8-68" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;energy_predict&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="wMOOJaim9DH7x2-_k4i8-68" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;energy_predict class&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="560" y="760" width="310" height="180" as="geometry" />
         </mxCell>
         <mxCell id="wMOOJaim9DH7x2-_k4i8-69" value="updates the predicted energy information to the assembly cell" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="wMOOJaim9DH7x2-_k4i8-68">
@@ -202,7 +202,7 @@
         <mxCell id="wMOOJaim9DH7x2-_k4i8-70" value="basically read the power value fron json and multiplies with the active/inactive cycles in the cell" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="wMOOJaim9DH7x2-_k4i8-68">
           <mxGeometry x="10" y="100" width="260" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="wMOOJaim9DH7x2-_k4i8-76" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;energy_predict&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="wMOOJaim9DH7x2-_k4i8-76" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;characterize class&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
           <mxGeometry x="560" y="1050" width="310" height="270" as="geometry" />
         </mxCell>
         <mxCell id="wMOOJaim9DH7x2-_k4i8-77" value="1. per cycle power analysis" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="wMOOJaim9DH7x2-_k4i8-76">
