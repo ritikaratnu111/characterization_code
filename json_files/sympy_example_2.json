@@ -1,0 +1,12 @@
+{
+    "ROUTE":{
+        "sequencer":{
+            "start_time": "offset",
+            "end_time": "offset + 1"
+        },
+        "noc":{
+            "start_time": "offset",
+            "end_time": "offset + no_of_hops"
+        }
+    }
+}

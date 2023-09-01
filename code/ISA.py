@@ -1,3 +1,6 @@
+import json
+import sympy as sp
+JSON_FILE_PATH = '/home/ritika/silago/characterization_code/json_files/'    
 class ISA():
 
     CLOCK_PERIOD = 12
@@ -5,377 +8,105 @@ class ISA():
     def __init__(self):
 
         self.segment_values = {}
+        self.read_segment_values = {}
         self.components = {}
         self.active_cycles = {}
-        self.set_ISA()
-
-    def init_segment_values(self):
-#        self.segment_values['route'] = {'instr_delay': 0,'no_of_hops' : 1}
-#        self.segment_values['sram'] = {'instr_delay': 0,'no_of_hops' : 1}
-#        self.segment_values['refi'] = {'instr_delay': 0,'init_delay' : 6, 'l1_iter' : 0, 'l2_iter' : 0}
-
-# segment_values is the segment values of each instruction
-        self.segment_values = {
-            'ROUTE': {
-                'direction': 0,
-                'horizontal_dir': 1,
-                'horizontal_hops': 0,
-                'select_drra_row': 0,
-                'vertical_dir': 0,
-                'vertical_hops': 0
-            },
-            'SRAM': {
-                'hops': 0,
-                'init_addr': 0,
-                'init_addr_sd': 0,
-                'init_delay': 0,
-                'init_delay_sd': 0,
-                'l1_delay': 0,
-                'l1_delay_sd': 0,
-                'l1_iter': 0,
-                'l1_iter_sd': 0,
-                'l1_step': 0,
-                'l1_step_sd': 0,
-                'l2_delay': 0,
-                'l2_delay_sd': 0,
-                'l2_iter': 0,
-                'l2_iter_sd': 0,
-                'l2_step': 0,
-                'l2_step_sd': 0,
-                'rw': 0
-            },
-            'REFI': {
-                'compress': 0,
-                'dimarch': 1,
-                'extra': 2,
-                'init_addr': 0,
-                'init_addr_sd': 0,
-                'init_delay': 4,
-                'init_delay_sd': 0,
-                'l1_delay': 0,
-                'l1_delay_ext': 0,
-                'l1_delay_sd': 0,
-                'l1_iter': 0,
-                'l1_iter_sd': 0,
-                'l1_step': 1,
-                'l1_step_sd': 0,
-                'l1_step_sign': 0,
-                'l2_delay': 0,
-                'l2_delay_sd': 0,
-                'l2_iter': 0,
-                'l2_iter_ext': 0,
-                'l2_iter_sd': 0,
-                'l2_step': 0,
-                'l2_step_ext': 0,
-                'port_no': 0,
-                'unused_0': 2,
-                'unused_1': 3,
-                'unused_2': 0,
-                'unused_3': 0
-            },
-            'WAIT' : {
-                'cycle': 0,
-                'cycle_sd': 0
-            },
-            'HALT' : {
-            }
-        }
-
-    def set_segment_values(self,instr):
-        for attribute in self.segment_values[instr['name']]:
-            self.segment_values[instr['name']][attribute]  = instr['segment_values'][attribute]
+        self.dimarch_row = 0
+        self.dimarch_col = 0
+        self.tile_info =            json.load(open(f"{JSON_FILE_PATH}/tile_info.json"))
+        self.segment_values =       json.load(open(f"{JSON_FILE_PATH}/instr_segment_values.json"))
+        self.component_hierarchy =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["component_hierarchy"]
+        self.DRRA_components =      json.load(open(f"{JSON_FILE_PATH}/components.json"))["DRRA_components"]
+        self.drra_signals =         json.load(open(f"{JSON_FILE_PATH}/drra_signals.json"))
+        self.DIMARCH_components =   json.load(open(f"{JSON_FILE_PATH}/components.json"))["DIMARCH_components"]
+        self.dimarch_signals =      json.load(open(f"{JSON_FILE_PATH}/dimarch_signals.json"))
+        self.components =           json.load(open(f"{JSON_FILE_PATH}/instr_components.json"))
+        self.instr_equations =      json.load(open(f"{JSON_FILE_PATH}/instr_equations.json"))
 
 
-    def set_components(self):
-        self.component_hierarchy = [
-            'sequencer',
-            'noc',
-            'dimarch_agu',
-            'dimarch',
-#            'regfile_agu',
-            'regfile'
-        ]
+    def get_tile(self,row,col):
+        return self.tile_info[str(row)][str(col)]
 
-        self.DRRA_components = [
-            'sequencer',
-            'noc',
-#            'regfile_agu',
-            'regfile'
-        ]
-
-        self.DIMARCH_components = [
-            'noc',
-            'dimarch_agu',
-            'dimarch'
-        ]
-
-        self.components = {
-            'ROUTE': {
-                'sequencer': ['seq_gen'],
-                'noc': ['noc', 'partition', 'splitter']
-            },
-            'SRAM': {
-                'sequencer': ['seq_gen'],
-                'dimarch_agu': ['DiMArch*AGU'],
-                'SRAM': ['SRAM'],
-                'dimarch': ['DiMArch']
-            },
-            'REFI': {
-                'sequencer': ['seq_gen'],
- #               'regfile_agu': ['reg_top*addr'],
-                'regfile': ['reg_top']
-            },
-            'WAIT': {
-                'sequencer' : ['seq_gen']
-            },
-            'HALT': {
-                'sequencer' : ['seq_gen']
-            }
-        }
-
-    def update_DRRA_cell_info(self, component_signals, row, col):
-        cell_signals = []
-        if (row == 0 and col == 0):
-            for signal in component_signals:
-                cell_signal = "Silago_top_l_corner_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 0 and col < 7):
-            for signal in component_signals:
-                cell_signal = "Silago_top_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 0 and col == 7):
-            for signal in component_signals:
-                cell_signal = "Silago_top_r_corner_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 1 and col == 0):
-            for signal in component_signals:
-                cell_signal = "Silago_bot_l_corner_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 1 and col < 7):
-            for signal in component_signals:
-                cell_signal = "Silago_bot_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 1 and col == 7):
-            for signal in component_signals:
-                cell_signal = "Silago_bot_r_corner_inst*" + str(col) + "*" + signal
-                cell_signals.append(cell_signal)
-        return cell_signals            
-
-    def update_DIMARCH_cell_info(self, component_signals, segment_values):
-        col = segment_values['horizontal_hops']
-        row = segment_values['vertical_hops'] + 1
-        cell_signals = []
-        if ( row == 1 and col == 0):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_bot_l_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 1 and col < 7):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_bot_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 0 and col == 7):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_bot_r_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 2 and col == 0):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_top_l_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 2 and col < 7):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_top_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        elif (row == 2 and col == 7):
-            for signal in component_signals:
-                cell_signal = "DiMArchTile_top_r_inst_" + str(col) + "_" + str(row) + "*" + signal
-                cell_signals.append(cell_signal)
-        return cell_signals            
-
-
+    def set_segment_values(self,name,segment_values):
+        for attribute in self.segment_values[name]:
+            self.segment_values[name][attribute]  = segment_values[attribute]
+#        print(segment_values)
+#        print(self.segment_values)
+        
+#Get components for instruction of each cell
     def get_components(self,instr_name,row,col,segment_values):
+
+#        print(f"Row: {row}, Col: {col}")
         if (instr_name == "ROUTE"):
-            self.dimarch_info = segment_values         
-        dict_of_components = self.components[instr_name]
-        updated_dict_of_components = {}
-        for component in dict_of_components:
-            component_signals = dict_of_components[component]
-            if component in updated_dict_of_components:
-                cell_signals = updated_dict_of_components[component]
-            else:
-                cell_signals = []
+            self.dimarch_row = segment_values['vertical_hops'] + 1
+            self.dimarch_col = segment_values['horizontal_hops'] + col
+        instr_components = self.components[instr_name]
+        updated_components = {}
 
-            if component in self.DRRA_components:
-                new_cell_signals = self.update_DRRA_cell_info(component_signals,row,col)
-                for signal in new_cell_signals:
-                    if signal not in cell_signals:
-                        cell_signals.append(signal)
-            else:
-                pass
-            if component in self.DIMARCH_components:
-                new_cell_signals = self.update_DIMARCH_cell_info(component_signals,self.dimarch_info)
-                for signal in new_cell_signals:
-                    if signal not in cell_signals:
-                        cell_signals.append(signal)
-            else:
-                pass
+        #For each component, get the signals
+        for component in instr_components:
+            signals = instr_components[component]
+            updated_signals = []
 
-            updated_dict_of_components[component] = cell_signals
-        return(updated_dict_of_components)
+            #For each signal, get the cell_signal
+            if(component in self.DRRA_components):
+                for signal in signals:
+                    cell_signal = f"{self.drra_signals[str(row)][str(col)][component]}{signal}"
+                    updated_signals.append(cell_signal)
+                updated_components[component] = {   "name": component,
+                                                    "signals": updated_signals,
+                                                    "active": {},
+                                                    "inactive": {}
+                                                 }
 
-    def set_active_cycles_route(self,start):
-        offset = start
-        self.active_cycles['ROUTE'] = {
-            'sequencer': {'start': 0, 'end': 0},
-            'noc': {'start': 0, 'end': 0}
-        }
-        sequencer_end = offset + 1 * self.CLOCK_PERIOD
-        self.active_cycles['ROUTE']['sequencer'] = {
-            'start': offset,
-            'end': sequencer_end
-        }
-        noc_end = sequencer_end + 1 * self.CLOCK_PERIOD + (self.segment_values['ROUTE']['horizontal_hops'] + self.segment_values['ROUTE']['vertical_hops']) * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
-        self.active_cycles['ROUTE']['noc'] = {
-            'start': start,
-            'end': noc_end
-        }
-        self.active_cycles['ROUTE']['dimarch'] = {
-            'start': start,
-            'end': noc_end
-        }
+            elif (component in self.DIMARCH_components):
+                dimarch_row = self.dimarch_row
+                dimarch_col = self.dimarch_col
+                for signal in signals:
+#                    print(f"Signal: {signal}, Row: {dimarch_row}, Col: {dimarch_col}")
+                    cell_signal = f"{self.dimarch_signals[str(dimarch_row)][str(dimarch_col)][component]}{signal}"
+                    updated_signals.append(cell_signal)
+                updated_components[component] = {   "name": component,
+                                                    "signals": updated_signals,
+                                                    "active": {},
+                                                    "inactive": {}
+                                                 }
+        return updated_components 
 
-    def set_active_cycles_sram(self,start):        
-        offset = start
-        self.active_cycles['SRAM'] = {
-            'sequencer': {'start': 0, 'end': 0},
-            'wait': {'start': 0, 'end': 0},
-            'dimarch_agu': {'start': 0, 'end': 0},
-            'sram': {'start': 0, 'end': 0},
-            'dimarch': {'start': 0, 'end': 0}
-        }
-        sequencer_end = offset + 1 * self.CLOCK_PERIOD
-        self.active_cycles['SRAM']['sequencer'] = {
-            'start': offset,
-            'end': sequencer_end
-        }
-        offset = sequencer_end
-        wait_end = sequencer_end + (self.segment_values['SRAM']['hops'] ) * self.CLOCK_PERIOD
-        self.active_cycles['SRAM']['wait'] = {
-            'start': offset,
-            'end': wait_end
-        }
-        offset = wait_end
-        dimarch_agu_end = offset + 3 * self.CLOCK_PERIOD
-        dimarch_agu_end_bug_fix = offset + 4 * self.CLOCK_PERIOD
-        self.active_cycles['SRAM']['dimarch_agu'] = {
-            'start': offset,
-            'end': dimarch_agu_end
-        }
-        offset = dimarch_agu_end
-        sram_end = offset + 2 * self.CLOCK_PERIOD
-        self.active_cycles['SRAM']['sram'] = {
-            'start': offset,
-            'end': sram_end
-        }
-        offset = sram_end
-        dimarch_end = offset + (self.segment_values['SRAM']['hops'] ) * self.CLOCK_PERIOD 
-        self.active_cycles['SRAM']['dimarch'] = {
-            'start': wait_end,
-            'end': dimarch_end
-        }
+    def set_active_cycles(self,name,start, segment_values):
+        components = self.components[name]
+        if (name == "HALT"):
+            variables = {}
+        else:
+            variables = segment_values
+        variables['clock_period'] = self.CLOCK_PERIOD
+        variables['offset'] = start
+#        print(name,start,variables)
+        equations = self.instr_equations[name]
+        self.active_cycles[name] = {}
 
-    def set_active_cycles_refi(self,start):        
-        offset = start
-        self.active_cycles['REFI'] = {
-            'sequencer': {'start': 0, 'end': 0},
-            'wait': {'start': 0, 'end': 0},
- #           'regfile_agu': {'start': 0, 'end': 0},
-            'reg_file': {'start': 0, 'end': 0},
-        }
-        sequencer_end = offset + 1 * self.CLOCK_PERIOD
+        symbols = {var: sp.symbols(var) for var in variables}
+        values = [(symbols[var], val) for var, val in variables.items()]
 
-        self.active_cycles['REFI']['sequencer'] = {
-            'start': offset,
-            'end': sequencer_end
-        }
-        offset = sequencer_end
+        for component in components:
+            self.active_cycles[name][component] = {}
+            start_time = sp.sympify(equations[component]['start']).subs(values)
+            end_time = sp.sympify(equations[component]['end']).subs(values)
+ #           print(f"Component: {component}, Start time: {start_time}, End time: {end_time}")
+            self.active_cycles[name][component] = {
+                'start': start_time,
+                'end': end_time
+            }
 
-        wait_end = offset + self.segment_values['REFI']['init_delay'] * self.CLOCK_PERIOD -3 * self.CLOCK_PERIOD
-        self.active_cycles['REFI']['wait'] = {
-            'start': offset,
-            'end': wait_end
-        }
-        offset = wait_end
-#        regfile_agu_end = offset  + 2 * self.CLOCK_PERIOD
-#        self.active_cycles['REFI']['regfile_agu'] = {
-#            'start': offset,
-#            'end': regfile_agu_end
-#        }
-#        offset = wait_end + 1 * self.CLOCK_PERIOD
-        regfile_end = offset + self.segment_values['REFI']['l1_iter'] * self.segment_values['REFI']['l2_iter'] * self.CLOCK_PERIOD  + 4 * self.CLOCK_PERIOD
-
-        self.active_cycles['REFI']['regfile'] = {
-            'start': start,
-            'end': regfile_end
-        }
-
-    def set_active_cycles_wait(self,start):        
-        offset = start
-        self.active_cycles['WAIT'] = {
-            'sequencer': {'start': 0, 'end': 0},
-        }
-        sequencer_end = offset + self.segment_values['WAIT']['cycle'] * self.CLOCK_PERIOD + 1 * self.CLOCK_PERIOD
-
-        self.active_cycles['WAIT']['sequencer'] = {
-            'start': offset,
-            'end': sequencer_end
-        }
-
-    def set_active_cycles_halt(self,start):        
-        offset = start
-        self.active_cycles['HALT'] = {
-            'sequencer': {'start': 0, 'end': 0},
-        }
-        sequencer_end = offset + 1 * self.CLOCK_PERIOD
-
-        self.active_cycles['HALT']['sequencer'] = {
-            'start': offset,
-            'end': offset
-        }
-
-    def set_active_cycles(self,instr,start):
-        if (instr['name'] == 'ROUTE'):
-            self.set_active_cycles_route(start)
-        elif (instr['name'] == 'SRAM'): 
-            self.set_active_cycles_sram(start)
-        elif (instr['name'] == 'REFI'):
-            self.set_active_cycles_refi(start)
-        elif (instr['name'] == 'WAIT'):
-            self.set_active_cycles_wait(start)
-        elif (instr['name'] == 'HALT'):
-            self.set_active_cycles_halt(start)
-
-    def get_active_cycles(self, instr):
-        start = instr['start_time'] 
-        self.set_segment_values(instr)
-        self.set_active_cycles(instr,start)
-        return self.active_cycles[instr['name']]
-
-                
+    def get_active_cycles(self, start, name, segment_values):
+        self.set_segment_values(name, segment_values)
+        self.set_active_cycles(name,start, segment_values)
+        return self.active_cycles[name]
 
     def set_ISA(self):
-        #Here we read the ISA file and find the instructions, their segment_values, typical value of the segment_values, their active components, cycle model.
-        #In this function, we set the segment_values to their typical values. But later, when assembly is read, we need to return the specific dictionary instruction item with the value from the assembly file.
-        #All of the below hard code will be removed, then  we will do:
-#        name = "route"
-#        attribute = no_of_hops,...
-#        components = sequencer, noc, ...
-#        active_cycles = [sequencer, ...], [noc, ...]
-#        self.Dict[name] = [atributes, components, active_cycles]
-        self.init_segment_values()
         self.set_components()
 
     def print_ISA(self):
         for key,value in self.segment_values.items():
             print(key, value)
 
-ISA()

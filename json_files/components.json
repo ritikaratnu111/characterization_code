@@ -1,0 +1,31 @@
+{
+    "component_hierarchy": [
+      "raccu",
+      "sequencer",
+      "noc",
+      "dimarch_agu",
+      "sram",
+      "dimarch",
+      "dimarch_rest",
+      "dimarch_wrap",
+      "regfile",
+      "dpu",
+      "swb"
+    ],
+    "DRRA_components": [
+      "raccu",
+      "sequencer",
+      "noc",
+      "regfile",
+      "dpu",
+      "swb"
+    ],
+    "DIMARCH_components": [
+      "noc",
+      "dimarch_agu",
+      "sram",
+      "dimarch",
+      "dimarch_rest",
+      "dimarch_wrap"
+    ]
+  }

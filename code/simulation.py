@@ -1,118 +1,50 @@
 import os
-import subprocess
-#from threading import Thread
-#from time import sleep
-#from joblib import Parallel, delayed
-ACTIVITY_FILE = '/home/ritika/silago/characterization_code/code/get_activity.do'
-POWER_FILE = '/home/ritika/silago/characterization_code/code/get_power.tcl'
+import random
+
+CODE_PATH = '/home/ritika/silago/characterization_code/simulation_scripts/'
 
 class Simulation():
 
-    CLOCK_PERIOD = 12
-    HALF_PERIOD = 6
-
-    def __init__(self):
-        self.TB_DIR_FILE = None
-        self.cells = {}
-
-    def set_input(self,assembly):
-        self.cells = assembly.cells
-
-    # def run_sim_active(self,component,window,id):
-    #     start = str(window['start'])
-    #     end = str(window['end'])
-    #     suffix = 'active'
-    #     print(component,start,end)
-    #     os.system( "CELL=" + id + 
-    #                 " COMPONENT=" + component + 
-    #                 " START_TIME=" + start + 
-    #                 " END_TIME=" + end + 
-    #                 " SUFFIX=" + suffix + 
-    #                 " vsim -64 -c -do get_activity.do"
-    #                 )
-    #     os.system("CELL=" + id + 
-    #             " COMPONENT=" + component + 
-    #             " START_TIME=" + start + 
-    #             " END_TIME=" + end + 
-    #             " SUFFIX=" + suffix + 
-    #             " innovus -stylus -no_gui -files get_power.tcl"
-    #             )
-
-    # def run_sim_inactive(self,component,window,id):
-    #     start = str(window['start'])
-    #     end = str(window['end'])
-    #     suffix = 'inactive'
-    #     print(component,start,end)
-    #     os.system( "CELL=" + id + 
-    #                 " COMPONENT=" + component + 
-    #                 " START_TIME=" + start + 
-    #                 " END_TIME=" + end + 
-    #                 " SUFFIX=" + suffix + 
-    #                 " vsim -64 -c -do " + ACTIVITY_FILE
-    #                 )
-    #     os.system("CELL=" + id + 
-    #             " COMPONENT=" + component + 
-    #             " START_TIME=" + start + 
-    #             " END_TIME=" + end + 
-    #             " SUFFIX=" + suffix + 
-    #             " innovus -stylus -no_gui -files " + POWER_FILE
-    #             )
-
-    def run_sim_total(self, window, id):
-        start = window['start']
-        end = window['end'] 
+    def trigger_vsim(iter, start, end, clock_period, per_cycle_flag, component_flag, state, tile, component):
+        script = f'{CODE_PATH}/get_activity.do'
         os.system(
-                " START_TIME=" + str(start) + 
-                " END_TIME=" + str(end) + 
-                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
-                " CELL_ID=" + id +
-                " PER_CYCLE_FLAG=false" +
-                " vsim -64 -c -do " + ACTIVITY_FILE
-                )
-        os.system(
-                " START_TIME=" + str(start) + 
-                " END_TIME=" + str(end) + 
-                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
-                " CELL_ID=" + id + 
-                " PER_CYCLE_FLAG=false" +
-                " innovus -stylus -no_gui -files " + POWER_FILE
-                )
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={clock_period} PER_CYCLE_FLAG={per_cycle_flag} COMPONENT_FLAG={component_flag} STATE={state} TILE={tile} COMPONENT={component} vsim -64 -c -do {script}")
 
-    def run_sim_cycle(self, window, id):
-        start = window['start'] -5 * self.CLOCK_PERIOD
-        end = window['start'] 
+    def trigger_innovus(iter, start, end, clock_period, per_cycle_flag, component_flag, state, tile, component):
+        script = f'{CODE_PATH}/get_power.tcl'
         os.system(
-                " START_TIME=" + str(start) + 
-                " END_TIME=" + str(end) + 
-                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
-                " CELL_ID=" + id + 
-                " PER_CYCLE_FLAG=true" +
-                " vsim -64 -c -do " + ACTIVITY_FILE
-                )
-        os.system(
-                " START_TIME=" + str(start) + 
-                " END_TIME=" + str(end) + 
-                " CLOCK_PERIOD=" + str(self.CLOCK_PERIOD) + 
-                " CELL_ID=" + id + 
-                " PER_CYCLE_FLAG=true" +
-                " innovus -stylus -no_gui -files " + POWER_FILE
-                )
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={clock_period} PER_CYCLE_FLAG={per_cycle_flag} COMPONENT_FLAG={component_flag} STATE={state} TILE={tile} COMPONENT={component} innovus -stylus -no_gui -files {script}")
 
-    def run(self,tb):
-        os.chdir(tb)
-        os.makedirs("vcd", exist_ok=True)
+    def generate_randomized_mem_init_files(count):
+        locations = []
+        os.makedirs("mem_init_values", exist_ok=True)
+        with open('./mem_init_values.txt', 'r') as f:
+            current = 0 
+            lines = f.readlines()
+            for line in lines:
+                address = line.split()[0]
+                row = line.split()[1]
+                col = line.split()[2]
+                locations.append([address, row, col])
+                current += 1
+        
+        for i in range(count):
+            randomized_filename = "./mem_init_values/mem_init_values_" + str(i) + ".txt"
+            with open(randomized_filename, 'w') as f:
+                for location in range(len(locations)):
+                    address = locations[location][0]
+                    row = locations[location][1]
+                    col = locations[location][2]
+                    value = format(random.getrandbits(256), '0256b')
+                    f.write(address + " " + row + " " + col + " " + value + "\n")
 
-        for id in self.cells:
-            total_window = self.cells[id]['total_window']
-            self.run_sim_total(total_window,id)
-            self.run_sim_cycle(total_window,id)
-#            active_components = self.cells[id]["active_components"]
-#            self.run_sim_total(total_window, id)
-#            for component in active_components:
-#                active_windows = self.cells[id]['component_active_cycles'][component]
-#                inactive_windows = self.cells[id]['component_inactive_cycles'][component]
-#                for window in active_windows:
-#                    self.run_sim_active(component, window, id)
-#                for window in inactive_windows:
-#                    self.run_sim_inactive(component, window, id)
-                    
+    def update_mem_init_file(tb,i):
+        tbfile = f"{tb}/testbench_rtl.vhd"
+        with open(tbfile, 'r') as f:
+            lines = f.readlines()
+    
+        update_mem_init_file_string = f'          file_open(fstatus, fptr, "../mem_init_values/mem_init_values_{i}.txt", read_mode);\n'
+        lines[144] = update_mem_init_file_string
+
+        with open('self.tb', 'w') as f:
+            f.writelines(lines)

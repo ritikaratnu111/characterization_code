@@ -1,7 +1,12 @@
+import os
+import logging
+
 class Power():
     def __init__(self):
         self.POWER_FILE = ""
         self.nets = {}
+        logfile = "signals.log"
+        logging.basicConfig(filename=logfile, level=logging.DEBUG)
 
     def set_nets(self,powerfile):
         self.POWER_FILE = powerfile
@@ -44,6 +49,7 @@ class Power():
 
     def set_active_nets(self,signals):
         count = 0
+        #logging.info('Signals: %s', signals)
         for signal in signals:
             signal_substrings = signal.split('*')
             for name in self.nets:
@@ -52,6 +58,9 @@ class Power():
                 if (label == 'inactive'):
                     if all(substring in name for substring in signal_substrings):
                         self.nets[name]['label'] = signal
+                        #Log the net name if the switching power is not 0
+                        if (net['switching'] != 0):
+                            logging.info('Net: %s', name)
                         count += 1
 
     def get_active_component_dynamic_power(self, signals):

@@ -1,0 +1,89 @@
+{
+  "components": [
+    {
+      "name": "sequencer",
+      "power_values": {
+        "active": {
+          "internal": 0.43,
+          "switching": 0.02
+        },
+        "inactive": {
+          "internal": 0.42,
+          "switching": 0
+        },
+        "leakage": 0.70
+        }
+      } 
+    },
+    {
+      "name": "noc",
+      "power_values": {
+        "active": {
+          "internal": 0.001,
+          "switching": 0.002
+        },
+        "inactive": {
+          "internal": 0,
+          "switching": 0
+        },
+        "leakage": 0.006
+        }
+    },
+    {
+      "name": "dimarch_agu",
+      "power_values": {
+        "active": {
+          "internal": 0.126,
+          "switching": 0.003
+        },
+        "inactive": {
+          "internal": 0.123,
+          "switching": 0
+        },
+        "leakage": 0
+        }
+    },
+    {
+      "name": "sram",
+      "power_values": {
+        "active": {
+          "internal": 0.6,
+          "switching": 0.012
+        },
+        "inactive": {
+          "internal": 0.1,
+          "switching": 0
+        },
+        "leakage": 0.37
+        }
+    },
+    {
+      "name": "dimarch",
+      "power_values": {
+        "active": {
+          "internal": 0.35,
+          "switching": 0.018
+        },
+        "inactive": {
+          "internal": 0.35,
+          "switching": 0
+        },
+        "leakage": 0.42
+        }
+    },
+    {
+      "name": "regfile",
+      "power_values": {
+        "active": {
+          "internal": 0.347,
+          "switching": 0.017
+        },
+        "inactive": {
+          "internal": 0.344,
+          "switching": 0
+        },
+        "leakage": 0.61
+        }
+    }
+  ]
+}

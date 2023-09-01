@@ -1,0 +1,12 @@
+component,signal
+sequencer,*seq_gen*
+noc,*noc*,*partition*,*splitter*
+dimarch,*DiMArch*
+dimarch_agu,*DiMArch.*AGU*
+SRAM,*SRAM*
+rf_agu,*reg_top.*addr*
+rf,*reg_top*
+dpu,*dpu_gen*
+config_swb,*config_swb*
+swb,*swb*
+raccu,*seq_gen.*raccu*

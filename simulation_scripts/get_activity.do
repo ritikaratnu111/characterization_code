@@ -1,10 +1,17 @@
 set FABRIC_PATH $::env(FABRIC_PATH)
-set CELL_ID $::env(CELL_ID)
+set ITER $::env(ITER)
 set START_TIME $::env(START_TIME)
 set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
 set VCD_DIR $::env(VCD_DIR)
 set PER_CYCLE_FLAG $::env(PER_CYCLE_FLAG)
+set COMPONENT_FLAG $::env(COMPONENT_FLAG)
+set RUN_TIME [expr $END_TIME - $START_TIME];
+set COMPONENT $::env(COMPONENT)
+set TILE $::env(TILE)
+set STATE $::env(STATE)
+set VCD_SIGNALS "{sim:/testbench/DUT/${TILE}/* }"
+
 vlib work
 vlib dware
 
@@ -20,6 +27,7 @@ proc compile_vhdl_files { library file_list } {
 		}
 	}
 }
+
 compile_vhdl_files "work" $FABRIC_PATH/rtl/pkg_hierarchy.txt
 vlog -work work /opt/stdc_libs/28HPC/stclib/9-track/30p140/nvt/TSMCHOME/digital/Front_End/verilog/tcbn28hpcbwp30p140_100a/tcbn28hpcbwp30p140.v
 vlog -work work /opt/stdc_libs/28HPC/SRAM/Macros/ts1n28hpcsvtb128x128m4swbasod_170b/VERILOG/ts1n28hpcsvtb128x128m4swbasod_170b_tt0p9v0p9v25c.v
@@ -28,28 +36,20 @@ vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd
 
 vcom -2008 -work work const_package.vhd
 vcom -2008 -work work testbench_rtl.vhd
-if {${PER_CYCLE_FLAG}==true} {
-    set i ${START_TIME}
-    while {$i < ${END_TIME}} {
-        vsim work.testbench -t ps -vopt -voptargs=+acc;
-        run $i ns;
-        set RUN_TIME [expr $i + $CLOCK_PERIOD];
-        set VCDNAME "${VCD_DIR}/${CELL_ID}_${i}_${RUN_TIME}.vcd";
-        vcd file $VCDNAME;
-        vcd add -r {sim:/testbench/DUT/* }; 
-        run $CLOCK_PERIOD ns;
-        set i ${RUN_TIME};
-        quit -sim;
-    }
+vsim work.testbench -t ps -vopt -voptargs=+acc;
+run $START_TIME ns;
+
+if {${COMPONENT_FLAG} ==true} {
+        set VCDNAME "${VCD_DIR}/${TILE}_${COMPONENT}_${STATE}.vcd";
 } else {
-    vsim work.testbench -t ps -vopt -voptargs=+acc;
-    run $START_TIME ns;
-    set RUN_TIME [expr $END_TIME - $START_TIME];
-    set VCDNAME "${VCD_DIR}/${CELL_ID}_total.vcd";
-    vcd file $VCDNAME;
-    vcd add -r {sim:/testbench/DUT/* }; 
-    run $RUN_TIME ns;
-    quit -sim;
+        if {$PER_CYCLE_FLAG == true} {
+                set VCDNAME "${VCD_DIR}/${START_TIME}_${END_TIME}.vcd";
+        } else {
+                set VCDNAME "${VCD_DIR}/iter_${ITER}.vcd";
+        }
 }
 
+vcd add -r $VCD_SIGNALS;
+run $RUN_TIME ns;
+quit -sim;
 exit

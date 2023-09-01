@@ -1,0 +1,12 @@
+{
+  "equations": [
+    {
+      "name": "Quadratic Formula",
+      "expression": "x^2 + 2*x + 1 = 0"
+    },
+    {
+      "name": "Pythagorean Theorem",
+      "expression": "a^2 + b^2 = c^2"
+    }
+  ]
+}

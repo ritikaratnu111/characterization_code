@@ -1,0 +1,91 @@
+{
+  "ROUTE":{
+    "sequencer":{
+        "start": "offset",
+        "end": "offset + 1 * clock_period"
+    },
+    "noc":{
+        "start": "offset",
+        "end": "offset + (horizontal_hops + vertical_hops + 3) * clock_period"
+    },
+    "dimarch":{
+        "start": "offset + (horizontal_hops + vertical_hops) * clock_period",
+        "end": "offset + (horizontal_hops + vertical_hops + 8) * clock_period"
+    }
+    },
+  "SRAM":{
+   "sequencer":{
+       "start": "offset",
+       "end": "offset + 1 * clock_period"
+   },
+   "wait":{
+       "start": "offset + 1 * clock_period",
+       "end": "offset + (hops + 2) * clock_period"
+   },
+   "dimarch_agu":{
+       "start": "offset + (hops + 2) * clock_period",
+       "end": "offset + (hops + 5) * clock_period"
+   },
+   "sram":{
+       "start": "offset + (hops + 3) * clock_period",
+       "end": "offset + (hops + 4) * clock_period"
+   },
+   "dimarch":{
+       "start": "offset + (hops + 3) * clock_period",
+       "end": "offset + (hops + 4) * clock_period"
+   }
+  },
+  "REFI":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      },
+      "wait":{
+          "start": "offset + 1 * clock_period",
+          "end": "offset + (init_delay - 2) * clock_period"
+      },
+      "regfile":{
+          "start": "offset",
+          "end": "offset + (init_delay - 2 + l1_iter + l2_iter + 4) * clock_period"
+      }
+  },
+  "RACCU":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      },
+      "raccu":{
+          "start": "offset + 1 * clock_period",
+          "end": "offset + 2 * clock_period"
+      }
+  },
+  "DPU":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      },
+      "dpu":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      }
+  },
+  "LOOP":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      }
+  },
+  "WAIT":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + (cycle + 1) * clock_period"
+      }
+  },
+  "HALT":{
+      "sequencer":{
+          "start": "offset",
+          "end": "offset + 1 * clock_period"
+      }
+  }
+
+}

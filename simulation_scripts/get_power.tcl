@@ -1,5 +1,4 @@
 set FABRIC_PATH $::env(FABRIC_PATH)
-set CELL_ID $::env(CELL_ID)
 set START_TIME $::env(START_TIME)
 set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
@@ -15,8 +14,8 @@ if {${PER_CYCLE_FLAG}==true} {
     set i ${START_TIME}
     while {$i < ${END_TIME}} {
         set RUN_TIME [expr $i + $CLOCK_PERIOD]
-        set VCDNAME "${VCD_DIR}/${CELL_ID}_${i}_${RUN_TIME}.vcd"
-        set OUTFILE "${VCD_DIR}/${CELL_ID}_${i}_${RUN_TIME}.vcd.pwr"
+        set VCDNAME "${VCD_DIR}/${i}_${RUN_TIME}.vcd"
+        set OUTFILE "${VCD_DIR}/${i}_${RUN_TIME}.vcd.pwr"
         set_power_output_dir -reset
         set_power_output_dir .
         read_activity_file -reset
@@ -29,8 +28,8 @@ if {${PER_CYCLE_FLAG}==true} {
     }
     
 } else {
-    set VCDNAME "${VCD_DIR}/${CELL_ID}_total.vcd"
-    set OUTFILE "${VCD_DIR}/${CELL_ID}_total.vcd.pwr"
+    set VCDNAME "${VCD_DIR}/total.vcd"
+    set OUTFILE "${VCD_DIR}/total.vcd.pwr"
     set_power_output_dir -reset
     set_power_output_dir .
     read_activity_file -reset
