@@ -1,8 +1,7 @@
 import os
 import logging
-from assembly import Assembly
+from loader import Loader
 from characterize import Characterize
-from energy import EnergyCalculator
 from helper_functions import VesylaOutput
 
 class RunSimulations():
@@ -21,19 +20,15 @@ class RunSimulations():
                 tb = line.split()[0]
                 logging.info(f"Testbench: {tb}")
                 print(f"Testbench: {tb}")
-
                 VesylaOutput.update_clock_period(tb)
 
-                assembly = Assembly(tb)
-                assembly.read()
-                assembly.set_active_components()
-                assembly.set_component_active_cycles()
-                assembly.set_component_inactive_cycles()
-                assembly.log()
-#
-                characterize = Characterize(tb,assembly)
-                characterize.run_randomized_simulation(3)
-#                characterize.run_simulation_per_component()
+                loader = Loader(tb)
+                loader.read()
+                loader.process()
+                loader.log()
+                characterize = Characterize(tb,loader.cells)
+#                characterize.run_simulation_per_cycle()
+#                characterize.run_randomized_simulation(100)
 #                characterize.get_per_cycle_power()
 #                characterize.get_active_component_active_energy()
 #                characterize.get_active_component_inactive_energy()

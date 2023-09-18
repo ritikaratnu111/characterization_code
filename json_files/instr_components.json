@@ -28,6 +28,7 @@
     },
     "SWB": {
       "sequencer": ["seq_gen"],
+      "config_swb": ["config_swb"],
       "swb": ["swb"]
     },
     "WAIT": {

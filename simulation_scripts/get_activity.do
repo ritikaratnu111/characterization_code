@@ -36,20 +36,135 @@ vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd
 
 vcom -2008 -work work const_package.vhd
 vcom -2008 -work work testbench_rtl.vhd
-vsim work.testbench -t ps -vopt -voptargs=+acc;
-run $START_TIME ns;
 
-if {${COMPONENT_FLAG} ==true} {
-        set VCDNAME "${VCD_DIR}/${TILE}_${COMPONENT}_${STATE}.vcd";
+if {$COMPONENT_FLAG ==True} {
+	vsim work.testbench -t ps -vopt -voptargs=+acc;
+	run $START_TIME ns;
+    set VCDNAME "${VCD_DIR}/iter_${ITER}_${COMPONENT}_${STATE}_${START_TIME}.vcd";
+    vcd file $VCDNAME;
+	if {$TILE == "Silago_top_l_corner_inst_0_0"} {
+          vcd add -r {sim:/testbench/DUT/Silago_top_l_corner_inst_0_0/* };
+	} elseif {$TILE == "Silago_top_r_corner_inst_7_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_r_corner_inst_7_0/* };
+	} elseif {$TILE == "Silago_bot_l_corner_inst_0_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_l_corner_inst_0_1/* };
+	} elseif {$TILE == "Silago_bot_r_corner_inst_7_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_r_corner_inst_7_1/* };
+	} elseif {$TILE == "Silago_top_inst_1_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_1_0/* };
+	} elseif {$TILE == "Silago_top_inst_2_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_2_0/* };
+	} elseif {$TILE == "Silago_top_inst_3_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_3_0/* };
+	} elseif {$TILE == "Silago_top_inst_4_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_4_0/* };
+	} elseif {$TILE == "Silago_top_inst_5_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_5_0/* };
+	} elseif {$TILE == "Silago_top_inst_6_0"} {
+		vcd add -r {sim:/testbench/DUT/Silago_top_inst_6_0/* };
+	} elseif {$TILE == "Silago_bot_inst_1_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_1_1/* };
+	} elseif {$TILE == "Silago_bot_inst_2_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_2_1/* };
+	} elseif {$TILE == "Silago_bot_inst_3_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_3_1/* };
+	} elseif {$TILE == "Silago_bot_inst_4_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_4_1/* };
+	} elseif {$TILE == "Silago_bot_inst_5_1"} {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_5_1/* };
+	} else {
+		vcd add -r {sim:/testbench/DUT/Silago_bot_inst_6_1/* };
+	}
+	run $RUN_TIME ns;
+	quit -sim;
 } else {
-        if {$PER_CYCLE_FLAG == true} {
-                set VCDNAME "${VCD_DIR}/${START_TIME}_${END_TIME}.vcd";
-        } else {
-                set VCDNAME "${VCD_DIR}/iter_${ITER}.vcd";
+    if {$PER_CYCLE_FLAG ==True} {
+        set i ${START_TIME}
+        while {$i < ${END_TIME}} {
+			vsim work.testbench -t ps -vopt -voptargs=+acc;
+			run $i ns;
+			echo $i
+        	set VCDNAME "${VCD_DIR}/${i}.vcd";
+            vcd file $VCDNAME;
+			if {$TILE == "Silago_top_l_corner_inst_0_0"} {
+            vcd add -r {sim:/testbench/DUT/Silago_top_l_corner_inst_0_0/* };
+			} elseif {$TILE == "Silago_top_r_corner_inst_7_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_r_corner_inst_7_0/* };
+			} elseif {$TILE == "Silago_bot_l_corner_inst_0_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_l_corner_inst_0_1/* };
+			} elseif {$TILE == "Silago_bot_r_corner_inst_7_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_r_corner_inst_7_1/* };
+			} elseif {$TILE == "Silago_top_inst_1_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_1_0/* };
+			} elseif {$TILE == "Silago_top_inst_2_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_2_0/* };
+			} elseif {$TILE == "Silago_top_inst_3_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_3_0/* };
+			} elseif {$TILE == "Silago_top_inst_4_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_4_0/* };
+			} elseif {$TILE == "Silago_top_inst_5_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_5_0/* };
+			} elseif {$TILE == "Silago_top_inst_6_0"} {
+				vcd add -r {sim:/testbench/DUT/Silago_top_inst_6_0/* };
+			} elseif {$TILE == "Silago_bot_inst_1_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_1_1/* };
+			} elseif {$TILE == "Silago_bot_inst_2_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_2_1/* };
+			} elseif {$TILE == "Silago_bot_inst_3_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_3_1/* };
+			} elseif {$TILE == "Silago_bot_inst_4_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_4_1/* };
+			} elseif {$TILE == "Silago_bot_inst_5_1"} {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_5_1/* };
+			} else {
+				vcd add -r {sim:/testbench/DUT/Silago_bot_inst_6_1/* };
+			}
+            run $CLOCK_PERIOD ns;
+        	set new_i [expr $i + $CLOCK_PERIOD];
+            set i ${new_i};
+            quit -sim;
+		}
+    } else {
+		vsim work.testbench -t ps -vopt -voptargs=+acc;
+		run $START_TIME ns;
+        set VCDNAME "${VCD_DIR}/iter_${ITER}.vcd";
+        vcd file $VCDNAME;
+		if {$TILE == "Silago_top_l_corner_inst_0_0"} {
+	          vcd add -r {sim:/testbench/DUT/Silago_top_l_corner_inst_0_0/* };
+		} elseif {$TILE == "Silago_top_r_corner_inst_7_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_r_corner_inst_7_0/* };
+		} elseif {$TILE == "Silago_bot_l_corner_inst_0_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_l_corner_inst_0_1/* };
+		} elseif {$TILE == "Silago_bot_r_corner_inst_7_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_r_corner_inst_7_1/* };
+		} elseif {$TILE == "Silago_top_inst_1_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_1_0/* };
+		} elseif {$TILE == "Silago_top_inst_2_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_2_0/* };
+		} elseif {$TILE == "Silago_top_inst_3_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_3_0/* };
+		} elseif {$TILE == "Silago_top_inst_4_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_4_0/* };
+		} elseif {$TILE == "Silago_top_inst_5_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_5_0/* };
+		} elseif {$TILE == "Silago_top_inst_6_0"} {
+			vcd add -r {sim:/testbench/DUT/Silago_top_inst_6_0/* };
+		} elseif {$TILE == "Silago_bot_inst_1_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_1_1/* };
+		} elseif {$TILE == "Silago_bot_inst_2_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_2_1/* };
+		} elseif {$TILE == "Silago_bot_inst_3_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_3_1/* };
+		} elseif {$TILE == "Silago_bot_inst_4_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_4_1/* };
+		} elseif {$TILE == "Silago_bot_inst_5_1"} {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_5_1/* };
+		} else {
+			vcd add -r {sim:/testbench/DUT/Silago_bot_inst_6_1/* };
+		}
+		run $RUN_TIME ns;
+		quit -sim;
         }
 }
 
-vcd add -r $VCD_SIGNALS;
-run $RUN_TIME ns;
-quit -sim;
 exit

@@ -1,44 +1,44 @@
 import os
 import logging
 import random
-#from energy import EnergyCalculator
+import constants
 from openpyxl import Workbook
 from simulation import Simulation
 
 class Characterize():
 	
-	CLOCK_PERIOD = 12
-    
-	def __init__(self, tb, assembly):     
+	def __init__(self, tb, cells):     
 		self.tb = tb
 		os.environ['VCD_DIR'] ='./vcd/'
 		os.chdir(tb)
 		os.makedirs("vcd", exist_ok=True)
-		self.assembly = assembly
-#		self.energy = EnergyCalculator(tb, assembly)
+		self.cells = cells
 
 	def run_simulation(self, window, i):
 		start = window['start']
 		end = window['end']
-		for cell in self.assembly.cells:
-			Simulation.trigger_vsim(i, start, end, self.CLOCK_PERIOD, False, False, None, cell.tile, None)
-#		Simulation.trigger_innovus(i, start, end, self.CLOCK_PERIOD, False, None, None, None, None)
+		for cell in self.cells:
+			Simulation.trigger_vsim(i, start, end, False, False, None, cell.tile, None)
+			Simulation.trigger_innovus(i, start, end, False, None, None, None, None)
 
 	def run_simulation_per_component(self, i):
-		for cell_id in self.assembly.cells:
-			for component in self.assembly.cells[cell_id].active_components:
-				tile =component.signals[0].split('*')[0] 
-				start = component.active["start"]
-				end = component.active["end"]
-				state = "active"
-				Simulation.trigger_vsim(i, start, end, self.CLOCK_PERIOD, False, True, state, tile, component.name)
-				Simulation.trigger_innovus(i, start, end, self.CLOCK_PERIOD, False, True, state, tile, component.name)
+		for cell in self.cells:
+			for component in cell.active_components.active_components:
+				print(component.name)
+				tile =component.signals[0].split('*')[0]
+				for window in component.active: 
+					state = "active"
+					Simulation.trigger_vsim(i, window['start'], window['end'], False, True, state, tile, component.name)
+					Simulation.trigger_innovus(i, start, end, False, True, state, tile, component.name)
+				for window in component.inactive: 
+					state = "inactive"
+					Simulation.trigger_vsim(i, window['start'], window['end'], False, True, state, tile, component.name)
+					Simulation.trigger_innovus(i, window['start'], window['end'], False, True, state, tile, component.name)
 
-	def run_simulation_per_cycle(self, window):
-		start = window['start'] - 5 * self.CLOCK_PERIOD
-		end = window['end'] + 5 * self.CLOCK_PERIOD
-		Simulation.trigger_vsim(0, start, end, self.CLOCK_PERIOD, True, None, None, None, None)
-		Simulation.trigger_innovus(0, start, end, self.CLOCK_PERIOD, True, None, None, None, None)
+	def run_simulation_per_cycle(self):
+		window = self.cells[0].total_window
+		Simulation.trigger_vsim(0, window['start'], window['end'],  True, None, None, None, None)
+		Simulation.trigger_innovus(0, window['start'], window['end'],  True, None, None, None, None)
 
 	def run_randomized_simulation(self,count):
 		print("Running randomized simulation")    
@@ -46,11 +46,19 @@ class Characterize():
 		for i in range(count):
 			Simulation.update_mem_init_file(self.tb,i)
 			self.run_simulation(self.assembly.window,i)
+			self.run_simulation_per_component(i)
 
-#	def get_per_cycle_power(self):
-#		print("Getting per cycle power")
-#		self.energy.set_per_cycle_power()
-#
+	def get_per_cycle_power(self):
+		print("Getting per cycle power")
+		for cell in self.cells:
+			for component in cell.components.active:
+				print(component.name)
+				print(component.active_window)
+				component.init_profiler()
+				component.set_per_cycle_power()
+#				component.set_active_power(component.signals)
+#				component.set_inactive_power(component.signals)
+
 #	def get_active_component_active_energy(self):
 #		print("Getting active component active energy")
 #		self.energy.set_active_component_active_energy()

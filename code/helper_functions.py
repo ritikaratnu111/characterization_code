@@ -24,9 +24,9 @@ class VesylaOutput():
             # Replace the old values with the new values if file_clock_period is not the same as self.CLOCK_PERIOD
             if(file_clock_period != CLOCK_PERIOD):
                 updated_contents = contents.replace("CONSTANT period                 : time    := 10 NS;",
-                                                 f"CONSTANT period                 : time    := {self.CLOCK_PERIOD} NS;")
+                                                 f"CONSTANT period                 : time    := {CLOCK_PERIOD} NS;")
                 updated_contents = updated_contents.replace("CONSTANT half_period            : time    := 5 NS;",
-                                                         f"CONSTANT half_period            : time    := {self.HALF_PERIOD} NS;")
+                                                         f"CONSTANT half_period            : time    := {HALF_PERIOD} NS;")
 
             # Write the updated contents back to the file
                 with open(PACKAGE_FILE, "w") as file:

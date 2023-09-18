@@ -27,8 +27,8 @@
        "end": "offset + (hops + 5) * clock_period"
    },
    "sram":{
-       "start": "offset + (hops + 3) * clock_period",
-       "end": "offset + (hops + 4) * clock_period"
+       "start": "offset + (hops + 4) * clock_period",
+       "end": "offset + (hops + 7) * clock_period"
    },
    "dimarch":{
        "start": "offset + (hops + 3) * clock_period",
@@ -49,6 +49,20 @@
           "end": "offset + (init_delay - 2 + l1_iter + l2_iter + 4) * clock_period"
       }
   },
+  "SWB":{
+        "sequencer":{
+            "start": "offset",
+            "end": "offset + 1 * clock_period"
+        },
+        "config_swb":{
+            "start": "offset + 1 * clock_period",
+            "end": "offset + 2 * clock_period"
+        },
+        "swb":{
+            "start": "offset + 2 * clock_period",
+            "end": "offset + 3 * clock_period"
+        }
+    },
   "RACCU":{
       "sequencer":{
           "start": "offset",
@@ -65,6 +79,10 @@
           "end": "offset + 1 * clock_period"
       },
       "dpu":{
+          "start": "offset + 1 * clock_period",
+          "end": "offset + 2 * clock_period"
+      },
+      "swb":{
           "start": "offset",
           "end": "offset + 1 * clock_period"
       }
