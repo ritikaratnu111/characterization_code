@@ -89,8 +89,8 @@ class Characterize():
 				print(component.name)
 				logging.info("Setting inactive energy for %s", component.name)
 				component.set_inactive_energy(0)		
-
-    def get_remaining_energy(self):
+	
+	def get_remaining_energy(self):
 		print("Getting remaining energy")
 		for cell in self.cells:
 			cell.set_remaining_energy(0)
