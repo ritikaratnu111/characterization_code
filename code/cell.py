@@ -96,7 +96,13 @@ class Cell():
         """
         Sets remaining power of the cell.
         """
-        self.profiler.set_remaining_power(self.components.active)
+        self.profiler.set_remaining_power(self.components.active,iter)
+
+    def set_total_power(self,iter):
+        """
+        Sets total power of the cell.
+        """
+        self.profiler.set_total_power(iter)
 
     def print(self):
         print(f"Cell: {self.cell_id}")

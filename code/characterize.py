@@ -90,11 +90,15 @@ class Characterize():
 				logging.info("Setting inactive energy for %s", component.name)
 				component.set_inactive_energy(0)		
 	
-	def get_remaining_energy(self):
-		print("Getting remaining energy")
+	def get_remaining_power(self):
+		print("Getting remaining power")
 		for cell in self.cells:
-			cell.set_remaining_energy(0)
-
+			cell.set_remaining_power(0)
+                        
+        def get_total_power(self):
+                print("Getting total power")
+                for cell in self.cells:
+                    cell.set_total_power(0)
 
 	def write_db(self):
 		print("Writing to database")

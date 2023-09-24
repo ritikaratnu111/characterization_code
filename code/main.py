@@ -35,6 +35,7 @@ class RunSimulations():
                 characterize.get_active_AEC_energy()
                 characterize.get_inactive_AEC_energy()
                 characterize.get_remaining_power()
+                characterize.get_total_power()
 #                characterize.write_db()
 #                characterize.log()
 #

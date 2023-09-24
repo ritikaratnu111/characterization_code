@@ -158,11 +158,13 @@ class ComponentProfiler():
 
 class CellProfiler():
     def __init__(self):
-        self.power = Power()
-        self.per_cycle_power = []
-        self.energy = Energy()
-        self.net = {}
+        self.window = []
+        self.remaining_power = Power()
+        self.total_power = Power()
+        self.remaining_energy = []
 
+    def init(self, total_window):
+        self.window = total_window
 
     def set_remaining_power(self,active_components,iter):
         """
@@ -176,3 +178,40 @@ class CellProfiler():
             signals = component.signals
             reader.set_active_nets(signals)
         reader_power, active_nets = reader.get_remaining_power()
+        power = Power()
+        power.window = self.window
+        power.internal = reader_power['internal']
+        power.switching = reader_power['switching']
+        power.leakage = reader_power['leakage']
+        power.total = power.internal + power.switching + power.leakage
+        print(f"Power: internal: {power.internal} switching: {power.switching} leakage: {power.leakage} total: {power.total}")
+        logging.info('%s %s %s %s',
+         '{}'.format(power.window['start']).ljust(20),
+         '{:.3f}'.format(power.internal).ljust(20),
+         '{:.3f}'.format(power.switching).ljust(20),
+         '{:.3f}'.format(power.leakage).ljust(20))
+        self.remaining_power = power
+
+    def set_total_power(iter):
+        """
+        Set total power of the cell 
+        """
+        file = f"./vcd/iter/iter_{iter}.vcd.pwr"
+        reader = InnovusPowerParser(file)
+        reader.set_nets()
+        reader_power, active_nets = reader.get_total_power()
+        power = Power()
+        power.window = self.window
+        power.internal = reader_power['internal']
+        power.switching = reader_power['switching']
+        power.leakage = reader_power['leakage']
+        power.total = power.internal + power.switching + power.leakage
+        print(f"Power: internal: {power.internal} switching: {power.switching} leakage: {power.leakage} total: {power.total}")
+        logging.info('%s %s %s %s',
+         '{}'.format(power.window['start']).ljust(20),
+         '{:.3f}'.format(power.internal).ljust(20),
+         '{:.3f}'.format(power.switching).ljust(20),
+         '{:.3f}'.format(power.leakage).ljust(20))
+        self.total_power = power
+        
+        
