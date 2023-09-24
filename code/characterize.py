@@ -58,7 +58,7 @@ class Characterize():
 				logging.info("Setting per_cycle power for %s", component.name)
 				component.set_per_cycle_power()
 
-	def get_active_power(self):
+	def get_active_AEC_power(self):
 		print("Getting active component active energy")
 		for cell in self.cells:
 			for component in cell.components.active:
@@ -66,7 +66,7 @@ class Characterize():
 				logging.info("Setting active power for %s", component.name)
 				component.set_active_power(0)
 #
-	def get_inactive_power(self):
+	def get_inactive_AEC_power(self):
 		print("Getting active component inactive energy")
 		for cell in self.cells:
 			for component in cell.components.active:
@@ -74,7 +74,7 @@ class Characterize():
 				logging.info("Setting inactive power for %s", component.name)
 				component.set_inactive_power(0)
 
-	def get_active_energy(self):
+	def get_active_AEC_energy(self):
 		print("Getting active component active energy")
 		for cell in self.cells:
 			for component in cell.components.active:
@@ -82,7 +82,7 @@ class Characterize():
 				logging.info("Setting active energy for %s", component.name)
 				component.set_active_energy(0)
 
-	def get_inactive_energy(self):
+	def get_inactive_AEC_energy(self):
 		print("Getting active component inactive energy")
 		for cell in self.cells:
 			for component in cell.components.active:
@@ -90,15 +90,8 @@ class Characterize():
 				logging.info("Setting inactive energy for %s", component.name)
 				component.set_inactive_energy(0)		
 
+        def get_remaining_energy(self):
 
-#
-#	def get_active_component_inactive_energy(self):
-#		print("Getting active component inactive energy")
-#		self.energy.set_active_component_inactive_energy()
-#
-#	def get_inactive_component_energy(self):
-#		print("Getting inactive component energy")
-#		self.energy.set_inactive_component_energy()
 
 	def write_db(self):
 		print("Writing to database")

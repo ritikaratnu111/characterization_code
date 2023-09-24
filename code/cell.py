@@ -74,11 +74,11 @@ class Cell():
             for window in component.active_window:
                 end = window['start']
                 if (start != end):
-                    inactive_window.append({'start': start, 'end': end})
+                    inactive_window.append({'start': start, 'end': end, 'clock_cycles' : int((end-start)/constants.CLOCK_PERIOD) })
                 start = window['end']
             end = self.total_window['end']
             if (start != end):
-                inactive_window.append({'start': start, 'end': end})
+                inactive_window.append({'start': start, 'end': end, 'clock_cycles' : int((end-start)/constants.CLOCK_PERIOD) })
             component.inactive_window = inactive_window
 
     def init_component_energy_profiler(self):

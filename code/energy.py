@@ -125,11 +125,17 @@ class ComponentProfiler():
         """
         for power in self.active_power:
             energy = Energy(power.window)
-            energy.internal = power.internal * power.window['duration']
-            energy.switching = power.switching * power.window['duration']
-            energy.leakage = power.leakage * power.window['duration']
-            energy.total = power.total * power.window['duration']
+            energy.internal = power.internal * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.switching = power.switching * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.leakage = power.leakage * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.total = power.total * power.window['clock_cycles'] * constants.CLOCK_PERIOD
             self.active_energy.append(energy)
+            print(f"Energy: internal: {energy.internal} switching: {energy.switching} leakage: {energy.leakage} total: {energy.total}")
+            logging.info('%s %s %s %s',
+             '{}'.format(energy.window['start']).ljust(20),
+             '{:.3f}'.format(energy.internal).ljust(20),
+             '{:.3f}'.format(energy.switching).ljust(20),
+             '{:.3f}'.format(energy.leakage).ljust(20))
 
     def set_inactive_energy(self,name,signals,iter):
         """
@@ -137,11 +143,17 @@ class ComponentProfiler():
         """
         for power in self.inactive_power:
             energy = Energy(power.window)
-            energy.internal = power.internal * power.window['duration']
-            energy.switching = power.switching * power.window['duration']
-            energy.leakage = power.leakage * power.window['duration']
-            energy.total = power.total * power.window['duration']
+            energy.internal = power.internal * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.switching = power.switching * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.leakage = power.leakage * power.window['clock_cycles'] * constants.CLOCK_PERIOD
+            energy.total = power.total * power.window['clock_cycles'] * constants.CLOCK_PERIOD
             self.inactive_energy.append(energy)
+            print(f"Energy: internal: {energy.internal} switching: {energy.switching} leakage: {energy.leakage} total: {energy.total}")
+            logging.info('%s %s %s %s',
+             '{}'.format(energy.window['start']).ljust(20),
+             '{:.3f}'.format(energy.internal).ljust(20),
+             '{:.3f}'.format(energy.switching).ljust(20),
+             '{:.3f}'.format(energy.leakage).ljust(20))
 
 
 class CellProfiler():
