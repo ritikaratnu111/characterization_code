@@ -2,7 +2,7 @@ import constants
 from components import ComponentSet
 from assembly import Assembly
 from isa import ISA
-#from energy import PowerProfiler
+from energy import CellProfiler
 from helper_functions import AssemblyProcessing
 
 class Cell():
@@ -18,7 +18,11 @@ class Cell():
         self.tile = self.ISA.get_tile(row,col)
         self.assembly = Assembly(instructions, window, self.ISA) 
         self.components = ComponentSet()
-#        self.power_profiler = PowerProfiler
+        self.profiler = CellProfiler()
+        self.init_profiler()
+
+    def init_profiler(self):
+        self.profiler.init(self.total_window)
 
     def add_cell_components(self):
         """
@@ -88,8 +92,15 @@ class Cell():
         for component in self.components.active:
             component.init_profiler(self.total_window)
 
+    def set_remaining_power(self,iter):
+        """
+        Sets remaining power of the cell.
+        """
+        self.profiler.set_remaining_power(self.components.active)
+
     def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()
         print(f"Active components:")
         self.components.print()
+    

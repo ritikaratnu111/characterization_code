@@ -95,7 +95,7 @@ class Power():
                     count += 1
         return(leakage_power,count)
 
-    def get_inactive_component_power(self):
+    def get_remaining_power(self):
         internal_power = 0
         switching_power = 0
         leakage_power = 0

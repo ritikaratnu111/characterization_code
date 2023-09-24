@@ -163,8 +163,16 @@ class CellProfiler():
         self.energy = Energy()
         self.net = {}
 
-    def add_power(self, new_power):
-        self.power.append(new_power)
 
-    def add_energy(self, new_energy):
-        self.energy.append(new_energy)
+    def set_remaining_power(self,active_components,iter):
+        """
+        Set the power of the remaining components in the cell apart from active components
+        """
+        file = f"./vcd/iter/iter_{iter}.vcd.pwr"
+        reader = InnovusPowerParser(file)
+        reader.set_nets()
+        for component in active_components:
+            name = component.name
+            signals = component.signals
+            reader.set_active_nets(signals)
+        reader_power, active_nets = reader.get_remaining_power()
