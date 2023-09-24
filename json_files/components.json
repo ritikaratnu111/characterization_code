@@ -10,6 +10,7 @@
       "dimarch_wrap",
       "regfile",
       "dpu",
+      "config_swb",
       "swb"
     ],
     "DRRA_components": [
@@ -18,6 +19,7 @@
       "noc",
       "regfile",
       "dpu",
+      "config_swb",
       "swb"
     ],
     "DIMARCH_components": [
