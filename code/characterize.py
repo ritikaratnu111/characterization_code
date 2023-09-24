@@ -95,10 +95,10 @@ class Characterize():
 		for cell in self.cells:
 			cell.set_remaining_power(0)
                         
-        def get_total_power(self):
-                print("Getting total power")
-                for cell in self.cells:
-                    cell.set_total_power(0)
+    def get_total_power(self):
+        print("Getting total power")
+        for cell in self.cells:
+            cell.set_total_power(0)
 
 	def write_db(self):
 		print("Writing to database")
