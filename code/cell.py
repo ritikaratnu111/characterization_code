@@ -81,6 +81,13 @@ class Cell():
                 inactive_window.append({'start': start, 'end': end})
             component.inactive_window = inactive_window
 
+    def init_component_energy_profiler(self):
+        """
+        Initializes energy profiler for active components in the cell.
+        """
+        for component in self.components.active:
+            component.init_profiler(self.total_window)
+
     def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()

@@ -1,0 +1,53 @@
+[09/04 19:11:41      0s] 
+[09/04 19:11:41      0s] Cadence Innovus(TM) Implementation System.
+[09/04 19:11:41      0s] Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+[09/04 19:11:41      0s] 
+[09/04 19:11:41      0s] Version:	v21.13-s100_1, built Fri Mar 4 14:32:31 PST 2022
+[09/04 19:11:41      0s] Options:	-stylus 
+[09/04 19:11:41      0s] Date:		Mon Sep  4 19:11:41 2023
+[09/04 19:11:41      0s] Host:		mozzarella.ict.kth.se (x86_64 w/Linux 4.18.0-477.13.1.el8_8.x86_64) (12cores*48cpus*Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz 16896KB)
+[09/04 19:11:41      0s] OS:		Red Hat Enterprise Linux release 8.8 (Ootpa)
+[09/04 19:11:41      0s] 
+[09/04 19:11:41      0s] License:
+[09/04 19:11:41      0s] 		[19:11:41.078730] Configured Lic search path (20.02-s004): 3000@lic08.ug.kth.se:1717@lic06.ug.kth.se
+[09/04 19:11:41      0s] 
+[09/04 19:11:41      0s] 		invs	Innovus Implementation System	21.1	checkout succeeded
+[09/04 19:11:41      0s] 		8 CPU jobs allowed with the current license(s). Use set_multi_cpu_usage to set your required CPU count.
+[09/04 19:11:51      8s] 
+[09/04 19:11:51      8s] 
+[09/04 19:11:55     12s] Reset Parastics called with the command setExtractRCMode -reset[09/04 19:11:56     13s] **WARN: (IMPOPT-801):	Genus executable not found in PATH. Install Genus, add the path to the genus executable in the PATH variable and rerun Innovus.
+@(#)CDS: Innovus v21.13-s100_1 (64bit) 03/04/2022 14:32 (Linux 3.10.0-693.el7.x86_64)
+[09/04 19:11:58     14s] @(#)CDS: NanoRoute 21.13-s100_1 NR220220-0140/21_13-UB (database version 18.20.572) {superthreading v2.17}
+[09/04 19:11:58     14s] @(#)CDS: AAE 21.13-s034 (64bit) 03/04/2022 (Linux 3.10.0-693.el7.x86_64)
+[09/04 19:11:58     14s] @(#)CDS: CTE 21.13-s042_1 () Mar  4 2022 08:38:36 ( )
+[09/04 19:11:58     14s] @(#)CDS: SYNTECH 21.13-s014_1 () Feb 17 2022 23:50:03 ( )
+[09/04 19:11:58     14s] @(#)CDS: CPE v21.13-s074
+[09/04 19:11:58     14s] @(#)CDS: IQuantus/TQuantus 20.1.2-s656 (64bit) Tue Nov 9 23:11:16 PST 2021 (Linux 2.6.32-431.11.2.el6.x86_64)
+[09/04 19:11:58     14s] @(#)CDS: OA 22.60-p067 Fri Jan 14 12:14:46 2022
+[09/04 19:11:58     14s] @(#)CDS: SGN 20.10-d001 (01-Jun-2020) (64 bit executable, Qt5.9.0)
+[09/04 19:11:58     14s] @(#)CDS: RCDB 11.15.0
+[09/04 19:11:58     14s] @(#)CDS: STYLUS 21.11-s013_1 (12/14/2021 07:38 PST)
+[09/04 19:11:58     14s] Create and set the environment variable TMPDIR to /tmp/innovus_temp_958603_mozzarella.ict.kth.se_ritika_TGV5ds.
+
+[09/04 19:11:58     14s] Create and set the environment variable TMPDIR to /tmp/innovus_temp_958603_mozzarella.ict.kth.se_ritika_TGV5ds.
+[09/04 19:11:58     14s] 
+[09/04 19:11:58     14s] Change the soft stacksize limit to 0.2%RAM (189 mbytes). Set global soft_stack_size_limit to change the value.
+[09/04 19:12:00     17s] 
+[09/04 19:12:00     17s] **INFO:  MMMC transition support version v31-84 
+[09/04 19:12:00     17s] 
+[09/04 19:12:03     19s] @innovus 1> 
+[09/04 19:12:12     21s] --------------------------------------------------------------------------------
+[09/04 19:12:12     21s] Exiting Innovus on Mon Sep  4 19:12:12 2023
+[09/04 19:12:12     21s]   Total CPU time:     0:00:21
+[09/04 19:12:12     21s]   Total real time:    0:00:33
+[09/04 19:12:12     21s]   Peak memory (main): 988.69MB
+[09/04 19:12:12     21s] 
+[09/04 19:12:12     21s] 
+[09/04 19:12:12     21s] *** Memory Usage v#1 (Current mem = 908.469M, initial mem = 411.023M) ***
+[09/04 19:12:12     21s] 
+[09/04 19:12:12     21s] *** Summary of all messages that are not suppressed in this session:
+[09/04 19:12:12     21s] Severity  ID               Count  Summary                                  
+[09/04 19:12:12     21s] WARNING   IMPOPT-801           1  Genus executable not found in PATH%s. In...
+[09/04 19:12:12     21s] *** Message Summary: 1 warning(s), 0 error(s)
+[09/04 19:12:12     21s] 
+[09/04 19:12:12     21s] --- Ending "Innovus" (totcpu=0:00:21.1, real=0:00:31.0, mem=908.5M) ---

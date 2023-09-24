@@ -13,6 +13,7 @@ class Characterize():
 		os.chdir(tb)
 		os.makedirs("vcd", exist_ok=True)
 		self.cells = cells
+		self.count = 0
 
 	def run_simulation(self, window, i):
 		start = window['start']
@@ -23,14 +24,14 @@ class Characterize():
 
 	def run_simulation_per_component(self, i):
 		for cell in self.cells:
-			for component in cell.active_components.active_components:
+			for component in cell.components.active:
 				print(component.name)
 				tile =component.signals[0].split('*')[0]
-				for window in component.active: 
+				for window in component.active_window: 
 					state = "active"
 					Simulation.trigger_vsim(i, window['start'], window['end'], False, True, state, tile, component.name)
-					Simulation.trigger_innovus(i, start, end, False, True, state, tile, component.name)
-				for window in component.inactive: 
+					Simulation.trigger_innovus(i, window['start'], window['end'], False, True, state, tile, component.name)
+				for window in component.inactive_window: 
 					state = "inactive"
 					Simulation.trigger_vsim(i, window['start'], window['end'], False, True, state, tile, component.name)
 					Simulation.trigger_innovus(i, window['start'], window['end'], False, True, state, tile, component.name)
@@ -45,23 +46,51 @@ class Characterize():
 		Simulation.generate_randomized_mem_init_files(count)
 		for i in range(count):
 			Simulation.update_mem_init_file(self.tb,i)
-			self.run_simulation(self.assembly.window,i)
-			self.run_simulation_per_component(i)
+			for cell in self.cells:
+				self.run_simulation(cell.total_window,i)
+				self.run_simulation_per_component(i)
 
 	def get_per_cycle_power(self):
 		print("Getting per cycle power")
 		for cell in self.cells:
 			for component in cell.components.active:
 				print(component.name)
-				print(component.active_window)
-				component.init_profiler()
+				logging.info("Setting per_cycle power for %s", component.name)
 				component.set_per_cycle_power()
-#				component.set_active_power(component.signals)
-#				component.set_inactive_power(component.signals)
 
-#	def get_active_component_active_energy(self):
-#		print("Getting active component active energy")
-#		self.energy.set_active_component_active_energy()
+	def get_active_power(self):
+		print("Getting active component active energy")
+		for cell in self.cells:
+			for component in cell.components.active:
+				print(component.name)
+				logging.info("Setting active power for %s", component.name)
+				component.set_active_power(0)
+#
+	def get_inactive_power(self):
+		print("Getting active component inactive energy")
+		for cell in self.cells:
+			for component in cell.components.active:
+				print(component.name)
+				logging.info("Setting inactive power for %s", component.name)
+				component.set_inactive_power(0)
+
+	def get_active_energy(self):
+		print("Getting active component active energy")
+		for cell in self.cells:
+			for component in cell.components.active:
+				print(component.name)
+				logging.info("Setting active energy for %s", component.name)
+				component.set_active_energy(0)
+
+	def get_inactive_energy(self):
+		print("Getting active component inactive energy")
+		for cell in self.cells:
+			for component in cell.components.active:
+				print(component.name)
+				logging.info("Setting inactive energy for %s", component.name)
+				component.set_inactive_energy(0)		
+
+
 #
 #	def get_active_component_inactive_energy(self):
 #		print("Getting active component inactive energy")

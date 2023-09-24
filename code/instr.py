@@ -21,7 +21,6 @@ class Instr():
 
     def set_active_cycles(self,my_isa):
         component_active_cycles = my_isa.get_active_cycles(self.start, self.name, self.segment_values)
-        print(f"Component active cycles: {component_active_cycles} for instruction: {self.name}")
         for component in self.components.active:
             component.active_window = component_active_cycles[component.name]
 

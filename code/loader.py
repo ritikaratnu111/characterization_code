@@ -44,6 +44,7 @@ class Loader():
             cell.modify_cycles_of_dependent_instructions()
             cell.set_component_active_cycles()
             cell.set_component_inactive_cycles()
+            cell.init_component_energy_profiler()
 
     def print(self):
         for cell in self.cells:
