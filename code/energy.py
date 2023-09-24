@@ -11,8 +11,8 @@ class Power():
         self.total = 0
 
 class Energy():
-    def __init__(self):
-        self.window = 0
+    def __init__(self,window=None):
+        self.window = window if window is not None else {}
         self.internal =  0
         self.switching = 0
         self.leakage = 0
@@ -32,6 +32,8 @@ class ComponentProfiler():
         self.active_power = []
         self.inactive_power = []
         self.per_cycle_power = []
+        self.active_energy = []
+        self.inactive_energy = []
 
     def init(self, active_window, inactive_window,total_window):
         self.active_window = active_window
@@ -116,6 +118,30 @@ class ComponentProfiler():
              '{:.3f}'.format(power.internal).ljust(20),
              '{:.3f}'.format(power.switching).ljust(20),
              '{:.3f}'.format(power.leakage).ljust(20))
+
+    def set_active_energy(self,name,signals,iter):
+        """
+        Set the energy of the component in the active window
+        """
+        for power in self.active_power:
+            energy = Energy(power.window)
+            energy.internal = power.internal * power.window['duration']
+            energy.switching = power.switching * power.window['duration']
+            energy.leakage = power.leakage * power.window['duration']
+            energy.total = power.total * power.window['duration']
+            self.active_energy.append(energy)
+
+    def set_inactive_energy(self,name,signals,iter):
+        """
+        Set the energy of the component in the active window
+        """
+        for power in self.inactive_power:
+            energy = Energy(power.window)
+            energy.internal = power.internal * power.window['duration']
+            energy.switching = power.switching * power.window['duration']
+            energy.leakage = power.leakage * power.window['duration']
+            energy.total = power.total * power.window['duration']
+            self.inactive_energy.append(energy)
 
 
 class CellProfiler():
