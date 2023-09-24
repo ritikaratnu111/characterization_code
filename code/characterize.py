@@ -56,7 +56,8 @@ class Characterize():
 			for component in cell.components.active:
 				print(component.name)
 				logging.info("Setting per_cycle power for %s", component.name)
-				component.set_per_cycle_power()
+				if component.name == "dimarch_agu":
+					component.set_per_cycle_power()
 
 	def get_active_AEC_power(self):
 		print("Getting active component active energy")
