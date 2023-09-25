@@ -31,6 +31,12 @@ if {${COMPONENT_FLAG} ==True} {
     if {${PER_CYCLE_FLAG}==True} {
         set i ${START_TIME}
         while {$i < ${END_TIME}} {
+            set_power_output_dir -reset
+            set_power_output_dir .
+            read_activity_file -reset
+            set_power -reset
+            set_dynamic_power_simulation -reset
+            set_default_switching_activity -input_activity 0 -global_activity 0 -macro_activity 0 -sequential_activity 0
             set VCDNAME "${VCD_DIR}/${i}.vcd"
             set OUTFILE "${VCDNAME}.pwr"
             set RUN_TIME [expr $i + $CLOCK_PERIOD]

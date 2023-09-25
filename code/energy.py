@@ -192,7 +192,7 @@ class CellProfiler():
          '{:.3f}'.format(power.leakage).ljust(20))
         self.remaining_power = power
 
-    def set_total_power(iter):
+    def set_total_power(self,iter):
         """
         Set total power of the cell 
         """

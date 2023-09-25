@@ -45,10 +45,11 @@ class Characterize():
 		print("Running randomized simulation")    
 		Simulation.generate_randomized_mem_init_files(count)
 		for i in range(count):
-			Simulation.update_mem_init_file(self.tb,i)
+                        print(i)
+			#Simulation.update_mem_init_file(self.tb,i)
 			for cell in self.cells:
 				self.run_simulation(cell.total_window,i)
-				self.run_simulation_per_component(i)
+				#self.run_simulation_per_component(i)
 
 	def get_per_cycle_power(self):
 		print("Getting per cycle power")
@@ -56,8 +57,7 @@ class Characterize():
 			for component in cell.components.active:
 				print(component.name)
 				logging.info("Setting per_cycle power for %s", component.name)
-				if component.name == "dimarch_agu":
-					component.set_per_cycle_power()
+				component.set_per_cycle_power()
 
 	def get_active_AEC_power(self):
 		print("Getting active component active energy")
