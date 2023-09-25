@@ -45,7 +45,7 @@ class Characterize():
 		print("Running randomized simulation")    
 		Simulation.generate_randomized_mem_init_files(count)
 		for i in range(count):
-                        print(i)
+			print(i)
 			#Simulation.update_mem_init_file(self.tb,i)
 			for cell in self.cells:
 				self.run_simulation(cell.total_window,i)
