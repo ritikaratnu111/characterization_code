@@ -1,4 +1,4 @@
-from energy import ComponentProfiler
+from component_profiler import ComponentProfiler
 from isa import ISA
 import logging
 
@@ -21,29 +21,19 @@ class ActiveComponent():
     def init_profiler(self,total_window):
         self.profiler.init(self.active_window, self.inactive_window,total_window)
 
-    def set_per_cycle_power(self):
+    def set_per_cycle_measurement(self):
         print("Setting per cycle power")
-        self.profiler.set_per_cycle_power(self.signals)
+        self.profiler.set_per_cycle_measurement(self.signals)
 
-    def set_active_power(self,iter):
+    def set_active_measurement(self,iter):
         print("Setting active power")
         logging.info("Iter: %s", iter)
-        self.profiler.set_active_power(self.name,self.signals,iter)
+        self.profiler.set_active_measurement(self.name,self.signals,iter)
     
-    def set_inactive_power(self,iter):
+    def set_inactive_measurement(self,iter):
         print("Setting inactive power")
         logging.info("Iter: %s", iter)
-        self.profiler.set_inactive_power(self.name,self.signals,iter)
-
-    def set_active_energy(self,iter):
-        print("Setting active energy")
-        logging.info("Iter: %s", iter)
-        self.profiler.set_active_energy(self.name,self.signals,iter)
-
-    def set_inactive_energy(self,iter):
-        print("Setting inactive energy")
-        logging.info("Iter: %s", iter)
-        self.profiler.set_inactive_energy(self.name,self.signals,iter)
+        self.profiler.set_inactive_measurement(self.name,self.signals,iter)
 
     def print(self):
         print(f"Component: {self.name}, {self.active_window}, {self.inactive_window}")

@@ -99,7 +99,7 @@ class InnovusPowerParser():
                     count += 1
         return(leakage_power,count)
 
-    def get_remaining_power(self):
+    def get_remaining_power(self,tile):
         internal_power = 0
         switching_power = 0
         leakage_power = 0
@@ -107,10 +107,11 @@ class InnovusPowerParser():
         for name in self.nets:
             net = self.nets[name]
             if(net['label'] == 'inactive'):
-                internal_power += net['internal']
-                switching_power += net['switching']
-                leakage_power += net['leakage']
-                count += 1
+                if tile in name:
+                    internal_power += net['internal']
+                    switching_power += net['switching']
+                    leakage_power += net['leakage']
+                    count += 1
         power = {'internal': internal_power, 
                     'switching': switching_power,
                     'leakage': leakage_power
@@ -118,17 +119,18 @@ class InnovusPowerParser():
 #        print("Inactive net count: ", count)
         return(power,count)
 
-    def get_total_power(self):
+    def get_total_power(self,tile):
         internal_power = 0
         switching_power = 0
         leakage_power = 0
         count = 0
         for name in self.nets:
-            net = self.nets[name]
-            internal_power += net['internal']
-            switching_power += net['switching']
-            leakage_power += net['leakage']
-            count += 1
+            if tile in name:
+                net = self.nets[name]
+                internal_power += net['internal']
+                switching_power += net['switching']
+                leakage_power += net['leakage']
+                count += 1
         power = {'internal': internal_power, 
                     'switching': switching_power,
                     'leakage': leakage_power

@@ -51,55 +51,38 @@ class Characterize():
 				self.run_simulation(cell.total_window,i)
 				#self.run_simulation_per_component(i)
 
-	def get_per_cycle_power(self):
-		print("Getting per cycle power")
+	def get_per_cycle_measurement(self):
+		print("Getting per cycle measurement")
 		for cell in self.cells:
 			for component in cell.components.active:
 				print(component.name)
-				logging.info("Setting per_cycle power for %s", component.name)
-				component.set_per_cycle_power()
+				logging.info("Setting per_cycle measurement for %s", component.name)
+				component.set_per_cycle_measurement()
 
-	def get_active_AEC_power(self):
-		print("Getting active component active energy")
+
+	def get_AEC_measurement(self):
+		print("Getting active component measurement")
 		for cell in self.cells:
 			for component in cell.components.active:
 				print(component.name)
-				logging.info("Setting active power for %s", component.name)
-				component.set_active_power(0)
+				logging.info("Setting active measurement for %s", component.name)
+				component.set_active_measurement(0)
+				logging.info("Setting inactive measurement for %s", component.name)
+				component.set_inactive_measurement(0)
 #
-	def get_inactive_AEC_power(self):
-		print("Getting active component inactive energy")
-		for cell in self.cells:
-			for component in cell.components.active:
-				print(component.name)
-				logging.info("Setting inactive power for %s", component.name)
-				component.set_inactive_power(0)
-
-	def get_active_AEC_energy(self):
-		print("Getting active component active energy")
-		for cell in self.cells:
-			for component in cell.components.active:
-				print(component.name)
-				logging.info("Setting active energy for %s", component.name)
-				component.set_active_energy(0)
-
-	def get_inactive_AEC_energy(self):
-		print("Getting active component inactive energy")
-		for cell in self.cells:
-			for component in cell.components.active:
-				print(component.name)
-				logging.info("Setting inactive energy for %s", component.name)
-				component.set_inactive_energy(0)		
-	
-	def get_remaining_power(self):
+	def get_remaining_measurement(self):
 		print("Getting remaining power")
 		for cell in self.cells:
-			cell.set_remaining_power(0)
+			logging.info("Setting AEC measurement for %s", cell.tile)
+			cell.set_AEC_measurement(0)
+			logging.info("Setting remaining measurement for %s", cell.tile)
+			cell.set_remaining_measurement(0)
                         
-	def get_total_power(self):
-		print("Getting total power")
+	def get_total_measurement(self):
+		print("Getting total measurement")
 		for cell in self.cells:
-			cell.set_total_power(0)
+			logging.info("Setting total measurement for %s", cell.tile)
+			cell.set_total_measurement(0)
 	    
 	def write_db(self):
 		print("Writing to database")

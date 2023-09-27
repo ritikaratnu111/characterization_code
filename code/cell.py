@@ -2,7 +2,7 @@ import constants
 from components import ComponentSet
 from assembly import Assembly
 from isa import ISA
-from energy import CellProfiler
+from cell_profiler import CellProfiler
 from helper_functions import AssemblyProcessing
 
 class Cell():
@@ -22,7 +22,11 @@ class Cell():
         self.init_profiler()
 
     def init_profiler(self):
-        self.profiler.init(self.total_window)
+        window = {}
+        window['start'] = self.total_window['start']
+        window['end'] = self.total_window['end']
+        window['clock_cycles'] = int((self.total_window['end'] - self.total_window['start'] )/constants.CLOCK_PERIOD)
+        self.profiler.init(window)
 
     def add_cell_components(self):
         """
@@ -92,19 +96,25 @@ class Cell():
         for component in self.components.active:
             component.init_profiler(self.total_window)
 
-    def set_remaining_power(self,iter):
+    def set_AEC_measurement(self,iter):
         """
-        Sets remaining power of the cell.
+        Sets AEC measurement for the cell.
         """
-        self.profiler.set_remaining_power(self.components.active,iter)
+        self.profiler.set_AEC_measurement(self.components.active,iter)
 
-    def set_total_power(self,iter):
+    def set_remaining_measurement(self,iter):
         """
         Sets total power of the cell.
         """
-        self.profiler.set_total_power(iter)
+        self.profiler.set_remaining_measurement(self.tile,self.components.active,iter)
 
-    def print(self):
+    def set_total_measurement(self,iter):
+        """
+        Sets total power of the cell.
+        """
+        self.profiler.set_total_measurement(self.tile,iter)
+
+def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()
         print(f"Active components:")
