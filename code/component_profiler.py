@@ -1,7 +1,7 @@
 import constants
 import logging
 from innovus_reader import InnovusPowerParser
-from energy import Power, Energy, Measurement
+from measurement import Measurement
 
 class ComponentProfiler():
     def __init__(self):
@@ -20,18 +20,18 @@ class ComponentProfiler():
             self.per_cycle_window.append({'start': current_start, 'end': current_start + constants.CLOCK_PERIOD, 'clock_cycles' : 1})
             current_start += constants.CLOCK_PERIOD        
 
-    def set_per_cycle_measurement(self,signals):
+    def set_per_cycle_measurement(self,reader,signals):
         for window in self.per_cycle_window:
             file = f"./vcd/{window['start']}.vcd.pwr"
             print(f"File: {file}")
             measurement = Measurement()
             measurement.set_window(window)
-            measurement.read_power(file,signals)
+            measurement.read_power(reader,file,signals)
             measurement.get_energy()
             measurement.log()
             self.per_cycle_measurement.append(measurement)
 
-    def set_active_measurement(self,name,signals,iter):
+    def set_active_measurement(self,reader,name,signals,iter):
         """
         Set the power of the component in the active window
         """
@@ -40,12 +40,12 @@ class ComponentProfiler():
             print(f"File: {file}")
             measurement = Measurement()
             measurement.set_window(window)
-            measurement.read_power(file,signals)
+            measurement.read_power(reader,file,signals)
             measurement.get_energy()
             measurement.log()
             self.active_measurement.append(measurement)
 
-    def set_inactive_measurement(self,name,signals,iter):
+    def set_inactive_measurement(self,reader,name,signals,iter):
         """
         Set the power of the component in the inactive window
         """
@@ -54,7 +54,7 @@ class ComponentProfiler():
             print(f"File: {file}")
             measurement = Measurement()
             measurement.set_window(window)
-            measurement.read_power(file,signals)
+            measurement.read_power(reader,file,signals)
             measurement.get_energy()
             measurement.log()
             self.inactive_measurement.append(measurement)

@@ -13,19 +13,28 @@ class ISA():
         self.active_cycles = {}
         self.dimarch_row = 0
         self.dimarch_col = 0
-        self.tile_info =            json.load(open(f"{JSON_FILE_PATH}/tile_info.json"))
+        self.dimarch_tiles = []
+        self.drra_tile_info =            json.load(open(f"{JSON_FILE_PATH}/drra_tile_info.json"))
+        self.dimarch_tile_info =            json.load(open(f"{JSON_FILE_PATH}/dimarch_tile_info.json"))
         self.segment_values =       json.load(open(f"{JSON_FILE_PATH}/instr_segment_values.json"))
-        self.component_hierarchy =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["component_hierarchy"]
-        self.DRRA_components =      json.load(open(f"{JSON_FILE_PATH}/components.json"))["DRRA_components"]
+        self.component_hierarchy =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["component_hierarchy"]
+        self.DRRA_components =      json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["DRRA_components"]
         self.drra_signals =         json.load(open(f"{JSON_FILE_PATH}/drra_signals.json"))
-        self.DIMARCH_components =   json.load(open(f"{JSON_FILE_PATH}/components.json"))["DIMARCH_components"]
+        self.DIMARCH_components =   json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["DIMARCH_components"]
         self.dimarch_signals =      json.load(open(f"{JSON_FILE_PATH}/dimarch_signals.json"))
         self.components =           json.load(open(f"{JSON_FILE_PATH}/instr_components.json"))
         self.instr_equations =      json.load(open(f"{JSON_FILE_PATH}/instr_equations.json"))
+        self.inactive_components =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["inactive_components"]["DRRA_components"]
 
 
-    def get_tile(self,row,col):
-        return self.tile_info[str(row)][str(col)]
+    def get_drra_tile(self,row,col):
+        return self.drra_tile_info[str(row)][str(col)]
+
+    def get_dimarch_tile(self,row,col):
+        return self.dimarch_tile_info[str(row)][str(col)]
+
+    def get_dimarch_tiles(self):
+        return self.dimarch_tiles
 
     def set_segment_values(self,name,segment_values):
         for attribute in self.segment_values[name]:
@@ -40,6 +49,9 @@ class ISA():
         if (instr_name == "ROUTE"):
             self.dimarch_row = segment_values['vertical_hops'] + 1
             self.dimarch_col = segment_values['horizontal_hops'] + col
+        #Append tile only if the tile is not present already in the list
+            if (self.get_dimarch_tile(self.dimarch_row,self.dimarch_col)) not in self.dimarch_tiles:
+                self.dimarch_tiles.append(self.get_dimarch_tile(self.dimarch_row,self.dimarch_col))
         instr_components = self.components[instr_name]
         updated_components = {}
 

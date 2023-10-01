@@ -12,7 +12,18 @@
       "regfile":    "Silago_top_l_corner_inst*0_0*",
       "dpu":        "Silago_top_l_corner_inst*0_0*",
       "config_swb":      "Silago_top_l_corner_inst*0_0*",
-      "swb":      "Silago_top_l_corner_inst*0_0*"
+      "swb":      "Silago_top_l_corner_inst*0_0*",
+      "shadow_reg":      "Silago_top_l_corner_inst*0_0*",
+      "data_selector":      "Silago_top_l_corner_inst*0_0*",
+      "bus_selector":      "Silago_top_l_corner_inst*0_0*",
+      "dimarch_data_in_out_reg":      "Silago_top_l_corner_inst*0_0*",
+      "dimarch_data_in_out":      "Silago_top_l_corner_inst*0_0*",
+      "dimarch_data_in":      "Silago_top_l_corner_inst*0_0*",
+      "dimarch_data_out":      "Silago_top_l_corner_inst*0_0*",
+      "seq_reg_rb_out_reg":      "Silago_top_l_corner_inst*0_0*",
+      "instr_inp_out_reg":      "Silago_top_l_corner_inst*0_0*",
+      "instr_inp":      "Silago_top_l_corner_inst*0_0*"
+
     }, 
     "1": {
         "raccu":    "Silago_top_inst*1_0*",

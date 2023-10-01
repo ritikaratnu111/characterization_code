@@ -2,13 +2,12 @@ import os
 import logging
 
 class InnovusPowerParser():
-    def __init__(self,file):
-        self.POWER_FILE = file
+    def __init__(self):
+        self.POWER_FILE = ""
         self.nets = {}
-        logfile = "signals.log"
-        logging.basicConfig(filename=logfile, level=logging.DEBUG)
 
-    def set_nets(self):
+    def update_nets(self,file):
+        self.POWER_FILE = file
         header = 104
         tail = 15
         try:
@@ -39,18 +38,6 @@ class InnovusPowerParser():
         except FileNotFoundError:
             logging.error(f"File {self.POWER_FILE} not found")
 
-    def find_active_nets(self,signals):
-        count = 0
-        for signal in signals:
-            signal_substrings = signal.split('*')
-            for name in self.nets:
-                net = self.nets[name]
-                label = net['label']
-                if (label == 'inactive'):
-                    if all(substring in name for substring in signal_substrings):
-                        if (net['internal'] == 0):
-                            print(net)
-
     def set_active_nets(self,signals):
         count = 0
         #logging.info('Signals: %s', signals)
@@ -66,8 +53,9 @@ class InnovusPowerParser():
 #                        if (net['switching'] != 0):
 #                            logging.info('Net: %s', name)
                         count += 1
+        logging.info('Active nets: %s', count)
 
-    def get_active_component_dynamic_power(self, signals):
+    def get_power(self, signals):
         count = 0
         internal_power = 0
         switching_power = 0
@@ -86,54 +74,48 @@ class InnovusPowerParser():
                     }
         return(power,count)
 
-    def get_active_component_leakage_power(self, signals):
-        count = 0
-        internal_power = 0
-        switching_power = 0
-        leakage_power = 0
-        for signal in signals:
-            for name in self.nets:
-                net = self.nets[name]
-                if(net['label'] == signal):
-                    leakage_power += net['leakage']
-                    count += 1
-        return(leakage_power,count)
-
-    def get_remaining_power(self,tile):
+    def get_remaining_power(self,tiles):
         internal_power = 0
         switching_power = 0
         leakage_power = 0
         count = 0
+        print("Tiles: ", tiles)
         for name in self.nets:
             net = self.nets[name]
-            if(net['label'] == 'inactive'):
+            for tile in tiles:
                 if tile in name:
-                    internal_power += net['internal']
-                    switching_power += net['switching']
-                    leakage_power += net['leakage']
-                    count += 1
+                    if(net['label'] == 'inactive'):
+                        logging.info('Net: %s', name)
+                        internal_power += net['internal']
+                        switching_power += net['switching']
+                        leakage_power += net['leakage']
+                        count += 1
         power = {'internal': internal_power, 
                     'switching': switching_power,
                     'leakage': leakage_power
                     }
+        logging.info('Remaining nets: %s', count)
 #        print("Inactive net count: ", count)
         return(power,count)
 
-    def get_total_power(self,tile):
+
+    def get_total_power(self,tiles):
         internal_power = 0
         switching_power = 0
         leakage_power = 0
         count = 0
         for name in self.nets:
-            if tile in name:
-                net = self.nets[name]
-                internal_power += net['internal']
-                switching_power += net['switching']
-                leakage_power += net['leakage']
-                count += 1
+            for tile in tiles:
+                if tile in name:
+                    net = self.nets[name]
+                    internal_power += net['internal']
+                    switching_power += net['switching']
+                    leakage_power += net['leakage']
+                    count += 1
         power = {'internal': internal_power, 
                     'switching': switching_power,
                     'leakage': leakage_power
                     }
+        logging.info('Total nets: %s', count)
 #        print("Total net count: ", count)
         return(power,count)

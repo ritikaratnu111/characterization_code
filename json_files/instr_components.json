@@ -2,13 +2,17 @@
     "ROUTE": {
       "sequencer": ["seq_gen"],
       "noc": ["noc", "partition", "splitter"],
-      "dimarch": ["DiMArch"]
+      "dimarch": ["DiMArch"],
+      "shadow_reg": ["shadowReg"],
+      "bus_selector": ["u_bus_selector"]
     },
     "SRAM": {
       "sequencer": ["seq_gen"],
       "dimarch_agu": ["AGU"],
       "sram": ["u_sram"],
-      "dimarch": ["DiMArch"]
+      "dimarch": ["DiMArch"],
+      "shadow_reg": ["shadowReg"],
+      "dimarch_data_in_out_reg": ["dimarch_data_in_out_reg"]
     },
     "REFI": {
       "sequencer": ["seq_gen"],
@@ -24,12 +28,14 @@
     "DPU": {
       "sequencer": ["seq_gen"],
       "dpu": ["dpu_gen"],
-      "swb": ["swb"]
+      "swb": ["swb"],
+      "shadow_reg": ["shadowReg"]
     },
     "SWB": {
       "sequencer": ["seq_gen"],
       "config_swb": ["config_swb"],
-      "swb": ["swb"]
+      "swb": ["swb"],
+      "shadow_reg": ["shadowReg"]
     },
     "WAIT": {
       "sequencer": ["seq_gen"]

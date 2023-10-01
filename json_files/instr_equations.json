@@ -11,8 +11,16 @@
     "dimarch":{
         "start": "offset + (horizontal_hops + vertical_hops) * clock_period",
         "end": "offset + (horizontal_hops + vertical_hops + 8) * clock_period"
-    }
     },
+    "shadow_reg":{
+        "start": "offset",
+        "end": "offset + 1 * clock_period"
+    },
+    "bus_selector":{
+        "start": "offset",
+        "end": "offset + 3 * clock_period"
+    }
+},
   "SRAM":{
    "sequencer":{
        "start": "offset",
@@ -33,7 +41,15 @@
    "dimarch":{
        "start": "offset + (hops + 3) * clock_period",
        "end": "offset + (hops + 4) * clock_period"
-   }
+   },
+    "shadow_reg":{
+        "start": "offset",
+        "end": "offset + 2 * clock_period"
+    },
+    "dimarch_data_in_out_reg":{
+       "start": "offset + (hops + 6) * clock_period",
+       "end": "offset + (hops + 8) * clock_period"
+    }
   },
   "REFI":{
       "sequencer":{
@@ -61,6 +77,10 @@
         "swb":{
             "start": "offset",
             "end": "offset + 2 * clock_period"
+        },
+        "shadow_reg":{
+            "start": "offset",
+            "end": "offset + 1 * clock_period"
         }
     },
   "RACCU":{
@@ -85,7 +105,11 @@
       "swb":{
           "start": "offset",
           "end": "offset + 1 * clock_period"
-      }
+      },
+        "shadow_reg":{
+            "start": "offset",
+            "end": "offset + 2 * clock_period"
+        }
   },
   "LOOP":{
       "sequencer":{

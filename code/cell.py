@@ -15,7 +15,9 @@ class Cell():
         self.col = col
         self.total_window = window
         self.ISA = ISA()
-        self.tile = self.ISA.get_tile(row,col)
+        self.drra_tile = self.ISA.get_drra_tile(row,col)
+        self.dimarch_tiles = []
+        self.tiles = []
         self.assembly = Assembly(instructions, window, self.ISA) 
         self.components = ComponentSet()
         self.profiler = CellProfiler()
@@ -28,7 +30,7 @@ class Cell():
         window['clock_cycles'] = int((self.total_window['end'] - self.total_window['start'] )/constants.CLOCK_PERIOD)
         self.profiler.init(window)
 
-    def add_cell_components(self):
+    def add_active_cell_components(self):
         """
         Adds active components to the cell based on instructions.
         """
@@ -37,6 +39,19 @@ class Cell():
             for component in instr.components.active:
                 self.components.add_active_component(component)
         self.components.reorder_components()
+
+        for component in self.components.active:
+            print(f"Component: {component.name}")
+            for signal in component.signals:
+                print(f"Signal: {signal}")
+
+    def add_inactive_cell_components(self):
+        """
+        Adds inactive components to the cell of the design.
+        """
+        for component in self.ISA.inactive_components:
+            print(f"Component: {component.name}")
+            self.components.add_inactive_component(component)
 
     def set_instr_active_components(self):
         """
@@ -102,19 +117,33 @@ class Cell():
         """
         self.profiler.set_AEC_measurement(self.components.active,iter)
 
-    def set_remaining_measurement(self,iter):
+    def set_dimarch_tiles(self):
+        """
+        Sets the dimarch tiles for the cell.
+        """
+        self.dimarch_tiles = self.ISA.get_dimarch_tiles()
+        self.tiles.extend(self.dimarch_tiles)
+        self.tiles.append(self.drra_tile)
+
+    def set_remaining_measurement(self,reader,iter):
         """
         Sets total power of the cell.
         """
-        self.profiler.set_remaining_measurement(self.tile,self.components.active,iter)
+        self.profiler.set_remaining_measurement(reader,self.tiles,iter)
 
-    def set_total_measurement(self,iter):
+    def set_total_measurement(self,reader,iter):
         """
         Sets total power of the cell.
         """
-        self.profiler.set_total_measurement(self.tile,iter)
+        self.profiler.set_total_measurement(reader,self.tiles,iter)
 
-def print(self):
+    def set_diff_measurement(self):
+        """
+        Sets the difference between total and remaining power of the cell.
+        """
+        self.profiler.set_diff_measurement()
+
+    def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()
         print(f"Active components:")

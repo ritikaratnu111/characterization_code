@@ -21,19 +21,19 @@ class ActiveComponent():
     def init_profiler(self,total_window):
         self.profiler.init(self.active_window, self.inactive_window,total_window)
 
-    def set_per_cycle_measurement(self):
+    def set_per_cycle_measurement(self,reader):
         print("Setting per cycle power")
-        self.profiler.set_per_cycle_measurement(self.signals)
+        self.profiler.set_per_cycle_measurement(reader,self.signals)
 
-    def set_active_measurement(self,iter):
+    def set_active_measurement(self,reader,iter):
         print("Setting active power")
         logging.info("Iter: %s", iter)
-        self.profiler.set_active_measurement(self.name,self.signals,iter)
+        self.profiler.set_active_measurement(reader,self.name,self.signals,iter)
     
-    def set_inactive_measurement(self,iter):
+    def set_inactive_measurement(self,reader,iter):
         print("Setting inactive power")
         logging.info("Iter: %s", iter)
-        self.profiler.set_inactive_measurement(self.name,self.signals,iter)
+        self.profiler.set_inactive_measurement(reader,self.name,self.signals,iter)
 
     def print(self):
         print(f"Component: {self.name}, {self.active_window}, {self.inactive_window}")
@@ -46,6 +46,10 @@ class ComponentSet():
     def add_active_component(self,component):
         if (component not in self.active):
             self.active.append(component)
+
+    def add_inactive_component(self,component):
+        if (component not in self.inactive):
+            self.inactive.append(component)
 
     def reorder_components(self):
         my_isa = ISA()

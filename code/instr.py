@@ -1,11 +1,12 @@
 import constants
 from components import ComponentSet, ActiveComponent
-
+import logging
 class Instr():
     def __init__(self, instr, window):
         self.id = instr['start']
         self.name = instr['name']
         self.start = window['start'] + instr['start'] * constants.CLOCK_PERIOD  
+        logging.info(f"Instruction {self.name} starts at {self.start}")
         self.segment_values = instr['segment_values']
         self.components = ComponentSet()
 

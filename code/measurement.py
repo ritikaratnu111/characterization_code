@@ -31,32 +31,26 @@ class Measurement():
     def set_window(self,window):
         self.window = window
 
-    def read_power(self,file,signals):
-        reader = InnovusPowerParser(file)
-        reader.set_nets()
+    def read_power(self,reader,file,signals):
+        reader.update_nets(file)
         reader.set_active_nets(signals)
-        reader_power, active_nets = reader.get_active_component_dynamic_power(signals)
+        reader_power, active_nets = reader.get_power(signals)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
         self.power.total = self.power.internal + self.power.switching + self.power.leakage
 
-    def read_remaining_power(self,file,tile,active_components):
-        reader = InnovusPowerParser(file)
-        reader.set_nets()
-        for component in active_components:
-            signals = component.signals
-            reader.set_active_nets(signals)
-        reader_power, active_nets = reader.get_remaining_power(tile)
+    def read_remaining_power(self,reader,file,tiles):
+        reader.update_nets(file)
+        reader_power, active_nets = reader.get_remaining_power(tiles)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
         self.power.total = self.power.internal + self.power.switching + self.power.leakage
 
-    def read_total_power(self,file,tile):
-        reader = InnovusPowerParser(file)
-        reader.set_nets()
-        reader_power, active_nets = reader.get_total_power(tile)
+    def read_total_power(self,reader,file,tiles):
+        reader.update_nets(file)
+        reader_power, active_nets = reader.get_total_power(tiles)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
@@ -81,7 +75,7 @@ class Measurement():
         logging.info('%s %s %s %s %s',
          '{}'.format(self.window['start']).ljust(20),
          '{:.3f}'.format(self.power.internal).ljust(20),
-         '{:.3f}'.format(self.power.switching).ljust(20),
+         '{:.6f}'.format(self.power.switching).ljust(20),
          '{:.3f}'.format(self.power.leakage).ljust(20),
          '{:.3f}'.format(self.power.total).ljust(20))
         logging.info('%s %s %s %s %s',

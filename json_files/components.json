@@ -1,4 +1,5 @@
 {
+  "active_components":{
     "component_hierarchy": [
       "raccu",
       "sequencer",
@@ -11,7 +12,10 @@
       "regfile",
       "dpu",
       "config_swb",
-      "swb"
+      "swb",
+      "shadow_reg",
+      "bus_selector",
+      "dimarch_data_in_out_reg"
     ],
     "DRRA_components": [
       "raccu",
@@ -20,7 +24,10 @@
       "regfile",
       "dpu",
       "config_swb",
-      "swb"
+      "swb",
+      "shadow_reg",
+      "bus_selector",
+      "dimarch_data_in_out_reg"
     ],
     "DIMARCH_components": [
       "noc",
@@ -30,4 +37,21 @@
       "dimarch_rest",
       "dimarch_wrap"
     ]
+  },
+
+  "inactive_components":{
+    "component_hierarchy":[
+      "data_selector",
+      "diamrch_data_in_out",
+      "dimarch_data_in",
+      "dimarch_data_out",
+      "seq_address_rb_out_reg",
+      "instr_inp_out_reg",
+      "instr_inp"
+    ],
+    "DRRA_components":[
+      "data_selector"
+    ]
   }
+}   
+
