@@ -20,7 +20,7 @@
     "DRRA_components": {
       "raccu": {
         "about": "raccu",
-        "signals": ["u_raccu"]
+        "signals": ["u_Raccu"]
       },
       "sequencer": {
         "about": "sequencer",
