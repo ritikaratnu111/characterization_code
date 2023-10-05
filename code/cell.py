@@ -34,24 +34,19 @@ class Cell():
         """
         Adds active components to the cell based on instructions.
         """
+        print(f"Adding active components to cell {self.cell_id}")
         for idx,instr in enumerate(self.assembly.instructions):
             instr.set_components(self.row,self.col,self.ISA)
             for component in instr.components.active:
                 self.components.add_active_component(component)
         self.components.reorder_components()
 
-        for component in self.components.active:
-            print(f"Component: {component.name}")
-            for signal in component.signals:
-                print(f"Signal: {signal}")
-
     def add_inactive_cell_components(self):
         """
         Adds inactive components to the cell of the design.
         """
-        for component in self.ISA.inactive_components:
-            print(f"Component: {component.name}")
-            self.components.add_inactive_component(component)
+        for component,info  in self.ISA.inactive_components.items():
+            self.components.add_inactive_component(component,info,self.total_window)
 
     def set_instr_active_components(self):
         """

@@ -24,7 +24,7 @@ class ISA():
         self.dimarch_signals =      json.load(open(f"{JSON_FILE_PATH}/dimarch_signals.json"))
         self.components =           json.load(open(f"{JSON_FILE_PATH}/instr_components.json"))
         self.instr_equations =      json.load(open(f"{JSON_FILE_PATH}/instr_equations.json"))
-        self.inactive_components =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["inactive_components"]["DRRA_components"]
+        self.inactive_components =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["inactive_components"]["component_hierarchy"]
 
 
     def get_drra_tile(self,row,col):
@@ -57,13 +57,16 @@ class ISA():
 
         #For each component, get the signals
         for component in instr_components:
-            signals = instr_components[component]
+            if (component in self.DRRA_components):
+                signals = self.DRRA_components[component]["signals"]
+            elif (component in self.DIMARCH_components):
+                signals = self.DIMARCH_components[component]["signals"]
             updated_signals = []
 
             #For each signal, get the cell_signal
             if(component in self.DRRA_components):
                 for signal in signals:
-                    cell_signal = f"{self.drra_signals[str(row)][str(col)][component]}{signal}"
+                    cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
                     updated_signals.append(cell_signal)
                 updated_components[component] = {   "name": component,
                                                     "signals": updated_signals,
@@ -76,7 +79,7 @@ class ISA():
                 dimarch_col = self.dimarch_col
                 for signal in signals:
 #                    print(f"Signal: {signal}, Row: {dimarch_row}, Col: {dimarch_col}")
-                    cell_signal = f"{self.dimarch_signals[str(dimarch_row)][str(dimarch_col)][component]}{signal}"
+                    cell_signal = f"{self.dimarch_signals[str(dimarch_row)][str(dimarch_col)]}{signal}"
                     updated_signals.append(cell_signal)
                 updated_components[component] = {   "name": component,
                                                     "signals": updated_signals,

@@ -57,11 +57,11 @@ class Characterize():
 	def get_per_cycle_measurement(self):
 		print("Getting per cycle measurement")
 		for cell in self.cells:
-#			for component in cell.components.active:
-#				print(component.name)
-#				print(component.signals)
-#				logging.info("Setting per_cycle measurement for %s", component.name)
-#				component.set_per_cycle_measurement(self.reader)
+			for component in cell.components.active:
+				print(component.name)
+				print(component.signals)
+				logging.info("Setting per_cycle measurement for %s", component.name)
+				component.set_per_cycle_measurement(self.reader)
 			for component in cell.components.inactive:
 				print(component.name)
 				logging.info("Setting per_cycle measurement for %s", component.name)

@@ -17,41 +17,127 @@
       "bus_selector",
       "dimarch_data_in_out_reg"
     ],
-    "DRRA_components": [
-      "raccu",
-      "sequencer",
-      "noc",
-      "regfile",
-      "dpu",
-      "config_swb",
-      "swb",
-      "shadow_reg",
-      "bus_selector",
-      "dimarch_data_in_out_reg"
-    ],
-    "DIMARCH_components": [
-      "noc",
-      "dimarch_agu",
-      "sram",
-      "dimarch",
-      "dimarch_rest",
-      "dimarch_wrap"
-    ]
+    "DRRA_components": {
+      "raccu": {
+        "about": "raccu",
+        "signals": ["u_raccu"]
+      },
+      "sequencer": {
+        "about": "sequencer",
+        "signals": ["seq_gen"]
+      },
+      "noc": {
+        "about": "noc",
+        "signals": ["noc", "partition", "splitter"]
+      },
+      "regfile": {
+        "about": "regfile",
+        "signals": ["reg_top"]
+      },
+      "dpu": {
+        "about": "dpu",
+        "signals": ["dpu_gen"]
+      },
+      "config_swb": {
+        "about": "config_swb",
+        "signals": ["config_swb"]
+      },
+      "swb": {
+        "about": "swb",
+        "signals": ["swb"]
+      },
+      "shadow_reg": {
+        "about": "shadow_reg",
+        "signals": ["shadowReg"]
+      },
+      "bus_selector": {
+        "about": "bus_selector",
+        "signals": ["u_bus_selector"]
+      },
+      "dimarch_data_in_out_reg": {
+        "about": "dimarch_data_in_out_reg",
+        "signals": ["dimarch_data_in_out_reg"]
+      },
+      "dimarch_data_in": {
+        "about": "dimarch_data_in",
+        "signals": ["dimarch_data_in"]
+      }
+    },
+    "DIMARCH_components": {
+      "noc": {
+        "about": "noc",
+        "signals": ["noc", "partition", "splitter"]
+      },
+      "dimarch_agu": {
+        "about": "dimarch_agu",
+        "signals": ["AGU"]
+      },
+      "sram": {
+        "about": "sram",
+        "signals": ["u_sram"]
+      },
+      "dimarch": {
+        "about": "dimarch",
+        "signals": ["DiMArch"]
+      }
+    }
   },
 
   "inactive_components":{
-    "component_hierarchy":[
-      "data_selector",
-      "diamrch_data_in_out",
-      "dimarch_data_in",
-      "dimarch_data_out",
-      "seq_address_rb_out_reg",
-      "instr_inp_out_reg",
-      "instr_inp"
-    ],
-    "DRRA_components":[
-      "data_selector"
-    ]
+    "component_hierarchy": {
+      "data_selector": {
+        "about": "data_selector",
+        "signals": ["u_data_selector"] 
+        },
+      "dimarch_data_in_out":{
+         "about": "dimarch_data_in_out",
+         "signals": ["diamarch_data_in_out"]
+      },
+      "dimarch_data_out": {
+        "about": "dimarch_data_out",
+        "signals": ["dimarch_data_out"]
+      },
+      "seq_address_rb": {
+        "about": "seq_address_rb",
+        "signals": ["seq_address_rb"]
+      },
+      "seq_address_cb": {
+        "about": "seq_address_cb",
+        "signals": ["seq_address_cb"]
+      },
+      "instr_inp_out_reg": {
+        "about": "instr_inp_out_reg",
+        "signals": ["instr_inp_out_reg"]
+      },
+      "instr_inp": {
+        "about": "instr_inp",
+        "signals": ["instr_inp"]
+      },
+      "ext_v_input_bus_in": {
+        "about": "ext_v_input_bus_in",
+        "signals": ["ext_v_input_bus_in"]
+      },
+      "CTS": {
+        "about": "CTS",
+        "signals": ["CTS"]
+      },
+      "rst_n":{
+        "about": "rst_n",
+        "signals": ["rst_n"]
+      },
+      "h_bus_reg": {
+        "about": "h_bus_reg",
+        "signals": ["h_bus_reg"]
+      },
+      "h_bus_dpu": {
+        "about": "h_bus_dpu",
+        "signals": ["h_bus_dpu"]
+      },
+      "dpu_silego_interface": {
+        "about": "dpu_silego_interface",
+        "signals": ["dpu_in"]
+      }
+    }
   }
 }   
 

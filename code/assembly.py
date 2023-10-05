@@ -31,7 +31,8 @@ class Assembly():
         for idx, instr in enumerate(self.instructions):
             if(instr.name == 'DPU'):
                 dpu_end = instr.components.active[1].active_window['end']
-                wait_cycles = self.instructions[idx + 1].segment_values['cycle']
+#                wait_cycles = self.instructions[idx + 1].segment_values['cycle']
+                wait_cycles = 9
                 wait_time = wait_cycles * constants.CLOCK_PERIOD
                 for component in instr.components.active:
                     if component.name == 'dpu':

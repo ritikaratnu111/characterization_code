@@ -46,6 +46,10 @@
         "start": "offset",
         "end": "offset + 2 * clock_period"
     },
+    "dimarch_data_in":{
+       "start": "offset + (hops + 5) * clock_period",
+       "end": "offset + (hops + 8) * clock_period"
+    },
     "dimarch_data_in_out_reg":{
        "start": "offset + (hops + 6) * clock_period",
        "end": "offset + (hops + 8) * clock_period"
