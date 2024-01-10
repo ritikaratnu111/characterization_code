@@ -24,6 +24,7 @@ class ISA():
         self.dimarch_signals =      json.load(open(f"{JSON_FILE_PATH}/dimarch_signals.json"))
         self.components =           json.load(open(f"{JSON_FILE_PATH}/instr_components.json"))
         self.instr_equations =      json.load(open(f"{JSON_FILE_PATH}/instr_equations.json"))
+        self.pc_info =      json.load(open(f"{JSON_FILE_PATH}/pc_info.json"))
         self.inactive_components =  json.load(open(f"{JSON_FILE_PATH}/components.json"))["inactive_components"]["component_hierarchy"]
 
 
@@ -41,7 +42,36 @@ class ISA():
             self.segment_values[name][attribute]  = segment_values[attribute]
 #        print(segment_values)
 #        print(self.segment_values)
+
+    def get_pc(self,name,id,prev_instr):
+        variables = {}
+
+        start = id
         
+        if (name != "HALT") and prev_instr.segment_values.get('extra') is not None:
+            extra = prev_instr.segment_values['extra']
+        else:
+            extra = 0
+
+        variables['start'] = start
+        variables['extra'] = extra
+        
+        symbols = {var: sp.symbols(var) for var in variables}
+        values = [(symbols[var], val) for var, val in variables.items()]  
+
+        add_pc = sp.sympify(self.pc_info[prev_instr.name]).subs(values)
+
+        return prev_instr.pc + add_pc
+
+    def update_inactive_components_tile_info(self,row,col):
+        for component,info in self.inactive_components.items():
+            signals = info["signals"] 
+            updated_signals = []
+            for signal in signals:
+                cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
+                updated_signals.append(cell_signal)
+            info["signals"] = updated_signals
+
 #Get components for instruction of each cell
     def get_components(self,instr_name,row,col,segment_values):
 

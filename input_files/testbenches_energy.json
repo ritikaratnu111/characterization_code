@@ -1,0 +1,30 @@
+{
+    "data_mov":{
+        "path":"/home/ritika/silago/SiLagoNN/tb/char/data_transfer/top_left/",
+        "about":"Data movement testbench from dimarch to drra",
+        "dimarch":"0_0",
+        "drra":"0_0",
+        "to_run":false
+    },
+    "vec_add":{
+        "path":"/home/ritika/silago/SiLagoNN/tb/char/dpu_add/top_left/",
+        "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
+        "dimarch":"0_0",
+        "drra":"0_0",
+        "to_run":true
+    },
+    "conv":{
+        "path":"/home/ritika/silago/SiLagoNN/tb/char/convolution/",
+        "about":"Convolution of 16x16 matrix with 3x3 kernel. There is a problem in raccu with other loop, register 14 has zeros in it while register 13 has its values.",
+        "dimarch":"0_0, 0_1",
+        "drra":"0_0, 1_0, 0_1",
+        "to_run":false
+    },
+    "mmm":{
+        "path":"/home/ritika/silago/SiLagoNN/tb/char/mmm/left_col",
+        "about":"MMM of two 16x16 matrix",
+        "dimarch":"0_0",
+        "drra":"0_0, 0_1",
+        "to_run":false
+    }
+}

@@ -2,13 +2,17 @@ import constants
 from components import ComponentSet, ActiveComponent
 import logging
 class Instr():
-    def __init__(self, instr, window):
-        self.id = instr['start']
-        self.name = instr['name']
-        self.start = window['start'] + instr['start'] * constants.CLOCK_PERIOD  
-        logging.info(f"Instruction {self.name} starts at {self.start}")
-        self.segment_values = instr['segment_values']
-        self.components = ComponentSet()
+    def __init__(self, id, name, start, pc, segment_values, components ):
+        self.id = id
+        self.name = name
+        self.start = start
+        self.pc = pc if pc is not None else 0
+        self.segment_values = segment_values
+        self.components = components if components is not None else ComponentSet()
+
+    def set_pc(self,my_isa,prev_instr):
+
+        self.pc = my_isa.get_pc(self.name,self.id,prev_instr)
 
     def set_components(self,row,col,my_isa):
         from_isa = my_isa.get_components(self.name,row,col,self.segment_values)

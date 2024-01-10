@@ -4,24 +4,34 @@ from assembly import Assembly
 from isa import ISA
 from cell_profiler import CellProfiler
 from helper_functions import AssemblyProcessing
+import logging
 
 class Cell():
     """
     Represents a processing element, (in our case DRA cell) with instructions, components, and energy information.
     """
-    def __init__(self, cell_id, row, col, instructions, window):
+    def __init__(self, cell_id, row, col, window):
         self.cell_id = cell_id
         self.row = row
         self.col = col
         self.total_window = window
+        self.total_window['clock_cycles'] = int((self.total_window['end'] - self.total_window['start'] )/constants.CLOCK_PERIOD)
         self.ISA = ISA()
         self.drra_tile = self.ISA.get_drra_tile(row,col)
         self.dimarch_tiles = []
         self.tiles = []
-        self.assembly = Assembly(instructions, window, self.ISA) 
+        self.assembly = Assembly() 
         self.components = ComponentSet()
         self.profiler = CellProfiler()
         self.init_profiler()
+        logging.info(f"Cell {self.cell_id} created")
+        logging.info(f"Cell {self.cell_id} window: {self.total_window}")
+
+    def set_assembly(self,instructions):
+        self.assembly.set_ISA(self.ISA)
+        self.assembly.set_hop_cycles(self.row,self.col)
+        self.assembly.set_window(self.total_window)
+        self.assembly.set_assembly(instructions)
 
     def init_profiler(self):
         window = {}
@@ -45,8 +55,30 @@ class Cell():
         """
         Adds inactive components to the cell of the design.
         """
+        self.ISA.update_inactive_components_tile_info(self.row,self.col)
         for component,info  in self.ISA.inactive_components.items():
             self.components.add_inactive_component(component,info,self.total_window)
+
+    def set_pc(self):
+        """
+        Sets the program counter for the instructions in the assembly.
+        """
+        self.assembly.set_pc()
+    
+    def set_delay_for_dpu(self):
+        self.assembly.set_delay_for_dpu_swb()
+
+    def adjust_swb(self):
+        self.assembly.adjust_swb()
+
+    def unroll_loop(self):
+        """
+        Unrolls the loop in the assembly.
+        """
+        self.assembly.unroll_loop()
+
+    def append_segment_values(self):
+        self.assembly.append_segment_values()
 
     def set_instr_active_components(self):
         """
@@ -75,7 +107,8 @@ class Cell():
             for idx, instr in enumerate(self.assembly.instructions):
                 for instr_component in instr.components.active:
                     if component == instr_component:
-                        active_window.append(instr_component.active_window)
+                        if(instr_component.active_window['end'] - instr_component.active_window['start'] != 0):
+                            active_window.append(instr_component.active_window)
             sorted_window = AssemblyProcessing.sort(active_window)
             for window in sorted_window:
                 window['clock_cycles'] = int((window['end'] - window['start'] )/constants.CLOCK_PERIOD)
@@ -138,6 +171,17 @@ class Cell():
         """
         self.profiler.set_diff_measurement()
 
+    def adjust_raccu(self):
+        for component in self.components.active:
+            if(component.name == "raccu"):
+                start_window = {'start': self.assembly.window['start'], 
+                                    'end': self.assembly.window['start'] + 4 * constants.CLOCK_PERIOD
+                }
+                component.active_window.append(start_window)
+                sorted_window = AssemblyProcessing.sort(component.active_window)
+                component.active_window = sorted_window
+
+ 
     def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()
