@@ -53,7 +53,7 @@ class InnovusPowerParser():
 #                        if (net['switching'] != 0):
 #                            logging.info('Net: %s', name)
                         count += 1
-        logging.info('Active nets: %s', count)
+#        logging.info('Active nets: %s', count)
 
     def get_power(self, signals):
         count = 0

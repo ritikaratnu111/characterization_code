@@ -1,6 +1,6 @@
 import json
 import sympy as sp
-JSON_FILE_PATH = '/home/ritika/silago/characterization_code/json_files/'    
+JSON_FILE_PATH = '/home/ritika/Documents/silago/characterization_code/json_files/'    
 class ISA():
 
     CLOCK_PERIOD = 12

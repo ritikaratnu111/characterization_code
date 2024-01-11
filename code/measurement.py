@@ -27,6 +27,7 @@ class Measurement():
         self.window = window if window is not None else {}
         self.power = Power()
         self.energy = Energy()
+        self.nets = 0
 
     def set_window(self,window):
         self.window = window
@@ -34,7 +35,7 @@ class Measurement():
     def read_power(self,reader,file,signals):
         reader.update_nets(file)
         reader.set_active_nets(signals)
-        reader_power, active_nets = reader.get_power(signals)
+        reader_power, self.nets = reader.get_power(signals)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
@@ -42,7 +43,7 @@ class Measurement():
 
     def read_remaining_power(self,reader,file,tiles):
         reader.update_nets(file)
-        reader_power, active_nets = reader.get_remaining_power(tiles)
+        reader_power, self.nets = reader.get_remaining_power(tiles)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
@@ -50,7 +51,7 @@ class Measurement():
 
     def read_total_power(self,reader,file,tiles):
         reader.update_nets(file)
-        reader_power, active_nets = reader.get_total_power(tiles)
+        reader_power, self.nets = reader.get_total_power(tiles)
         self.power.internal = reader_power['internal']
         self.power.switching = reader_power['switching']
         self.power.leakage = reader_power['leakage']
@@ -62,27 +63,41 @@ class Measurement():
         self.energy.leakage = self.power.leakage * self.window['clock_cycles'] * constants.CLOCK_PERIOD
         self.energy.total = self.power.total * self.window['clock_cycles'] * constants.CLOCK_PERIOD
 
-    def add_measurement(self,measurement):
-        """
-        Add the give energy, we don't add power because power of all components is not addtitive energy is additive
-        """
+    def add_power(self,measurement):
+        self.power.internal  += measurement.power.internal
+        self.power.switching += measurement.power.switching
+        self.power.leakage   += measurement.power.leakage
+        self.power.total     += measurement.power.total
+
+    def add_energy(self,measurement):
         self.energy.internal += measurement.energy.internal
         self.energy.switching += measurement.energy.switching
         self.energy.leakage += measurement.energy.leakage
         self.energy.total += measurement.energy.total
 
-    def log(self):
-        logging.info('%s %s %s %s %s',
-         '{}'.format(self.window['start']).ljust(20),
+    def adjust_power(self):
+        self.power.internal  = self.power.internal/self.window['clock_cycles'] 
+        self.power.switching = self.power.switching/self.window['clock_cycles']
+        self.power.leakage   = self.power.leakage/self.window['clock_cycles']
+        self.power.total     = self.power.total/self.window['clock_cycles']
+
+
+    def log_power(self):
+        logging.info('[%s %s] %s    %s %s %s %s',
+         '{}'.format(self.window['start']).ljust(1),
+         '{}'.format(self.window['end']).ljust(1),
+         '{}'.format(self.nets).ljust(2),
          '{:.3f}'.format(self.power.internal).ljust(20),
          '{:.6f}'.format(self.power.switching).ljust(20),
          '{:.3f}'.format(self.power.leakage).ljust(20),
          '{:.3f}'.format(self.power.total).ljust(20))
-        logging.info('%s %s %s %s %s',
-         '{}'.format(self.window['start']).ljust(20),
+    
+    def log_energy(self):
+        logging.info('[%s %s] %s     %s %s %s %s',
+         '{}'.format(self.window['start']).ljust(1),
+         '{}'.format(self.window['end']).ljust(1),
+         '{}'.format(self.nets).ljust(2),
          '{:.3f}'.format(self.energy.internal).ljust(20),
-         '{:.3f}'.format(self.energy.switching).ljust(20),
+         '{:.6f}'.format(self.energy.switching).ljust(20),
          '{:.3f}'.format(self.energy.leakage).ljust(20),
          '{:.3f}'.format(self.energy.total).ljust(20))
-        print(f"Power: internal: {self.power.internal} switching: {self.power.switching} leakage: {self.power.leakage} total: {self.power.total}")
-        print(f"Energy: internal: {self.energy.internal} switching: {self.energy.switching} leakage: {self.energy.leakage} total: {self.energy.total}")

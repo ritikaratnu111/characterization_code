@@ -6,60 +6,50 @@ from measurement import Measurement
 class CellProfiler():
     def __init__(self):
         self.window = {}
-        self.AEC_measurement = Measurement()
-        self.remaining_measurement = Measurement()
+        self.active_AEC_measurement = Measurement()
+        self.inactive_AEC_measurement = Measurement()
         self.total_measurement = Measurement()
-        self.diff_measurement = Measurement()
+        self.error_measurement = Measurement()
 
     def init(self, total_window):
         self.window = total_window
 
-    def set_AEC_measurement(self,active_components,iter):
+    def set_active_AEC_measurement(self,active_components,iter):
         """
         Sum up the energies of the active components in the cell
         """
         for component in active_components:
-            self.AEC_measurement.set_window(self.window)
-            for measurement in component.profiler.active_measurement:
-                self.AEC_measurement.add_measurement(measurement)
-            for measurement in component.profiler.inactive_measurement:
-                self.AEC_measurement.add_measurement(measurement)
-        self.AEC_measurement.log()
+            self.active_AEC_measurement.set_window(self.window)
+            self.active_AEC_measurement.nets += component.profiler.total_measurement_from_per_cycle.nets
+            self.active_AEC_measurement.add_power(component.profiler.total_measurement_from_per_cycle)
+            self.active_AEC_measurement.add_energy(component.profiler.total_measurement_from_per_cycle)
 
-
-    def set_remaining_measurement(self,reader,tiles,iter):
+    def set_inactive_AEC_measurement(self,inactive_components,iter):
         """
-        Set the power of the remaining components in the cell apart from active components
+        Sum up the energies of the inactive components in the cell
         """
-        file = f"./vcd/iter/iter_{iter}.vcd.pwr"
-        measurement = Measurement()
-        measurement.set_window(self.window)
-        measurement.read_remaining_power(reader,file,tiles)
-        measurement.get_energy()
-        measurement.log()
-        self.remaining_measurement = measurement
+        for component in inactive_components:
+            self.inactive_AEC_measurement.set_window(self.window)
+            self.inactive_AEC_measurement.nets += component.profiler.total_measurement_from_per_cycle.nets
+            self.inactive_AEC_measurement.add_power(component.profiler.total_measurement_from_per_cycle)
+            self.inactive_AEC_measurement.add_energy(component.profiler.total_measurement_from_per_cycle)
 
     def set_total_measurement(self,reader,tiles,iter):
         """
         Set total power of the cell 
         """
         file = f"./vcd/iter/iter_{iter}.vcd.pwr"
-        measurement = Measurement()
-        measurement.set_window(self.window)
-        measurement.read_total_power(reader,file,tiles)
-        measurement.get_energy()
-        measurement.log()
-        self.total_measurement = measurement
+        self.total_measurement.set_window(self.window)
+        self.total_measurement.read_total_power(reader,file,tiles)
+        self.total_measurement.get_energy()
 
-    def set_diff_measurement(self):
+    def set_error_measurement(self):
         """
-        Set the difference between total and remaining power of the cell
+        Set the errorerence between total and remaining power of the cell
         """
-        measurement = Measurement()
-        measurement.set_window(self.window)
-        measurement.energy.internal = self.total_measurement.energy.internal - self.remaining_measurement.energy.internal - self.AEC_measurement.energy.internal
-        measurement.energy.switching = self.total_measurement.energy.switching - self.remaining_measurement.energy.switching - self.AEC_measurement.energy.switching
-        measurement.energy.leakage = self.total_measurement.energy.leakage - self.remaining_measurement.energy.leakage - self.AEC_measurement.energy.leakage
-        measurement.energy.total = self.total_measurement.energy.total - self.remaining_measurement.energy.total - self.AEC_measurement.energy.total
-        measurement.log()
-        self.diff_measurement = measurement
+        self.error_measurement.set_window(self.window)
+        self.error_measurement.nets = 100 *  (self.total_measurement.nets - self.active_AEC_measurement.nets - self.inactive_AEC_measurement.nets) / max(self.total_measurement.nets,self.active_AEC_measurement.nets+self.inactive_AEC_measurement.nets)
+        self.error_measurement.energy.internal = 100 * (self.total_measurement.energy.internal - self.active_AEC_measurement.energy.internal - self.inactive_AEC_measurement.energy.internal)/ max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
+        self.error_measurement.energy.switching = 100 * (self.total_measurement.energy.switching - self.active_AEC_measurement.energy.switching - self.inactive_AEC_measurement.energy.switching) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
+        self.error_measurement.energy.leakage = 100 * (self.total_measurement.energy.leakage - self.active_AEC_measurement.energy.leakage - self.inactive_AEC_measurement.energy.leakage) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
+        self.error_measurement.energy.total = 100 * (self.total_measurement.energy.total - self.active_AEC_measurement.energy.total - self.inactive_AEC_measurement.energy.total) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
