@@ -1,0 +1,563 @@
+INFO:root:Testbench: conv
+INFO:root:About: Convolution of 16x16 matrix with 3x3 kernel. There is a problem in raccu with other loop, register 14 has zeros in it while register 13 has its values.
+INFO:root:Cell: cell_0_0
+INFO:root:Instruction WAIT starts at 1494
+INFO:root:Instruction ROUTE starts at 1518
+INFO:root:Instruction SRAM starts at 1530
+INFO:root:Instruction REFI starts at 1542
+INFO:root:Instruction WAIT starts at 1554
+INFO:root:Instruction LOOP starts at 1758
+INFO:root:Instruction RACCU starts at 1770
+INFO:root:Instruction SWB starts at 1782
+INFO:root:Instruction SWB starts at 1794
+INFO:root:Instruction DPU starts at 1806
+INFO:root:Instruction REFI starts at 1818
+INFO:root:Instruction RACCU starts at 1830
+INFO:root:Instruction REFI starts at 1842
+INFO:root:Instruction SWB starts at 1854
+INFO:root:Instruction WAIT starts at 1866
+INFO:root:Instruction REFI starts at 1950
+INFO:root:Instruction ROUTE starts at 1962
+INFO:root:Instruction SRAM starts at 1974
+INFO:root:Instruction WAIT starts at 1986
+INFO:root:Instruction HALT starts at 2022
+INFO:root:Added cell cell_0_0 to the assembly
+INFO:root:Cell: cell_0_1
+INFO:root:Instruction WAIT starts at 1506
+INFO:root:Instruction ROUTE starts at 1518
+INFO:root:Instruction SRAM starts at 1530
+INFO:root:Instruction REFI starts at 1542
+INFO:root:Instruction WAIT starts at 1554
+INFO:root:Instruction ROUTE starts at 1650
+INFO:root:Instruction WAIT starts at 1662
+INFO:root:Instruction LOOP starts at 1758
+INFO:root:Instruction RACCU starts at 1770
+INFO:root:Instruction SWB starts at 1782
+INFO:root:Instruction SWB starts at 1794
+INFO:root:Instruction DPU starts at 1806
+INFO:root:Instruction REFI starts at 1818
+INFO:root:Instruction RACCU starts at 1830
+INFO:root:Instruction REFI starts at 1842
+INFO:root:Instruction SWB starts at 1854
+INFO:root:Instruction WAIT starts at 1866
+INFO:root:Instruction REFI starts at 1950
+INFO:root:Instruction SRAM starts at 1962
+INFO:root:Instruction WAIT starts at 1974
+INFO:root:Instruction HALT starts at 2022
+INFO:root:Added cell cell_0_1 to the assembly
+INFO:root:Cell: cell_1_0
+INFO:root:Instruction WAIT starts at 1506
+INFO:root:Instruction REFI starts at 1518
+INFO:root:Instruction WAIT starts at 1530
+INFO:root:Instruction ROUTE starts at 1650
+INFO:root:Instruction SRAM starts at 1662
+INFO:root:Instruction WAIT starts at 1674
+INFO:root:Instruction LOOP starts at 1758
+INFO:root:Instruction REFI starts at 1770
+INFO:root:Instruction WAIT starts at 1782
+INFO:root:Instruction WAIT starts at 1950
+INFO:root:Instruction HALT starts at 2022
+INFO:root:Added cell cell_1_0 to the assembly
+INFO:root:Cell: cell_1_1
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1494 4374
+INFO:root:-----------------------------------------------------------
+INFO:root:raccu
+INFO:root:['Silago_top_l_corner_inst*0_0*u_raccu']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1794                 1                    
+INFO:root:  active : 1842                 1854                 1                    
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1794                 1842                 4                    
+INFO:root:inactive : 1854                 4374                 210                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_top_l_corner_inst*0_0*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1494                 2034                 45                   
+INFO:root:inactive : 2034                 4374                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_top_l_corner_inst*0_0*noc', 'Silago_top_l_corner_inst*0_0*partition', 'Silago_top_l_corner_inst*0_0*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1962                 1998                 3                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1962                 34                   
+INFO:root:inactive : 1998                 4374                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1542                 1590                 4                    
+INFO:root:  active : 1986                 2034                 4                    
+INFO:root:inactive : 1494                 1542                 4                    
+INFO:root:inactive : 1590                 1986                 33                   
+INFO:root:inactive : 2034                 4374                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1566                 1590                 2                    
+INFO:root:  active : 2010                 2034                 2                    
+INFO:root:inactive : 1494                 1566                 6                    
+INFO:root:inactive : 1590                 2010                 35                   
+INFO:root:inactive : 2034                 4374                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1614                 8                    
+INFO:root:  active : 1962                 2058                 8                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1614                 1962                 29                   
+INFO:root:inactive : 2058                 4374                 193                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_top_l_corner_inst*0_0*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1542                 1650                 9                    
+INFO:root:  active : 1818                 2022                 17                   
+INFO:root:inactive : 1494                 1542                 4                    
+INFO:root:inactive : 1650                 1818                 14                   
+INFO:root:inactive : 2022                 4374                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu
+INFO:root:['Silago_top_l_corner_inst*0_0*dpu_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1806                 1926                 10                   
+INFO:root:inactive : 1494                 1806                 26                   
+INFO:root:inactive : 1926                 4374                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:config_swb
+INFO:root:['Silago_top_l_corner_inst*0_0*config_swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1818                 3                    
+INFO:root:  active : 1854                 1878                 2                    
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1818                 1854                 3                    
+INFO:root:inactive : 1878                 4374                 208                  
+INFO:root:-----------------------------------------------------------
+INFO:root:swb
+INFO:root:['Silago_top_l_corner_inst*0_0*swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1926                 12                   
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1926                 4374                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1782                 1830                 4                    
+INFO:root:  active : 1854                 1866                 1                    
+INFO:root:  active : 1962                 1998                 3                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1782                 19                   
+INFO:root:inactive : 1830                 1854                 2                    
+INFO:root:inactive : 1866                 1962                 8                    
+INFO:root:inactive : 1998                 4374                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_top_l_corner_inst*0_0*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1962                 1998                 3                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1962                 34                   
+INFO:root:inactive : 1998                 4374                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1602                 1626                 2                    
+INFO:root:  active : 2046                 2070                 2                    
+INFO:root:inactive : 1494                 1602                 9                    
+INFO:root:inactive : 1626                 2046                 35                   
+INFO:root:inactive : 2070                 4374                 192                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1494 4374
+INFO:root:-----------------------------------------------------------
+INFO:root:raccu
+INFO:root:['Silago_top_inst*1_0*u_raccu']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1794                 1                    
+INFO:root:  active : 1842                 1854                 1                    
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1794                 1842                 4                    
+INFO:root:inactive : 1854                 4374                 210                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_top_inst*1_0*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1506                 2034                 44                   
+INFO:root:inactive : 1494                 1506                 1                    
+INFO:root:inactive : 2034                 4374                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_top_inst*1_0*noc', 'Silago_top_inst*1_0*partition', 'Silago_top_inst*1_0*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1650                 1686                 3                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1650                 8                    
+INFO:root:inactive : 1686                 4374                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_inst_1_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1542                 1590                 4                    
+INFO:root:  active : 1974                 2022                 4                    
+INFO:root:inactive : 1494                 1542                 4                    
+INFO:root:inactive : 1590                 1974                 32                   
+INFO:root:inactive : 2022                 4374                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_inst_1_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1566                 1590                 2                    
+INFO:root:  active : 1998                 2022                 2                    
+INFO:root:inactive : 1494                 1566                 6                    
+INFO:root:inactive : 1590                 1998                 34                   
+INFO:root:inactive : 2022                 4374                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_inst_1_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1614                 8                    
+INFO:root:  active : 1650                 1746                 8                    
+INFO:root:  active : 1998                 2010                 1                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1614                 1650                 3                    
+INFO:root:inactive : 1746                 1998                 21                   
+INFO:root:inactive : 2010                 4374                 197                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_top_inst*1_0*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1542                 1650                 9                    
+INFO:root:  active : 1818                 2010                 16                   
+INFO:root:inactive : 1494                 1542                 4                    
+INFO:root:inactive : 1650                 1818                 14                   
+INFO:root:inactive : 2010                 4374                 197                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu
+INFO:root:['Silago_top_inst*1_0*dpu_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1806                 1926                 10                   
+INFO:root:inactive : 1494                 1806                 26                   
+INFO:root:inactive : 1926                 4374                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:config_swb
+INFO:root:['Silago_top_inst*1_0*config_swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1818                 3                    
+INFO:root:  active : 1854                 1878                 2                    
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1818                 1854                 3                    
+INFO:root:inactive : 1878                 4374                 208                  
+INFO:root:-----------------------------------------------------------
+INFO:root:swb
+INFO:root:['Silago_top_inst*1_0*swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1782                 1926                 12                   
+INFO:root:inactive : 1494                 1782                 24                   
+INFO:root:inactive : 1926                 4374                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_top_inst*1_0*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1650                 1662                 1                    
+INFO:root:  active : 1782                 1830                 4                    
+INFO:root:  active : 1854                 1866                 1                    
+INFO:root:  active : 1962                 1986                 2                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1650                 8                    
+INFO:root:inactive : 1662                 1782                 10                   
+INFO:root:inactive : 1830                 1854                 2                    
+INFO:root:inactive : 1866                 1962                 8                    
+INFO:root:inactive : 1986                 4374                 199                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_top_inst*1_0*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1554                 3                    
+INFO:root:  active : 1650                 1686                 3                    
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1554                 1650                 8                    
+INFO:root:inactive : 1686                 4374                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_top_inst*1_0*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1602                 1626                 2                    
+INFO:root:  active : 2034                 2058                 2                    
+INFO:root:inactive : 1494                 1602                 9                    
+INFO:root:inactive : 1626                 2034                 34                   
+INFO:root:inactive : 2058                 4374                 193                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1494 4374
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_bot_l_corner_inst*0_1*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1506                 2034                 44                   
+INFO:root:inactive : 1494                 1506                 1                    
+INFO:root:inactive : 2034                 4374                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_bot_l_corner_inst*0_1*noc', 'Silago_bot_l_corner_inst*0_1*partition', 'Silago_bot_l_corner_inst*0_1*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1650                 1686                 3                    
+INFO:root:inactive : 1494                 1650                 13                   
+INFO:root:inactive : 1686                 4374                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1674                 1722                 4                    
+INFO:root:inactive : 1494                 1674                 15                   
+INFO:root:inactive : 1722                 4374                 221                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1698                 1722                 2                    
+INFO:root:inactive : 1494                 1698                 17                   
+INFO:root:inactive : 1722                 4374                 221                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1650                 1746                 8                    
+INFO:root:inactive : 1494                 1650                 13                   
+INFO:root:inactive : 1746                 4374                 219                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_bot_l_corner_inst*0_1*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1518                 1758                 20                   
+INFO:root:  active : 1770                 1938                 14                   
+INFO:root:inactive : 1494                 1518                 2                    
+INFO:root:inactive : 1758                 1770                 1                    
+INFO:root:inactive : 1938                 4374                 203                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_bot_l_corner_inst*0_1*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1650                 1686                 3                    
+INFO:root:inactive : 1494                 1650                 13                   
+INFO:root:inactive : 1686                 4374                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_bot_l_corner_inst*0_1*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1650                 1686                 3                    
+INFO:root:inactive : 1494                 1650                 13                   
+INFO:root:inactive : 1686                 4374                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_bot_l_corner_inst*0_1*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1734                 1758                 2                    
+INFO:root:inactive : 1494                 1734                 20                   
+INFO:root:inactive : 1758                 4374                 218                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1494                 4374                 240                  

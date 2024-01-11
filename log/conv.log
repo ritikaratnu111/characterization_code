@@ -1,0 +1,8 @@
+INFO:root:Testbench: vec_add
+INFO:root:About: Pointwise vector addition of two vectors read from dimarch and written back to dimarch
+INFO:root:Cell: cell_0_0
+INFO:root:Cell cell_0_0 created
+INFO:root:Cell cell_0_0 window: {'start': 450, 'end': 870}
+INFO:root:hop cycles: 0
+INFO:root:Assembly window: {'start': 450, 'end': 870}
+INFO:root:Added cell cell_0_0 to the assembly

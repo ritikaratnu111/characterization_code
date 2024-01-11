@@ -1,0 +1,842 @@
+INFO:root:Testbench: conv
+INFO:root:About: Convolution of 16x16 matrix with 3x3 kernel. There is a problem in raccu with other loop, register 14 has zeros in it while register 13 has its values.
+INFO:root:Cell: cell_0_0
+INFO:root:Instruction WAIT starts at 1866
+INFO:root:Instruction ROUTE starts at 1890
+INFO:root:Instruction SRAM starts at 1902
+INFO:root:Instruction REFI starts at 1914
+INFO:root:Instruction WAIT starts at 1926
+INFO:root:Instruction LOOP starts at 2130
+INFO:root:Instruction RACCU starts at 2142
+INFO:root:Instruction SWB starts at 2154
+INFO:root:Instruction SWB starts at 2166
+INFO:root:Instruction DPU starts at 2178
+INFO:root:Instruction REFI starts at 2190
+INFO:root:Instruction RACCU starts at 2202
+INFO:root:Instruction REFI starts at 2214
+INFO:root:Instruction SWB starts at 2226
+INFO:root:Instruction WAIT starts at 2238
+INFO:root:Instruction REFI starts at 2322
+INFO:root:Instruction ROUTE starts at 2334
+INFO:root:Instruction SRAM starts at 2346
+INFO:root:Instruction WAIT starts at 2358
+INFO:root:Instruction HALT starts at 2394
+INFO:root:Added cell cell_0_0 to the assembly
+INFO:root:Cell: cell_0_1
+INFO:root:Instruction WAIT starts at 1878
+INFO:root:Instruction ROUTE starts at 1890
+INFO:root:Instruction SRAM starts at 1902
+INFO:root:Instruction REFI starts at 1914
+INFO:root:Instruction WAIT starts at 1926
+INFO:root:Instruction ROUTE starts at 2022
+INFO:root:Instruction WAIT starts at 2034
+INFO:root:Instruction LOOP starts at 2130
+INFO:root:Instruction RACCU starts at 2142
+INFO:root:Instruction SWB starts at 2154
+INFO:root:Instruction SWB starts at 2166
+INFO:root:Instruction DPU starts at 2178
+INFO:root:Instruction REFI starts at 2190
+INFO:root:Instruction RACCU starts at 2202
+INFO:root:Instruction REFI starts at 2214
+INFO:root:Instruction SWB starts at 2226
+INFO:root:Instruction WAIT starts at 2238
+INFO:root:Instruction REFI starts at 2322
+INFO:root:Instruction SRAM starts at 2334
+INFO:root:Instruction WAIT starts at 2346
+INFO:root:Instruction HALT starts at 2394
+INFO:root:Added cell cell_0_1 to the assembly
+INFO:root:Cell: cell_1_0
+INFO:root:Instruction WAIT starts at 1878
+INFO:root:Instruction REFI starts at 1890
+INFO:root:Instruction WAIT starts at 1902
+INFO:root:Instruction ROUTE starts at 2022
+INFO:root:Instruction SRAM starts at 2034
+INFO:root:Instruction WAIT starts at 2046
+INFO:root:Instruction LOOP starts at 2130
+INFO:root:Instruction REFI starts at 2142
+INFO:root:Instruction WAIT starts at 2154
+INFO:root:Instruction WAIT starts at 2322
+INFO:root:Instruction HALT starts at 2394
+INFO:root:Added cell cell_1_0 to the assembly
+INFO:root:Cell: cell_1_1
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1866 4746
+INFO:root:-----------------------------------------------------------
+INFO:root:raccu
+INFO:root:['Silago_top_l_corner_inst*0_0*u_Raccu']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2166                 1                    
+INFO:root:  active : 2214                 2226                 1                    
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2166                 2214                 4                    
+INFO:root:inactive : 2226                 4746                 210                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_top_l_corner_inst*0_0*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1866                 2406                 45                   
+INFO:root:inactive : 2406                 4746                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_top_l_corner_inst*0_0*noc', 'Silago_top_l_corner_inst*0_0*partition', 'Silago_top_l_corner_inst*0_0*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2334                 2370                 3                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2334                 34                   
+INFO:root:inactive : 2370                 4746                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1914                 1962                 4                    
+INFO:root:  active : 2358                 2406                 4                    
+INFO:root:inactive : 1866                 1914                 4                    
+INFO:root:inactive : 1962                 2358                 33                   
+INFO:root:inactive : 2406                 4746                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1938                 1962                 2                    
+INFO:root:  active : 2382                 2406                 2                    
+INFO:root:inactive : 1866                 1938                 6                    
+INFO:root:inactive : 1962                 2382                 35                   
+INFO:root:inactive : 2406                 4746                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1986                 8                    
+INFO:root:  active : 2334                 2430                 8                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1986                 2334                 29                   
+INFO:root:inactive : 2430                 4746                 193                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_top_l_corner_inst*0_0*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1914                 2022                 9                    
+INFO:root:  active : 2190                 2394                 17                   
+INFO:root:inactive : 1866                 1914                 4                    
+INFO:root:inactive : 2022                 2190                 14                   
+INFO:root:inactive : 2394                 4746                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu
+INFO:root:['Silago_top_l_corner_inst*0_0*dpu_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2178                 2298                 10                   
+INFO:root:inactive : 1866                 2178                 26                   
+INFO:root:inactive : 2298                 4746                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:config_swb
+INFO:root:['Silago_top_l_corner_inst*0_0*config_swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2190                 3                    
+INFO:root:  active : 2226                 2250                 2                    
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2190                 2226                 3                    
+INFO:root:inactive : 2250                 4746                 208                  
+INFO:root:-----------------------------------------------------------
+INFO:root:swb
+INFO:root:['Silago_top_l_corner_inst*0_0*swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2298                 12                   
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2298                 4746                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2154                 2202                 4                    
+INFO:root:  active : 2226                 2238                 1                    
+INFO:root:  active : 2334                 2370                 3                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2154                 19                   
+INFO:root:inactive : 2202                 2226                 2                    
+INFO:root:inactive : 2238                 2334                 8                    
+INFO:root:inactive : 2370                 4746                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_top_l_corner_inst*0_0*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2334                 2370                 3                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2334                 34                   
+INFO:root:inactive : 2370                 4746                 198                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1974                 1998                 2                    
+INFO:root:  active : 2418                 2442                 2                    
+INFO:root:inactive : 1866                 1974                 9                    
+INFO:root:inactive : 1998                 2418                 35                   
+INFO:root:inactive : 2442                 4746                 192                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1866 4746
+INFO:root:-----------------------------------------------------------
+INFO:root:raccu
+INFO:root:['Silago_top_inst*1_0*u_Raccu']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2166                 1                    
+INFO:root:  active : 2214                 2226                 1                    
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2166                 2214                 4                    
+INFO:root:inactive : 2226                 4746                 210                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_top_inst*1_0*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1878                 2406                 44                   
+INFO:root:inactive : 1866                 1878                 1                    
+INFO:root:inactive : 2406                 4746                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_top_inst*1_0*noc', 'Silago_top_inst*1_0*partition', 'Silago_top_inst*1_0*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2022                 2058                 3                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2022                 8                    
+INFO:root:inactive : 2058                 4746                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_inst_1_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1914                 1962                 4                    
+INFO:root:  active : 2346                 2394                 4                    
+INFO:root:inactive : 1866                 1914                 4                    
+INFO:root:inactive : 1962                 2346                 32                   
+INFO:root:inactive : 2394                 4746                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_inst_1_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1938                 1962                 2                    
+INFO:root:  active : 2370                 2394                 2                    
+INFO:root:inactive : 1866                 1938                 6                    
+INFO:root:inactive : 1962                 2370                 34                   
+INFO:root:inactive : 2394                 4746                 196                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_inst_1_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1986                 8                    
+INFO:root:  active : 2022                 2118                 8                    
+INFO:root:  active : 2370                 2382                 1                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1986                 2022                 3                    
+INFO:root:inactive : 2118                 2370                 21                   
+INFO:root:inactive : 2382                 4746                 197                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_top_inst*1_0*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1914                 2022                 9                    
+INFO:root:  active : 2190                 2382                 16                   
+INFO:root:inactive : 1866                 1914                 4                    
+INFO:root:inactive : 2022                 2190                 14                   
+INFO:root:inactive : 2382                 4746                 197                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu
+INFO:root:['Silago_top_inst*1_0*dpu_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2178                 2298                 10                   
+INFO:root:inactive : 1866                 2178                 26                   
+INFO:root:inactive : 2298                 4746                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:config_swb
+INFO:root:['Silago_top_inst*1_0*config_swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2190                 3                    
+INFO:root:  active : 2226                 2250                 2                    
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2190                 2226                 3                    
+INFO:root:inactive : 2250                 4746                 208                  
+INFO:root:-----------------------------------------------------------
+INFO:root:swb
+INFO:root:['Silago_top_inst*1_0*swb']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2154                 2298                 12                   
+INFO:root:inactive : 1866                 2154                 24                   
+INFO:root:inactive : 2298                 4746                 204                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_top_inst*1_0*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2022                 2034                 1                    
+INFO:root:  active : 2154                 2202                 4                    
+INFO:root:  active : 2226                 2238                 1                    
+INFO:root:  active : 2334                 2358                 2                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2022                 8                    
+INFO:root:inactive : 2034                 2154                 10                   
+INFO:root:inactive : 2202                 2226                 2                    
+INFO:root:inactive : 2238                 2334                 8                    
+INFO:root:inactive : 2358                 4746                 199                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_top_inst*1_0*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 1926                 3                    
+INFO:root:  active : 2022                 2058                 3                    
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 1926                 2022                 8                    
+INFO:root:inactive : 2058                 4746                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_top_inst*1_0*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1974                 1998                 2                    
+INFO:root:  active : 2406                 2430                 2                    
+INFO:root:inactive : 1866                 1974                 9                    
+INFO:root:inactive : 1998                 2406                 34                   
+INFO:root:inactive : 2430                 4746                 193                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:Active components for cell <built-in function id>:
+INFO:root:      start               end                   cycles              
+INFO:root:Assembly: 1866 4746
+INFO:root:-----------------------------------------------------------
+INFO:root:sequencer
+INFO:root:['Silago_bot_l_corner_inst*0_1*seq_gen']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1878                 2406                 44                   
+INFO:root:inactive : 1866                 1878                 1                    
+INFO:root:inactive : 2406                 4746                 195                  
+INFO:root:-----------------------------------------------------------
+INFO:root:noc
+INFO:root:['Silago_bot_l_corner_inst*0_1*noc', 'Silago_bot_l_corner_inst*0_1*partition', 'Silago_bot_l_corner_inst*0_1*splitter']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2022                 2058                 3                    
+INFO:root:inactive : 1866                 2022                 13                   
+INFO:root:inactive : 2058                 4746                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2046                 2094                 4                    
+INFO:root:inactive : 1866                 2046                 15                   
+INFO:root:inactive : 2094                 4746                 221                  
+INFO:root:-----------------------------------------------------------
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2070                 2094                 2                    
+INFO:root:inactive : 1866                 2070                 17                   
+INFO:root:inactive : 2094                 4746                 221                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2022                 2118                 8                    
+INFO:root:inactive : 1866                 2022                 13                   
+INFO:root:inactive : 2118                 4746                 219                  
+INFO:root:-----------------------------------------------------------
+INFO:root:regfile
+INFO:root:['Silago_bot_l_corner_inst*0_1*reg_top']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 1890                 2130                 20                   
+INFO:root:  active : 2142                 2310                 14                   
+INFO:root:inactive : 1866                 1890                 2                    
+INFO:root:inactive : 2130                 2142                 1                    
+INFO:root:inactive : 2310                 4746                 203                  
+INFO:root:-----------------------------------------------------------
+INFO:root:shadow_reg
+INFO:root:['Silago_bot_l_corner_inst*0_1*shadowReg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2022                 2058                 3                    
+INFO:root:inactive : 1866                 2022                 13                   
+INFO:root:inactive : 2058                 4746                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:bus_selector
+INFO:root:['Silago_bot_l_corner_inst*0_1*u_bus_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2022                 2058                 3                    
+INFO:root:inactive : 1866                 2022                 13                   
+INFO:root:inactive : 2058                 4746                 224                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_bot_l_corner_inst*0_1*dimarch_data_in_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:  active : 2106                 2130                 2                    
+INFO:root:inactive : 1866                 2106                 20                   
+INFO:root:inactive : 2130                 4746                 218                  
+INFO:root:-----------------------------------------------------------
+INFO:root:data_selector
+INFO:root:['u_data_selector']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_in_out
+INFO:root:['diamarch_data_in_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dimarch_data_out
+INFO:root:['dimarch_data_out']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_rb
+INFO:root:['seq_address_rb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:seq_address_cb
+INFO:root:['seq_address_cb']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp_out_reg
+INFO:root:['instr_inp_out_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:instr_inp
+INFO:root:['instr_inp']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:ext_v_input_bus_in
+INFO:root:['ext_v_input_bus_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:CTS
+INFO:root:['CTS']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:rst_n
+INFO:root:['rst_n']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_reg
+INFO:root:['h_bus_reg']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:h_bus_dpu
+INFO:root:['h_bus_dpu']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:-----------------------------------------------------------
+INFO:root:dpu_silego_interface
+INFO:root:['dpu_in']
+INFO:root:-----------------------------------------------------------
+INFO:root:inactive : 1866                 4746                 240                  
+INFO:root:Setting per_cycle measurement for Silago_top_l_corner_inst_0_0
+INFO:root:Setting per_cycle measurement for sequencer
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*seq_gen']
+ERROR:root:File ./vcd/4374.vcd.pwr not found
+ERROR:root:File ./vcd/4386.vcd.pwr not found
+ERROR:root:File ./vcd/4398.vcd.pwr not found
+ERROR:root:File ./vcd/4410.vcd.pwr not found
+ERROR:root:File ./vcd/4422.vcd.pwr not found
+ERROR:root:File ./vcd/4434.vcd.pwr not found
+ERROR:root:File ./vcd/4446.vcd.pwr not found
+ERROR:root:File ./vcd/4458.vcd.pwr not found
+ERROR:root:File ./vcd/4470.vcd.pwr not found
+ERROR:root:File ./vcd/4482.vcd.pwr not found
+ERROR:root:File ./vcd/4494.vcd.pwr not found
+ERROR:root:File ./vcd/4506.vcd.pwr not found
+ERROR:root:File ./vcd/4518.vcd.pwr not found
+ERROR:root:File ./vcd/4530.vcd.pwr not found
+ERROR:root:File ./vcd/4542.vcd.pwr not found
+ERROR:root:File ./vcd/4554.vcd.pwr not found
+ERROR:root:File ./vcd/4566.vcd.pwr not found
+ERROR:root:File ./vcd/4578.vcd.pwr not found
+ERROR:root:File ./vcd/4590.vcd.pwr not found
+ERROR:root:File ./vcd/4602.vcd.pwr not found
+ERROR:root:File ./vcd/4614.vcd.pwr not found
+ERROR:root:File ./vcd/4626.vcd.pwr not found
+ERROR:root:File ./vcd/4638.vcd.pwr not found
+ERROR:root:File ./vcd/4650.vcd.pwr not found
+ERROR:root:File ./vcd/4662.vcd.pwr not found
+ERROR:root:File ./vcd/4674.vcd.pwr not found
+ERROR:root:File ./vcd/4686.vcd.pwr not found
+ERROR:root:File ./vcd/4698.vcd.pwr not found
+ERROR:root:File ./vcd/4710.vcd.pwr not found
+ERROR:root:File ./vcd/4722.vcd.pwr not found
+ERROR:root:File ./vcd/4734.vcd.pwr not found
+INFO:root:Active Window:
+INFO:root:Inactive Window:
+INFO:root:1866                 0.426                0.003155             0.703                1.133               
+INFO:root:1878                 0.436                0.035405             0.703                1.174               
+INFO:root:1890                 0.436                0.032050             0.704                1.172               
+INFO:root:1902                 0.440                0.044943             0.704                1.189               
+INFO:root:1914                 0.448                0.060621             0.704                1.212               
+INFO:root:1926                 0.426                0.001236             0.702                1.129               
+INFO:root:1938                 0.426                0.001026             0.701                1.129               
+INFO:root:1950                 0.426                0.001156             0.701                1.129               
+INFO:root:1962                 0.427                0.001355             0.701                1.129               
+INFO:root:1974                 0.426                0.000916             0.701                1.128               
+INFO:root:1986                 0.426                0.000994             0.701                1.128               
+INFO:root:1998                 0.427                0.001380             0.701                1.130               
+INFO:root:2010                 0.427                0.001718             0.701                1.130               
+INFO:root:2022                 0.426                0.000939             0.701                1.128               
+INFO:root:2034                 0.426                0.000994             0.701                1.128               
+INFO:root:2046                 0.426                0.001156             0.701                1.129               
+INFO:root:2058                 0.427                0.001355             0.701                1.129               
+INFO:root:2070                 0.426                0.000916             0.701                1.128               
+INFO:root:2082                 0.426                0.000994             0.701                1.129               
+INFO:root:2094                 0.427                0.001627             0.701                1.130               
+INFO:root:2106                 0.428                0.004309             0.701                1.134               
+INFO:root:2118                 0.444                0.068305             0.702                1.214               
+INFO:root:2130                 0.448                0.084715             0.703                1.236               
+INFO:root:2142                 0.444                0.064749             0.703                1.212               
+INFO:root:2154                 0.441                0.051216             0.703                1.195               
+INFO:root:2166                 0.444                0.073530             0.703                1.220               
+INFO:root:2178                 0.448                0.068634             0.704                1.221               
+INFO:root:2190                 0.450                0.088441             0.704                1.243               
+INFO:root:2202                 0.444                0.073512             0.705                1.223               
+INFO:root:2214                 0.440                0.043929             0.705                1.189               
+INFO:root:2226                 0.442                0.050073             0.705                1.197               
+INFO:root:2238                 0.426                0.001015             0.704                1.131               
+INFO:root:2250                 0.426                0.001026             0.704                1.131               
+INFO:root:2262                 0.426                0.001156             0.704                1.132               
+INFO:root:2274                 0.427                0.001355             0.704                1.132               
+INFO:root:2286                 0.426                0.000916             0.704                1.131               
+INFO:root:2298                 0.430                0.007769             0.704                1.142               
+INFO:root:2310                 0.452                0.087337             0.705                1.244               
+INFO:root:2322                 0.448                0.068929             0.704                1.221               
+INFO:root:2334                 0.442                0.051723             0.704                1.197               
+INFO:root:2346                 0.445                0.073657             0.703                1.222               
+INFO:root:2358                 0.446                0.066080             0.705                1.216               
+INFO:root:2370                 0.456                0.092474             0.704                1.253               
+INFO:root:2382                 0.448                0.076438             0.705                1.230               
+INFO:root:2394                 0.441                0.044293             0.705                1.190               
+INFO:root:2406                 0.443                0.050773             0.705                1.198               
+INFO:root:2418                 0.426                0.001015             0.704                1.131               
+INFO:root:2430                 0.426                0.001026             0.704                1.131               
+INFO:root:2442                 0.426                0.001156             0.704                1.132               
+INFO:root:2454                 0.427                0.001355             0.704                1.132               
+INFO:root:2466                 0.426                0.000916             0.704                1.131               
+INFO:root:2478                 0.430                0.007953             0.704                1.142               
+INFO:root:2490                 0.455                0.088377             0.705                1.248               
+INFO:root:2502                 0.451                0.072280             0.704                1.227               
+INFO:root:2514                 0.442                0.051977             0.704                1.198               
+INFO:root:2526                 0.446                0.074332             0.704                1.224               
+INFO:root:2538                 0.447                0.067087             0.705                1.219               
+INFO:root:2550                 0.459                0.094569             0.705                1.258               
+INFO:root:2562                 0.450                0.079444             0.705                1.235               
+INFO:root:2574                 0.441                0.044376             0.705                1.191               
+INFO:root:2586                 0.443                0.050856             0.705                1.199               
+INFO:root:2598                 0.426                0.001015             0.705                1.132               
+INFO:root:2610                 0.426                0.001026             0.705                1.132               
+INFO:root:2622                 0.426                0.001156             0.705                1.132               
+INFO:root:2634                 0.427                0.001355             0.705                1.133               
+INFO:root:2646                 0.426                0.000916             0.705                1.131               
+INFO:root:2658                 0.430                0.008287             0.705                1.143               
+INFO:root:2670                 0.454                0.090230             0.705                1.250               
+INFO:root:2682                 0.449                0.070264             0.704                1.223               
+INFO:root:2694                 0.442                0.052052             0.704                1.198               
+INFO:root:2706                 0.447                0.074975             0.704                1.226               
+INFO:root:2718                 0.447                0.066938             0.705                1.218               
+INFO:root:2730                 0.458                0.094160             0.705                1.257               
+INFO:root:2742                 0.450                0.078413             0.705                1.233               
+INFO:root:2754                 0.442                0.044838             0.705                1.191               
+INFO:root:2766                 0.444                0.051556             0.705                1.200               
+INFO:root:2778                 0.426                0.001015             0.705                1.132               
+INFO:root:2790                 0.426                0.001026             0.705                1.132               
+INFO:root:2802                 0.426                0.001156             0.705                1.132               
+INFO:root:2814                 0.427                0.001355             0.705                1.133               
+INFO:root:2826                 0.426                0.000916             0.705                1.131               
+INFO:root:2838                 0.430                0.008400             0.705                1.143               
+INFO:root:2850                 0.457                0.090416             0.705                1.253               
+INFO:root:2862                 0.453                0.074710             0.704                1.232               
+INFO:root:2874                 0.443                0.052291             0.704                1.199               
+INFO:root:2886                 0.447                0.075482             0.704                1.226               
+INFO:root:2898                 0.448                0.067983             0.705                1.221               
+INFO:root:2910                 0.461                0.096335             0.705                1.262               
+INFO:root:2922                 0.452                0.082083             0.705                1.239               
+INFO:root:2934                 0.441                0.044470             0.705                1.191               
+INFO:root:2946                 0.443                0.050985             0.705                1.199               
+INFO:root:2958                 0.426                0.001015             0.705                1.132               
+INFO:root:2970                 0.426                0.001026             0.705                1.132               
+INFO:root:2982                 0.426                0.001156             0.705                1.132               
+INFO:root:2994                 0.427                0.001355             0.705                1.133               
+INFO:root:3006                 0.426                0.000916             0.705                1.131               
+INFO:root:3018                 0.430                0.007769             0.705                1.142               
+INFO:root:3030                 0.454                0.089525             0.705                1.249               
+INFO:root:3042                 0.450                0.070966             0.704                1.224               
+INFO:root:3054                 0.442                0.052154             0.704                1.199               
+INFO:root:3066                 0.447                0.075744             0.704                1.227               
+INFO:root:3078                 0.447                0.067335             0.705                1.219               
+INFO:root:3090                 0.458                0.094894             0.705                1.258               
+INFO:root:3102                 0.450                0.078941             0.705                1.234               
+INFO:root:3114                 0.442                0.044941             0.705                1.192               
+INFO:root:3126                 0.444                0.051694             0.705                1.201               
+INFO:root:3138                 0.426                0.001015             0.705                1.132               
+INFO:root:3150                 0.426                0.001026             0.705                1.132               
+INFO:root:3162                 0.426                0.001156             0.705                1.132               
+INFO:root:3174                 0.427                0.001355             0.705                1.133               
+INFO:root:3186                 0.426                0.000916             0.705                1.132               
+INFO:root:3198                 0.430                0.007977             0.705                1.143               
+INFO:root:3210                 0.457                0.090570             0.705                1.253               
+INFO:root:3222                 0.453                0.074289             0.704                1.231               
+INFO:root:3234                 0.443                0.052408             0.704                1.200               
+INFO:root:3246                 0.448                0.076387             0.704                1.229               
+INFO:root:3258                 0.448                0.068343             0.705                1.222               
+INFO:root:3270                 0.461                0.096986             0.705                1.263               
+INFO:root:3282                 0.452                0.081910             0.705                1.239               
+INFO:root:3294                 0.442                0.045024             0.706                1.192               
+INFO:root:3306                 0.444                0.051744             0.706                1.201               
+INFO:root:3318                 0.426                0.001015             0.705                1.132               
+INFO:root:3330                 0.426                0.001026             0.705                1.132               
+INFO:root:3342                 0.426                0.001156             0.705                1.133               
+INFO:root:3354                 0.427                0.001355             0.705                1.133               
+INFO:root:3366                 0.426                0.000916             0.705                1.132               
+INFO:root:3378                 0.431                0.008832             0.705                1.145               
+INFO:root:3390                 0.457                0.093234             0.706                1.255               
+INFO:root:3402                 0.450                0.071622             0.704                1.226               
+INFO:root:3414                 0.443                0.052433             0.704                1.199               
+INFO:root:3426                 0.449                0.076880             0.704                1.230               
+INFO:root:3438                 0.448                0.067479             0.705                1.220               
+INFO:root:3450                 0.460                0.095612             0.705                1.260               
+INFO:root:3462                 0.451                0.080490             0.705                1.237               
+INFO:root:3474                 0.442                0.045460             0.705                1.193               
+INFO:root:3486                 0.445                0.052417             0.705                1.203               
+INFO:root:3498                 0.426                0.001015             0.705                1.132               
+INFO:root:3510                 0.426                0.001026             0.705                1.132               
+INFO:root:3522                 0.426                0.001156             0.705                1.132               
+INFO:root:3534                 0.427                0.001355             0.705                1.133               
+INFO:root:3546                 0.426                0.000916             0.705                1.132               
+INFO:root:3558                 0.431                0.008814             0.705                1.144               
+INFO:root:3570                 0.459                0.092547             0.706                1.257               
+INFO:root:3582                 0.456                0.076956             0.704                1.237               
+INFO:root:3594                 0.443                0.052598             0.705                1.200               
+INFO:root:3606                 0.448                0.075873             0.704                1.228               
+INFO:root:3618                 0.449                0.068295             0.706                1.223               
+INFO:root:3630                 0.463                0.097018             0.705                1.265               
+INFO:root:3642                 0.453                0.084448             0.705                1.243               
+INFO:root:3654                 0.441                0.044446             0.705                1.191               
+INFO:root:3666                 0.443                0.050945             0.705                1.199               
+INFO:root:3678                 0.426                0.001015             0.705                1.132               
+INFO:root:3690                 0.426                0.001026             0.705                1.132               
+INFO:root:3702                 0.426                0.001156             0.705                1.132               
+INFO:root:3714                 0.427                0.001355             0.705                1.133               
+INFO:root:3726                 0.426                0.000916             0.705                1.131               
+INFO:root:3738                 0.430                0.007769             0.705                1.142               
+INFO:root:3750                 0.454                0.089790             0.705                1.249               
+INFO:root:3762                 0.450                0.070993             0.704                1.224               
+INFO:root:3774                 0.442                0.052135             0.704                1.198               
+INFO:root:3786                 0.447                0.075493             0.704                1.227               
+INFO:root:3798                 0.447                0.067008             0.705                1.219               
+INFO:root:3810                 0.458                0.094595             0.705                1.258               
+INFO:root:3822                 0.450                0.078855             0.705                1.234               
+INFO:root:3834                 0.442                0.044917             0.705                1.192               
+INFO:root:3846                 0.444                0.051653             0.705                1.201               
+INFO:root:3858                 0.426                0.001015             0.705                1.132               
+INFO:root:3870                 0.426                0.001026             0.705                1.132               
+INFO:root:3882                 0.426                0.001156             0.705                1.132               
+INFO:root:3894                 0.427                0.001355             0.705                1.133               
+INFO:root:3906                 0.426                0.000916             0.705                1.132               
+INFO:root:3918                 0.430                0.007953             0.705                1.143               
+INFO:root:3930                 0.457                0.090866             0.705                1.253               
+INFO:root:3942                 0.453                0.074371             0.704                1.231               
+INFO:root:3954                 0.443                0.052389             0.704                1.200               
+INFO:root:3966                 0.448                0.076136             0.704                1.229               
+INFO:root:3978                 0.448                0.068016             0.705                1.221               
+INFO:root:3990                 0.461                0.096718             0.705                1.263               
+INFO:root:4002                 0.452                0.081855             0.705                1.239               
+INFO:root:4014                 0.442                0.045000             0.706                1.192               
+INFO:root:4026                 0.444                0.051704             0.705                1.201               
+INFO:root:4038                 0.426                0.001015             0.705                1.132               
+INFO:root:4050                 0.426                0.001026             0.705                1.132               
+INFO:root:4062                 0.426                0.001156             0.705                1.133               
+INFO:root:4074                 0.427                0.001355             0.705                1.133               
+INFO:root:4086                 0.426                0.000916             0.705                1.132               
+INFO:root:4098                 0.430                0.008287             0.705                1.144               
+INFO:root:4110                 0.457                0.092785             0.706                1.255               
+INFO:root:4122                 0.451                0.072420             0.704                1.227               
+INFO:root:4134                 0.443                0.052464             0.704                1.200               
+INFO:root:4146                 0.449                0.076778             0.704                1.230               
+INFO:root:4158                 0.448                0.067833             0.705                1.221               
+INFO:root:4170                 0.460                0.096388             0.705                1.262               
+INFO:root:4182                 0.452                0.080936             0.705                1.238               
+INFO:root:4194                 0.442                0.045462             0.706                1.193               
+INFO:root:4206                 0.445                0.052403             0.706                1.203               
+INFO:root:4218                 0.426                0.001015             0.705                1.132               
+INFO:root:4230                 0.426                0.001026             0.705                1.132               
+INFO:root:4242                 0.426                0.001156             0.705                1.133               
+INFO:root:4254                 0.427                0.001355             0.705                1.133               
+INFO:root:4266                 0.426                0.000916             0.705                1.132               
+INFO:root:4278                 0.430                0.008400             0.705                1.144               
+INFO:root:4290                 0.459                0.093007             0.706                1.258               
+INFO:root:4302                 0.455                0.076902             0.704                1.236               
+INFO:root:4314                 0.443                0.052704             0.705                1.201               
+INFO:root:4326                 0.449                0.077285             0.705                1.231               
+INFO:root:4338                 0.449                0.068878             0.706                1.224               
+INFO:root:4350                 0.463                0.098597             0.706                1.267               
+INFO:root:4362                 0.454                0.084641             0.706                1.244               
+INFO:root:4374                 0.454                0.084641             0.706                1.244               
+INFO:root:4386                 0.454                0.084641             0.706                1.244               
+INFO:root:4398                 0.454                0.084641             0.706                1.244               
+INFO:root:4410                 0.454                0.084641             0.706                1.244               
+INFO:root:4422                 0.454                0.084641             0.706                1.244               
+INFO:root:4434                 0.454                0.084641             0.706                1.244               
+INFO:root:4446                 0.454                0.084641             0.706                1.244               
+INFO:root:4458                 0.454                0.084641             0.706                1.244               
+INFO:root:4470                 0.454                0.084641             0.706                1.244               
+INFO:root:4482                 0.454                0.084641             0.706                1.244               
+INFO:root:4494                 0.454                0.084641             0.706                1.244               
+INFO:root:4506                 0.454                0.084641             0.706                1.244               
+INFO:root:4518                 0.454                0.084641             0.706                1.244               
+INFO:root:4530                 0.454                0.084641             0.706                1.244               
+INFO:root:4542                 0.454                0.084641             0.706                1.244               
+INFO:root:4554                 0.454                0.084641             0.706                1.244               
+INFO:root:4566                 0.454                0.084641             0.706                1.244               
+INFO:root:4578                 0.454                0.084641             0.706                1.244               
+INFO:root:4590                 0.454                0.084641             0.706                1.244               
+INFO:root:4602                 0.454                0.084641             0.706                1.244               
+INFO:root:4614                 0.454                0.084641             0.706                1.244               
+INFO:root:4626                 0.454                0.084641             0.706                1.244               
+INFO:root:4638                 0.454                0.084641             0.706                1.244               
+INFO:root:4650                 0.454                0.084641             0.706                1.244               
+INFO:root:4662                 0.454                0.084641             0.706                1.244               
+INFO:root:4674                 0.454                0.084641             0.706                1.244               
+INFO:root:4686                 0.454                0.084641             0.706                1.244               
+INFO:root:4698                 0.454                0.084641             0.706                1.244               
+INFO:root:4710                 0.454                0.084641             0.706                1.244               
+INFO:root:4722                 0.454                0.084641             0.706                1.244               
+INFO:root:4734                 0.454                0.084641             0.706                1.244               
+INFO:root:Setting per_cycle measurement for Silago_top_inst_1_0
+INFO:root:Setting per_cycle measurement for sequencer
+INFO:root:Signal: ['Silago_top_inst*1_0*seq_gen']

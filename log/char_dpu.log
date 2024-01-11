@@ -1,0 +1,913 @@
+INFO:root:Testbench: vec_add
+INFO:root:About: Pointwise vector addition of two vectors read from dimarch and written back to dimarch
+INFO:root:Cell: cell_0_0
+INFO:root:Cell cell_0_0 created
+INFO:root:Cell cell_0_0 window: {'start': 450, 'end': 870, 'clock_cycles': 35}
+INFO:root:hop cycles: 0
+INFO:root:Assembly window: {'start': 450, 'end': 870}
+INFO:root:Added cell cell_0_0 to the assembly
+INFO:root:Setting per_cycle measurement for Silago_top_l_corner_inst_0_0
+INFO:root:Setting per_cycle measurement for sequencer
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*seq_gen']
+INFO:root:Setting per_cycle measurement for noc
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*noc', 'Silago_top_l_corner_inst*0_0*partition', 'Silago_top_l_corner_inst*0_0*splitter']
+INFO:root:Setting per_cycle measurement for dimarch_agu
+INFO:root:Signal: ['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:Setting per_cycle measurement for sram
+INFO:root:Signal: ['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:Setting per_cycle measurement for dimarch
+INFO:root:Signal: ['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:Setting per_cycle measurement for regfile
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*reg_top']
+INFO:root:Setting per_cycle measurement for dpu
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*dpu_gen']
+INFO:root:Setting per_cycle measurement for config_swb
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*config_swb']
+INFO:root:Setting per_cycle measurement for swb
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*swb']
+INFO:root:Setting per_cycle measurement for shadow_reg
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*shadowReg']
+INFO:root:Setting per_cycle measurement for bus_selector
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*u_bus_selector']
+INFO:root:Setting per_cycle measurement for dimarch_data_in_out_reg
+INFO:root:Signal: ['Silago_top_l_corner_inst*0_0*dimarch_data_in_out_reg']
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:Iter: 0
+INFO:root:---------------------------------Logging windows--------------
+INFO:root:sequencer
+INFO:root:['Silago_top_l_corner_inst*0_0*seq_gen']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 450                  870                  35                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:noc
+INFO:root:['Silago_top_l_corner_inst*0_0*noc', 'Silago_top_l_corner_inst*0_0*partition', 'Silago_top_l_corner_inst*0_0*splitter']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:inactive : 450                  474                  2                    
+INFO:root:inactive : 510                  570                  5                    
+INFO:root:inactive : 606                  870                  22                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:dimarch_agu
+INFO:root:['DiMArchTile_bot_l_inst_0_1*AGU']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 498                  546                  4                    
+INFO:root:  active : 594                  642                  4                    
+INFO:root:inactive : 450                  498                  4                    
+INFO:root:inactive : 546                  594                  4                    
+INFO:root:inactive : 642                  870                  19                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 498                  546                  4                    
+INFO:root:  active : 594                  642                  4                    
+INFO:root:sram
+INFO:root:['DiMArchTile_bot_l_inst_0_1*u_sram']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 522                  546                  2                    
+INFO:root:  active : 618                  642                  2                    
+INFO:root:inactive : 450                  522                  6                    
+INFO:root:inactive : 546                  618                  6                    
+INFO:root:inactive : 642                  870                  19                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 522                  546                  2                    
+INFO:root:  active : 618                  642                  2                    
+INFO:root:dimarch
+INFO:root:['DiMArchTile_bot_l_inst_0_1*DiMArch']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 474                  666                  16                   
+INFO:root:inactive : 450                  474                  2                    
+INFO:root:inactive : 666                  870                  17                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 474                  666                  16                   
+INFO:root:regfile
+INFO:root:['Silago_top_l_corner_inst*0_0*reg_top']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 450                  870                  35                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:dpu
+INFO:root:['Silago_top_l_corner_inst*0_0*dpu_gen']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 642                  870                  19                   
+INFO:root:inactive : 450                  642                  16                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:config_swb
+INFO:root:['Silago_top_l_corner_inst*0_0*config_swb']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 522                  558                  3                    
+INFO:root:inactive : 450                  522                  6                    
+INFO:root:inactive : 558                  870                  26                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 522                  570                  4                    
+INFO:root:swb
+INFO:root:['Silago_top_l_corner_inst*0_0*swb']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 534                  570                  3                    
+INFO:root:inactive : 450                  534                  7                    
+INFO:root:inactive : 570                  870                  25                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 534                  570                  3                    
+INFO:root:shadow_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*shadowReg']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 522                  558                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:  active : 642                  666                  2                    
+INFO:root:inactive : 450                  474                  2                    
+INFO:root:inactive : 510                  522                  1                    
+INFO:root:inactive : 558                  570                  1                    
+INFO:root:inactive : 606                  642                  3                    
+INFO:root:inactive : 666                  870                  17                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 522                  558                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:  active : 642                  666                  2                    
+INFO:root:bus_selector
+INFO:root:['Silago_top_l_corner_inst*0_0*u_bus_selector']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:inactive : 450                  474                  2                    
+INFO:root:inactive : 510                  570                  5                    
+INFO:root:inactive : 606                  870                  22                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 474                  510                  3                    
+INFO:root:  active : 570                  606                  3                    
+INFO:root:dimarch_data_in_out_reg
+INFO:root:['Silago_top_l_corner_inst*0_0*dimarch_data_in_out_reg']
+INFO:root:-----------------------Model-------------------------------
+INFO:root:  active : 558                  582                  2                    
+INFO:root:  active : 654                  678                  2                    
+INFO:root:inactive : 450                  558                  9                    
+INFO:root:inactive : 582                  654                  6                    
+INFO:root:inactive : 678                  870                  16                   
+INFO:root:-----------------------Actual------------------------------
+INFO:root:  active : 558                  582                  2                    
+INFO:root:  active : 654                  678                  2                    
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:sequencer
+INFO:root:Total accounted nets without sequencer: 0
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[450 870]     0.432                0.020490             0.702                1.154               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without sequencer: 0
+INFO:root:[450 870]     181.512              8.605757             294.740              484.857             
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.012                0.000585             0.020                0.033               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     181.512              8.605757             294.740              484.857             
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.432                0.020489             0.702                1.154               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     181.259              8.605552             294.829              484.693             
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with sequencer: 24792
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:noc
+INFO:root:Total accounted nets without noc: 24792
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[474 510]     0.002                0.001360             0.006                0.009               
+INFO:root:[570 606]     0.002                0.001306             0.006                0.009               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 474]     0.000                0.000000             0.006                0.006               
+INFO:root:[510 570]     0.000                0.000000             0.006                0.006               
+INFO:root:[606 870]     0.000                0.000000             0.006                0.006               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without noc: 24792
+INFO:root:[474 510]     0.072                0.048977             0.207                0.328               
+INFO:root:[570 606]     0.065                0.047021             0.207                0.319               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 474]     0.000                0.000000             0.138                0.138               
+INFO:root:[510 570]     0.000                0.000000             0.345                0.345               
+INFO:root:[606 870]     0.000                0.000000             1.517                1.517               
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.000                0.000076             0.001                0.001               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.137                0.095998             2.414                2.647               
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.000                0.000229             0.006                0.006               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     0.137                0.095991             2.414                2.647               
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with noc: 24945
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:dimarch_agu
+INFO:root:Total accounted nets without dimarch_agu: 24945
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[498 546]     0.127                0.003169             0.093                0.223               
+INFO:root:[594 642]     0.126                0.002992             0.093                0.222               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 498]     0.123                0.000000             0.093                0.216               
+INFO:root:[546 594]     0.123                0.000000             0.093                0.216               
+INFO:root:[642 870]     0.123                0.000000             0.093                0.216               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without dimarch_agu: 24945
+INFO:root:[498 546]     6.073                0.152113             4.467                10.693              
+INFO:root:[594 642]     6.044                0.143593             4.466                10.654              
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 498]     5.902                0.000000             4.463                10.365              
+INFO:root:[546 594]     5.902                0.000000             4.466                10.368              
+INFO:root:[642 870]     28.029               0.000000             21.198               49.227              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.018                0.000176             0.013                0.031               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     51.951               0.295706             39.061               91.308              
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.124                0.000704             0.093                0.217               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     51.940               0.295722             39.064               91.301              
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with dimarch_agu: 26513
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:sram
+INFO:root:Total accounted nets without sram: 26513
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[522 546]     0.696                0.012668             0.376                1.085               
+INFO:root:[618 642]     0.675                0.005952             0.376                1.057               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 522]     0.010                0.000000             0.376                0.386               
+INFO:root:[546 618]     0.020                0.000000             0.376                0.396               
+INFO:root:[642 870]     0.012                0.000000             0.376                0.388               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without sram: 26513
+INFO:root:[522 546]     16.705               0.304022             9.024                26.034              
+INFO:root:[618 642]     16.211               0.142838             9.024                25.378              
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 522]     0.702                0.000000             27.069               27.771              
+INFO:root:[546 618]     1.416                0.000000             27.069               28.485              
+INFO:root:[642 870]     2.798                0.000000             85.717               88.515              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.040                0.000532             0.054                0.095               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     37.832               0.446861             157.903              196.182             
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.090                0.001064             0.376                0.467               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     37.810               0.446859             157.904              196.160             
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with sram: 26551
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:dimarch
+INFO:root:Total accounted nets without dimarch: 26551
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[474 666]     0.372                0.017745             0.422                0.812               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 474]     0.349                0.000000             0.415                0.764               
+INFO:root:[666 870]     0.349                0.000000             0.422                0.770               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without dimarch: 26551
+INFO:root:[474 666]     71.467               3.406989             81.047               155.921             
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 474]     8.370                0.000000             9.955                18.325              
+INFO:root:[666 870]     71.146               0.000000             86.036               157.181             
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.031                0.000507             0.036                0.067               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     150.983              3.406989             177.038              331.427             
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.360                0.008112             0.422                0.789               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     151.010              3.406984             177.042              331.458             
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with dimarch: 40427
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:regfile
+INFO:root:Total accounted nets without regfile: 40427
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[450 870]     0.360                0.029579             0.614                1.003               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without regfile: 40427
+INFO:root:[450 870]     151.226              12.423030            257.783              421.433             
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.010                0.000845             0.018                0.029               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     151.226              12.423030            257.783              421.433             
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.356                0.029579             0.615                1.001               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     149.485              12.423156            258.359              420.267             
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with regfile: 60893
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:dpu
+INFO:root:Total accounted nets without dpu: 60893
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[642 870]     0.099                0.020586             0.378                0.498               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 642]     0.079                0.000000             0.376                0.455               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without dpu: 60893
+INFO:root:[642 870]     22.653               4.693550             86.290               113.637             
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 642]     15.221               0.000000             72.110               87.331              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.005                0.000588             0.022                0.027               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     37.874               4.693550             158.400              200.967             
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.090                0.011175             0.377                0.478               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     37.823               4.693504             158.425              200.942             
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with dpu: 71038
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:config_swb
+INFO:root:Total accounted nets without config_swb: 71038
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[522 558]     0.019                0.003170             0.019                0.041               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 522]     0.014                0.000000             0.019                0.033               
+INFO:root:[558 870]     0.014                0.000017             0.019                0.033               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without config_swb: 71038
+INFO:root:[522 558]     0.683                0.114134             0.687                1.484               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 522]     1.030                0.000000             1.367                2.397               
+INFO:root:[558 870]     4.481                0.005192             5.882                10.368              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.001                0.000091             0.002                0.003               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     6.194                0.119325             7.935                14.249              
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.014                0.000284             0.019                0.034               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     6.028                0.119326             7.965                14.112              
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with config_swb: 71354
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:swb
+INFO:root:Total accounted nets without swb: 71354
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[534 570]     0.000                0.002574             0.047                0.051               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 534]     0.000                0.000000             0.048                0.048               
+INFO:root:[570 870]     0.002                0.002224             0.047                0.051               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without swb: 71354
+INFO:root:[534 570]     0.017                0.092647             1.709                1.818               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 534]     0.000                0.000000             4.015                4.015               
+INFO:root:[570 870]     0.451                0.667172             14.105               15.223              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.000                0.000137             0.004                0.004               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.468                0.759820             19.829               21.056              
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.001                0.001809             0.047                0.050               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     0.469                0.759807             19.853               21.083              
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with swb: 73879
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:shadow_reg
+INFO:root:Total accounted nets without shadow_reg: 73879
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[474 510]     0.018                0.002365             0.027                0.048               
+INFO:root:[522 558]     0.018                0.001343             0.027                0.046               
+INFO:root:[570 606]     0.018                0.002316             0.027                0.048               
+INFO:root:[642 666]     0.018                0.002402             0.027                0.047               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 474]     0.018                0.000000             0.027                0.045               
+INFO:root:[510 522]     0.018                0.000000             0.027                0.045               
+INFO:root:[558 570]     0.018                0.000000             0.027                0.045               
+INFO:root:[606 642]     0.018                0.000000             0.027                0.045               
+INFO:root:[666 870]     0.018                0.000000             0.027                0.045               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without shadow_reg: 73879
+INFO:root:[474 510]     0.665                0.085128             0.963                1.713               
+INFO:root:[522 558]     0.663                0.048332             0.961                1.673               
+INFO:root:[570 606]     0.664                0.083374             0.966                1.713               
+INFO:root:[642 666]     0.432                0.057651             0.645                1.135               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 474]     0.428                0.000000             0.640                1.068               
+INFO:root:[510 522]     0.214                0.000000             0.320                0.534               
+INFO:root:[558 570]     0.214                0.000000             0.321                0.535               
+INFO:root:[606 642]     0.642                0.000000             0.964                1.605               
+INFO:root:[666 870]     3.637                0.000000             5.506                9.142               
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.005                0.000241             0.007                0.012               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     7.559                0.274486             11.286               19.119              
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.018                0.000654             0.027                0.045               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     7.566                0.274498             11.255               19.096              
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with shadow_reg: 74778
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:bus_selector
+INFO:root:Total accounted nets without bus_selector: 74778
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[474 510]     0.000                0.001473             0.001                0.003               
+INFO:root:[570 606]     0.000                0.001294             0.001                0.003               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 474]     0.000                0.000000             0.001                0.001               
+INFO:root:[510 570]     0.000                0.000000             0.001                0.001               
+INFO:root:[606 870]     0.000                0.000000             0.001                0.001               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without bus_selector: 74778
+INFO:root:[474 510]     0.008                0.053040             0.047                0.108               
+INFO:root:[570 606]     0.007                0.046596             0.047                0.100               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 474]     0.000                0.000000             0.018                0.018               
+INFO:root:[510 570]     0.000                0.000000             0.046                0.046               
+INFO:root:[606 870]     0.000                0.000000             0.203                0.203               
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.000                0.000079             0.000                0.000               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.015                0.099636             0.361                0.476               
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.000                0.000237             0.001                0.001               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     0.020                0.099632             0.362                0.482               
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with bus_selector: 74843
+INFO:root:-------------------AEC measurement from per_cycle data--------------------------------------
+INFO:root:dimarch_data_in_out_reg
+INFO:root:Total accounted nets without dimarch_data_in_out_reg: 74843
+INFO:root:-------------------active power--------------------------------------
+INFO:root:[558 582]     0.053                0.002013             0.020                0.075               
+INFO:root:[654 678]     0.052                0.002386             0.020                0.074               
+INFO:root:-------------------inactive power--------------------------------------
+INFO:root:[450 558]     0.048                0.000000             0.019                0.067               
+INFO:root:[582 654]     0.048                0.000000             0.019                0.067               
+INFO:root:[678 870]     0.048                0.000000             0.019                0.066               
+INFO:root:-------------------active energy--------------------------------------
+INFO:root:Total accounted nets without dimarch_data_in_out_reg: 74843
+INFO:root:[558 582]     1.272                0.048319             0.484                1.804               
+INFO:root:[654 678]     1.247                0.057263             0.478                1.782               
+INFO:root:-------------------inactive energy--------------------------------------
+INFO:root:[450 558]     5.156                0.000000             2.046                7.202               
+INFO:root:[582 654]     3.440                0.000000             1.364                4.804               
+INFO:root:[678 870]     9.128                0.000000             3.637                12.764              
+INFO:root:-------------------total power from per_cycle data--------------------------------------
+INFO:root:[450 870]     0.007                0.000126             0.003                0.010               
+INFO:root:-------------------total energy from per_cycle data--------------------------------------
+INFO:root:[450 870]     20.243               0.105582             8.009                28.357              
+INFO:root:-------------------total power from iter file data--------------------------------------
+INFO:root:[450 870]     0.048                0.000251             0.019                0.068               
+INFO:root:-------------------total energy from iter file data--------------------------------------
+INFO:root:[450 870]     20.248               0.105584             8.007                28.361              
+INFO:root:-------------------total energy from iter file--------------------------------------
+INFO:root:Total accounted nets with dimarch_data_in_out_reg: 75099
+INFO:root:---------------------All Data------------------------------
+INFO:root:sequencer
+INFO:root:[450 462]     0.438                0.033141             0.702                1.173               
+INFO:root:[462 474]     0.441                0.049709             0.702                1.192               
+INFO:root:[474 486]     0.435                0.031385             0.702                1.168               
+INFO:root:[486 498]     0.442                0.045895             0.703                1.190               
+INFO:root:[498 510]     0.443                0.054185             0.702                1.199               
+INFO:root:[510 522]     0.443                0.059215             0.702                1.204               
+INFO:root:[522 534]     0.435                0.032850             0.701                1.169               
+INFO:root:[534 546]     0.437                0.040268             0.701                1.179               
+INFO:root:[546 558]     0.443                0.062198             0.702                1.207               
+INFO:root:[558 570]     0.442                0.047608             0.702                1.192               
+INFO:root:[570 582]     0.436                0.029670             0.702                1.168               
+INFO:root:[582 594]     0.437                0.041822             0.702                1.181               
+INFO:root:[594 606]     0.426                0.001548             0.701                1.129               
+INFO:root:[606 618]     0.426                0.001026             0.701                1.128               
+INFO:root:[618 630]     0.428                0.004159             0.701                1.133               
+INFO:root:[630 642]     0.443                0.050998             0.701                1.195               
+INFO:root:[642 654]     0.438                0.041295             0.701                1.181               
+INFO:root:[654 666]     0.426                0.001057             0.702                1.129               
+INFO:root:[666 678]     0.426                0.001026             0.702                1.129               
+INFO:root:[678 690]     0.426                0.001156             0.702                1.129               
+INFO:root:[690 702]     0.427                0.001355             0.702                1.130               
+INFO:root:[702 714]     0.426                0.000916             0.702                1.129               
+INFO:root:[714 726]     0.426                0.000994             0.702                1.129               
+INFO:root:[726 738]     0.427                0.001380             0.702                1.130               
+INFO:root:[738 750]     0.427                0.001718             0.702                1.131               
+INFO:root:[750 762]     0.426                0.000939             0.702                1.129               
+INFO:root:[762 774]     0.426                0.000994             0.702                1.129               
+INFO:root:[774 786]     0.426                0.001156             0.702                1.129               
+INFO:root:[786 798]     0.427                0.001355             0.702                1.130               
+INFO:root:[798 810]     0.426                0.000916             0.702                1.129               
+INFO:root:[810 822]     0.426                0.000994             0.702                1.129               
+INFO:root:[822 834]     0.427                0.001627             0.702                1.131               
+INFO:root:[834 846]     0.429                0.004541             0.702                1.135               
+INFO:root:[846 858]     0.432                0.020705             0.702                1.155               
+INFO:root:[858 870]     0.437                0.047346             0.702                1.187               
+INFO:root:noc
+INFO:root:[450 462]     0.000                0.000000             0.006                0.006               
+INFO:root:[462 474]     0.000                0.000000             0.006                0.006               
+INFO:root:[474 486]     0.001                0.001591             0.006                0.009               
+INFO:root:[486 498]     0.003                0.000962             0.006                0.009               
+INFO:root:[498 510]     0.002                0.001528             0.006                0.009               
+INFO:root:[510 522]     0.000                0.000000             0.006                0.006               
+INFO:root:[522 534]     0.000                0.000000             0.006                0.006               
+INFO:root:[534 546]     0.000                0.000000             0.006                0.006               
+INFO:root:[546 558]     0.000                0.000000             0.006                0.006               
+INFO:root:[558 570]     0.000                0.000000             0.006                0.006               
+INFO:root:[570 582]     0.001                0.001591             0.006                0.009               
+INFO:root:[582 594]     0.002                0.000881             0.006                0.009               
+INFO:root:[594 606]     0.002                0.001447             0.006                0.009               
+INFO:root:[606 618]     0.000                0.000000             0.006                0.006               
+INFO:root:[618 630]     0.000                0.000000             0.006                0.006               
+INFO:root:[630 642]     0.000                0.000000             0.006                0.006               
+INFO:root:[642 654]     0.000                0.000000             0.006                0.006               
+INFO:root:[654 666]     0.000                0.000000             0.006                0.006               
+INFO:root:[666 678]     0.000                0.000000             0.006                0.006               
+INFO:root:[678 690]     0.000                0.000000             0.006                0.006               
+INFO:root:[690 702]     0.000                0.000000             0.006                0.006               
+INFO:root:[702 714]     0.000                0.000000             0.006                0.006               
+INFO:root:[714 726]     0.000                0.000000             0.006                0.006               
+INFO:root:[726 738]     0.000                0.000000             0.006                0.006               
+INFO:root:[738 750]     0.000                0.000000             0.006                0.006               
+INFO:root:[750 762]     0.000                0.000000             0.006                0.006               
+INFO:root:[762 774]     0.000                0.000000             0.006                0.006               
+INFO:root:[774 786]     0.000                0.000000             0.006                0.006               
+INFO:root:[786 798]     0.000                0.000000             0.006                0.006               
+INFO:root:[798 810]     0.000                0.000000             0.006                0.006               
+INFO:root:[810 822]     0.000                0.000000             0.006                0.006               
+INFO:root:[822 834]     0.000                0.000000             0.006                0.006               
+INFO:root:[834 846]     0.000                0.000000             0.006                0.006               
+INFO:root:[846 858]     0.000                0.000000             0.006                0.006               
+INFO:root:[858 870]     0.000                0.000000             0.006                0.006               
+INFO:root:dimarch_agu
+INFO:root:[450 462]     0.123                0.000000             0.093                0.216               
+INFO:root:[462 474]     0.123                0.000000             0.093                0.216               
+INFO:root:[474 486]     0.123                0.000000             0.093                0.216               
+INFO:root:[486 498]     0.123                0.000000             0.093                0.216               
+INFO:root:[498 510]     0.126                0.000383             0.093                0.219               
+INFO:root:[510 522]     0.127                0.005084             0.093                0.225               
+INFO:root:[522 534]     0.129                0.005778             0.093                0.227               
+INFO:root:[534 546]     0.125                0.001432             0.093                0.219               
+INFO:root:[546 558]     0.123                0.000000             0.093                0.216               
+INFO:root:[558 570]     0.123                0.000000             0.093                0.216               
+INFO:root:[570 582]     0.123                0.000000             0.093                0.216               
+INFO:root:[582 594]     0.123                0.000000             0.093                0.216               
+INFO:root:[594 606]     0.125                0.000238             0.093                0.218               
+INFO:root:[606 618]     0.127                0.004857             0.093                0.225               
+INFO:root:[618 630]     0.128                0.005649             0.093                0.226               
+INFO:root:[630 642]     0.124                0.001222             0.093                0.218               
+INFO:root:[642 654]     0.123                0.000000             0.093                0.216               
+INFO:root:[654 666]     0.123                0.000000             0.093                0.216               
+INFO:root:[666 678]     0.123                0.000000             0.093                0.216               
+INFO:root:[678 690]     0.123                0.000000             0.093                0.216               
+INFO:root:[690 702]     0.123                0.000000             0.093                0.216               
+INFO:root:[702 714]     0.123                0.000000             0.093                0.216               
+INFO:root:[714 726]     0.123                0.000000             0.093                0.216               
+INFO:root:[726 738]     0.123                0.000000             0.093                0.216               
+INFO:root:[738 750]     0.123                0.000000             0.093                0.216               
+INFO:root:[750 762]     0.123                0.000000             0.093                0.216               
+INFO:root:[762 774]     0.123                0.000000             0.093                0.216               
+INFO:root:[774 786]     0.123                0.000000             0.093                0.216               
+INFO:root:[786 798]     0.123                0.000000             0.093                0.216               
+INFO:root:[798 810]     0.123                0.000000             0.093                0.216               
+INFO:root:[810 822]     0.123                0.000000             0.093                0.216               
+INFO:root:[822 834]     0.123                0.000000             0.093                0.216               
+INFO:root:[834 846]     0.123                0.000000             0.093                0.216               
+INFO:root:[846 858]     0.123                0.000000             0.093                0.216               
+INFO:root:[858 870]     0.123                0.000000             0.093                0.216               
+INFO:root:sram
+INFO:root:[450 462]     0.010                0.000000             0.376                0.386               
+INFO:root:[462 474]     0.010                0.000000             0.376                0.386               
+INFO:root:[474 486]     0.010                0.000000             0.376                0.386               
+INFO:root:[486 498]     0.010                0.000000             0.376                0.386               
+INFO:root:[498 510]     0.010                0.000000             0.376                0.386               
+INFO:root:[510 522]     0.010                0.000000             0.376                0.386               
+INFO:root:[522 534]     0.017                0.001947             0.376                0.395               
+INFO:root:[534 546]     1.375                0.023389             0.376                1.774               
+INFO:root:[546 558]     0.040                0.000000             0.376                0.415               
+INFO:root:[558 570]     0.040                0.000000             0.376                0.415               
+INFO:root:[570 582]     0.010                0.000000             0.376                0.386               
+INFO:root:[582 594]     0.010                0.000000             0.376                0.386               
+INFO:root:[594 606]     0.010                0.000000             0.376                0.386               
+INFO:root:[606 618]     0.010                0.000000             0.376                0.386               
+INFO:root:[618 630]     0.015                0.001259             0.376                0.393               
+INFO:root:[630 642]     1.335                0.010645             0.376                1.722               
+INFO:root:[642 654]     0.034                0.000000             0.376                0.410               
+INFO:root:[654 666]     0.034                0.000000             0.376                0.410               
+INFO:root:[666 678]     0.010                0.000000             0.376                0.386               
+INFO:root:[678 690]     0.010                0.000000             0.376                0.386               
+INFO:root:[690 702]     0.010                0.000000             0.376                0.386               
+INFO:root:[702 714]     0.010                0.000000             0.376                0.386               
+INFO:root:[714 726]     0.010                0.000000             0.376                0.386               
+INFO:root:[726 738]     0.010                0.000000             0.376                0.386               
+INFO:root:[738 750]     0.010                0.000000             0.376                0.386               
+INFO:root:[750 762]     0.010                0.000000             0.376                0.386               
+INFO:root:[762 774]     0.010                0.000000             0.376                0.386               
+INFO:root:[774 786]     0.010                0.000000             0.376                0.386               
+INFO:root:[786 798]     0.010                0.000000             0.376                0.386               
+INFO:root:[798 810]     0.010                0.000000             0.376                0.386               
+INFO:root:[810 822]     0.010                0.000000             0.376                0.386               
+INFO:root:[822 834]     0.010                0.000000             0.376                0.386               
+INFO:root:[834 846]     0.010                0.000000             0.376                0.386               
+INFO:root:[846 858]     0.010                0.000000             0.376                0.386               
+INFO:root:[858 870]     0.010                0.000000             0.376                0.386               
+INFO:root:dimarch
+INFO:root:[450 462]     0.349                0.000000             0.415                0.764               
+INFO:root:[462 474]     0.349                0.000000             0.415                0.764               
+INFO:root:[474 486]     0.352                0.009368             0.415                0.776               
+INFO:root:[486 498]     0.356                0.026391             0.415                0.798               
+INFO:root:[498 510]     0.350                0.009752             0.422                0.782               
+INFO:root:[510 522]     0.349                0.001820             0.422                0.773               
+INFO:root:[522 534]     0.350                0.000063             0.421                0.771               
+INFO:root:[534 546]     0.365                0.031200             0.421                0.817               
+INFO:root:[546 558]     0.447                0.056345             0.428                0.931               
+INFO:root:[558 570]     0.429                0.025207             0.424                0.879               
+INFO:root:[570 582]     0.352                0.009330             0.422                0.783               
+INFO:root:[582 594]     0.352                0.012618             0.422                0.787               
+INFO:root:[594 606]     0.350                0.008785             0.423                0.782               
+INFO:root:[606 618]     0.349                0.001773             0.423                0.774               
+INFO:root:[618 630]     0.350                0.000063             0.422                0.771               
+INFO:root:[630 642]     0.362                0.025444             0.422                0.810               
+INFO:root:[642 654]     0.428                0.045568             0.427                0.901               
+INFO:root:[654 666]     0.414                0.020188             0.424                0.858               
+INFO:root:[666 678]     0.349                0.000000             0.422                0.770               
+INFO:root:[678 690]     0.349                0.000000             0.422                0.770               
+INFO:root:[690 702]     0.349                0.000000             0.422                0.770               
+INFO:root:[702 714]     0.349                0.000000             0.422                0.770               
+INFO:root:[714 726]     0.349                0.000000             0.422                0.770               
+INFO:root:[726 738]     0.349                0.000000             0.422                0.770               
+INFO:root:[738 750]     0.349                0.000000             0.422                0.770               
+INFO:root:[750 762]     0.349                0.000000             0.422                0.770               
+INFO:root:[762 774]     0.349                0.000000             0.422                0.770               
+INFO:root:[774 786]     0.349                0.000000             0.422                0.770               
+INFO:root:[786 798]     0.349                0.000000             0.422                0.770               
+INFO:root:[798 810]     0.349                0.000000             0.422                0.770               
+INFO:root:[810 822]     0.349                0.000000             0.422                0.770               
+INFO:root:[822 834]     0.349                0.000000             0.422                0.770               
+INFO:root:[834 846]     0.349                0.000000             0.422                0.770               
+INFO:root:[846 858]     0.349                0.000000             0.422                0.770               
+INFO:root:[858 870]     0.349                0.000000             0.422                0.770               
+INFO:root:regfile
+INFO:root:[450 462]     0.350                0.013736             0.609                0.973               
+INFO:root:[462 474]     0.362                0.025991             0.610                0.997               
+INFO:root:[474 486]     0.357                0.012601             0.610                0.979               
+INFO:root:[486 498]     0.347                0.001894             0.610                0.959               
+INFO:root:[498 510]     0.355                0.018655             0.610                0.984               
+INFO:root:[510 522]     0.359                0.026996             0.610                0.995               
+INFO:root:[522 534]     0.358                0.017153             0.610                0.986               
+INFO:root:[534 546]     0.351                0.006733             0.611                0.968               
+INFO:root:[546 558]     0.363                0.040511             0.611                1.015               
+INFO:root:[558 570]     0.386                0.069529             0.614                1.069               
+INFO:root:[570 582]     0.353                0.012334             0.612                0.978               
+INFO:root:[582 594]     0.349                0.004245             0.612                0.965               
+INFO:root:[594 606]     0.352                0.006710             0.612                0.970               
+INFO:root:[606 618]     0.350                0.005385             0.612                0.967               
+INFO:root:[618 630]     0.349                0.004748             0.612                0.966               
+INFO:root:[630 642]     0.351                0.006674             0.612                0.969               
+INFO:root:[642 654]     0.367                0.041601             0.612                1.021               
+INFO:root:[654 666]     0.387                0.064668             0.615                1.066               
+INFO:root:[666 678]     0.358                0.027973             0.613                1.000               
+INFO:root:[678 690]     0.357                0.030916             0.615                1.003               
+INFO:root:[690 702]     0.359                0.030808             0.614                1.004               
+INFO:root:[702 714]     0.361                0.039171             0.616                1.016               
+INFO:root:[714 726]     0.359                0.037015             0.616                1.011               
+INFO:root:[726 738]     0.359                0.038637             0.616                1.014               
+INFO:root:[738 750]     0.364                0.043698             0.618                1.025               
+INFO:root:[750 762]     0.363                0.041015             0.617                1.021               
+INFO:root:[762 774]     0.361                0.034902             0.617                1.013               
+INFO:root:[774 786]     0.361                0.037936             0.618                1.016               
+INFO:root:[786 798]     0.358                0.037198             0.617                1.012               
+INFO:root:[798 810]     0.363                0.040471             0.618                1.022               
+INFO:root:[810 822]     0.361                0.045676             0.618                1.025               
+INFO:root:[822 834]     0.360                0.036484             0.618                1.015               
+INFO:root:[834 846]     0.369                0.044144             0.618                1.032               
+INFO:root:[846 858]     0.382                0.060635             0.617                1.059               
+INFO:root:[858 870]     0.359                0.028411             0.617                1.004               
+INFO:root:dpu
+INFO:root:[450 462]     0.079                0.000000             0.376                0.455               
+INFO:root:[462 474]     0.079                0.000000             0.376                0.455               
+INFO:root:[474 486]     0.079                0.000000             0.376                0.455               
+INFO:root:[486 498]     0.079                0.000000             0.376                0.455               
+INFO:root:[498 510]     0.079                0.000000             0.376                0.455               
+INFO:root:[510 522]     0.079                0.000000             0.376                0.455               
+INFO:root:[522 534]     0.079                0.000000             0.376                0.455               
+INFO:root:[534 546]     0.079                0.000000             0.376                0.455               
+INFO:root:[546 558]     0.079                0.000000             0.376                0.455               
+INFO:root:[558 570]     0.079                0.000000             0.376                0.455               
+INFO:root:[570 582]     0.079                0.000000             0.376                0.455               
+INFO:root:[582 594]     0.079                0.000000             0.376                0.455               
+INFO:root:[594 606]     0.079                0.000000             0.376                0.455               
+INFO:root:[606 618]     0.079                0.000000             0.376                0.455               
+INFO:root:[618 630]     0.079                0.000000             0.376                0.455               
+INFO:root:[630 642]     0.079                0.000000             0.376                0.455               
+INFO:root:[642 654]     0.080                0.001653             0.376                0.457               
+INFO:root:[654 666]     0.104                0.027922             0.375                0.508               
+INFO:root:[666 678]     0.110                0.026678             0.379                0.516               
+INFO:root:[678 690]     0.113                0.027798             0.380                0.521               
+INFO:root:[690 702]     0.111                0.026017             0.379                0.516               
+INFO:root:[702 714]     0.100                0.021230             0.380                0.501               
+INFO:root:[714 726]     0.093                0.017767             0.378                0.489               
+INFO:root:[726 738]     0.104                0.029305             0.378                0.512               
+INFO:root:[738 750]     0.107                0.027899             0.380                0.514               
+INFO:root:[750 762]     0.099                0.020245             0.380                0.499               
+INFO:root:[762 774]     0.097                0.017115             0.379                0.494               
+INFO:root:[774 786]     0.102                0.024811             0.378                0.505               
+INFO:root:[786 798]     0.112                0.029642             0.380                0.521               
+INFO:root:[798 810]     0.101                0.021197             0.379                0.502               
+INFO:root:[810 822]     0.094                0.021566             0.379                0.495               
+INFO:root:[822 834]     0.089                0.013392             0.377                0.479               
+INFO:root:[834 846]     0.087                0.009890             0.377                0.475               
+INFO:root:[846 858]     0.098                0.020186             0.378                0.496               
+INFO:root:[858 870]     0.085                0.006817             0.378                0.469               
+INFO:root:config_swb
+INFO:root:[450 462]     0.014                0.000000             0.019                0.033               
+INFO:root:[462 474]     0.014                0.000000             0.019                0.033               
+INFO:root:[474 486]     0.014                0.000000             0.019                0.033               
+INFO:root:[486 498]     0.014                0.000000             0.019                0.033               
+INFO:root:[498 510]     0.014                0.000000             0.019                0.033               
+INFO:root:[510 522]     0.014                0.000000             0.019                0.033               
+INFO:root:[522 534]     0.017                0.002562             0.019                0.039               
+INFO:root:[534 546]     0.021                0.003807             0.019                0.043               
+INFO:root:[546 558]     0.019                0.003142             0.019                0.042               
+INFO:root:[558 570]     0.015                0.000433             0.019                0.034               
+INFO:root:[570 582]     0.014                0.000000             0.019                0.033               
+INFO:root:[582 594]     0.014                0.000000             0.019                0.033               
+INFO:root:[594 606]     0.014                0.000000             0.019                0.033               
+INFO:root:[606 618]     0.014                0.000000             0.019                0.033               
+INFO:root:[618 630]     0.014                0.000000             0.019                0.033               
+INFO:root:[630 642]     0.014                0.000000             0.019                0.033               
+INFO:root:[642 654]     0.014                0.000000             0.019                0.033               
+INFO:root:[654 666]     0.014                0.000000             0.019                0.033               
+INFO:root:[666 678]     0.014                0.000000             0.019                0.033               
+INFO:root:[678 690]     0.014                0.000000             0.019                0.033               
+INFO:root:[690 702]     0.014                0.000000             0.019                0.033               
+INFO:root:[702 714]     0.014                0.000000             0.019                0.033               
+INFO:root:[714 726]     0.014                0.000000             0.019                0.033               
+INFO:root:[726 738]     0.014                0.000000             0.019                0.033               
+INFO:root:[738 750]     0.014                0.000000             0.019                0.033               
+INFO:root:[750 762]     0.014                0.000000             0.019                0.033               
+INFO:root:[762 774]     0.014                0.000000             0.019                0.033               
+INFO:root:[774 786]     0.014                0.000000             0.019                0.033               
+INFO:root:[786 798]     0.014                0.000000             0.019                0.033               
+INFO:root:[798 810]     0.014                0.000000             0.019                0.033               
+INFO:root:[810 822]     0.014                0.000000             0.019                0.033               
+INFO:root:[822 834]     0.014                0.000000             0.019                0.033               
+INFO:root:[834 846]     0.014                0.000000             0.019                0.033               
+INFO:root:[846 858]     0.014                0.000000             0.019                0.033               
+INFO:root:[858 870]     0.014                0.000000             0.019                0.033               
+INFO:root:swb
+INFO:root:[450 462]     0.000                0.000000             0.048                0.048               
+INFO:root:[462 474]     0.000                0.000000             0.048                0.048               
+INFO:root:[474 486]     0.000                0.000000             0.048                0.048               
+INFO:root:[486 498]     0.000                0.000000             0.048                0.048               
+INFO:root:[498 510]     0.000                0.000000             0.048                0.048               
+INFO:root:[510 522]     0.000                0.000000             0.048                0.048               
+INFO:root:[522 534]     0.000                0.000000             0.048                0.048               
+INFO:root:[534 546]     0.000                0.002497             0.048                0.051               
+INFO:root:[546 558]     0.000                0.002649             0.047                0.051               
+INFO:root:[558 570]     0.001                0.002574             0.047                0.050               
+INFO:root:[570 582]     0.000                0.000000             0.047                0.047               
+INFO:root:[582 594]     0.000                0.000000             0.047                0.047               
+INFO:root:[594 606]     0.000                0.000000             0.047                0.047               
+INFO:root:[606 618]     0.000                0.000000             0.047                0.047               
+INFO:root:[618 630]     0.000                0.000000             0.047                0.047               
+INFO:root:[630 642]     0.000                0.000000             0.047                0.047               
+INFO:root:[642 654]     0.000                0.000000             0.047                0.047               
+INFO:root:[654 666]     0.001                0.001114             0.047                0.049               
+INFO:root:[666 678]     0.002                0.002579             0.047                0.051               
+INFO:root:[678 690]     0.002                0.002317             0.047                0.051               
+INFO:root:[690 702]     0.002                0.003127             0.047                0.052               
+INFO:root:[702 714]     0.002                0.003728             0.047                0.053               
+INFO:root:[714 726]     0.003                0.003740             0.047                0.053               
+INFO:root:[726 738]     0.003                0.004354             0.047                0.055               
+INFO:root:[738 750]     0.003                0.003710             0.047                0.054               
+INFO:root:[750 762]     0.002                0.002470             0.047                0.051               
+INFO:root:[762 774]     0.002                0.002338             0.047                0.051               
+INFO:root:[774 786]     0.003                0.003631             0.047                0.053               
+INFO:root:[786 798]     0.002                0.003662             0.047                0.053               
+INFO:root:[798 810]     0.003                0.004772             0.047                0.055               
+INFO:root:[810 822]     0.003                0.004786             0.047                0.055               
+INFO:root:[822 834]     0.002                0.002319             0.047                0.051               
+INFO:root:[834 846]     0.002                0.002172             0.047                0.051               
+INFO:root:[846 858]     0.003                0.003859             0.047                0.054               
+INFO:root:[858 870]     0.001                0.000918             0.047                0.049               
+INFO:root:shadow_reg
+INFO:root:[450 462]     0.018                0.000000             0.027                0.045               
+INFO:root:[462 474]     0.018                0.000000             0.027                0.045               
+INFO:root:[474 486]     0.019                0.003294             0.027                0.049               
+INFO:root:[486 498]     0.018                0.000473             0.027                0.045               
+INFO:root:[498 510]     0.019                0.003327             0.027                0.049               
+INFO:root:[510 522]     0.018                0.000000             0.027                0.045               
+INFO:root:[522 534]     0.019                0.001729             0.027                0.047               
+INFO:root:[534 546]     0.018                0.001282             0.027                0.046               
+INFO:root:[546 558]     0.018                0.001016             0.027                0.046               
+INFO:root:[558 570]     0.018                0.000000             0.027                0.045               
+INFO:root:[570 582]     0.019                0.003294             0.027                0.049               
+INFO:root:[582 594]     0.018                0.000400             0.027                0.045               
+INFO:root:[594 606]     0.019                0.003254             0.027                0.049               
+INFO:root:[606 618]     0.018                0.000000             0.027                0.045               
+INFO:root:[618 630]     0.018                0.000000             0.027                0.045               
+INFO:root:[630 642]     0.018                0.000000             0.027                0.045               
+INFO:root:[642 654]     0.018                0.004625             0.027                0.050               
+INFO:root:[654 666]     0.018                0.000180             0.027                0.045               
+INFO:root:[666 678]     0.018                0.000000             0.027                0.045               
+INFO:root:[678 690]     0.018                0.000000             0.027                0.045               
+INFO:root:[690 702]     0.018                0.000000             0.027                0.045               
+INFO:root:[702 714]     0.018                0.000000             0.027                0.045               
+INFO:root:[714 726]     0.018                0.000000             0.027                0.045               
+INFO:root:[726 738]     0.018                0.000000             0.027                0.045               
+INFO:root:[738 750]     0.018                0.000000             0.027                0.045               
+INFO:root:[750 762]     0.018                0.000000             0.027                0.045               
+INFO:root:[762 774]     0.018                0.000000             0.027                0.045               
+INFO:root:[774 786]     0.018                0.000000             0.027                0.045               
+INFO:root:[786 798]     0.018                0.000000             0.027                0.045               
+INFO:root:[798 810]     0.018                0.000000             0.027                0.045               
+INFO:root:[810 822]     0.018                0.000000             0.027                0.045               
+INFO:root:[822 834]     0.018                0.000000             0.027                0.045               
+INFO:root:[834 846]     0.018                0.000000             0.027                0.045               
+INFO:root:[846 858]     0.018                0.000000             0.027                0.045               
+INFO:root:[858 870]     0.018                0.000000             0.027                0.045               
+INFO:root:bus_selector
+INFO:root:[450 462]     0.000                0.000000             0.001                0.001               
+INFO:root:[462 474]     0.000                0.000000             0.001                0.001               
+INFO:root:[474 486]     0.000                0.001268             0.001                0.002               
+INFO:root:[486 498]     0.000                0.001621             0.002                0.003               
+INFO:root:[498 510]     0.000                0.001531             0.002                0.003               
+INFO:root:[510 522]     0.000                0.000000             0.001                0.001               
+INFO:root:[522 534]     0.000                0.000000             0.001                0.001               
+INFO:root:[534 546]     0.000                0.000000             0.001                0.001               
+INFO:root:[546 558]     0.000                0.000000             0.001                0.001               
+INFO:root:[558 570]     0.000                0.000000             0.001                0.001               
+INFO:root:[570 582]     0.000                0.001268             0.001                0.002               
+INFO:root:[582 594]     0.000                0.001352             0.002                0.003               
+INFO:root:[594 606]     0.000                0.001263             0.002                0.003               
+INFO:root:[606 618]     0.000                0.000000             0.001                0.001               
+INFO:root:[618 630]     0.000                0.000000             0.001                0.001               
+INFO:root:[630 642]     0.000                0.000000             0.001                0.001               
+INFO:root:[642 654]     0.000                0.000000             0.001                0.001               
+INFO:root:[654 666]     0.000                0.000000             0.001                0.001               
+INFO:root:[666 678]     0.000                0.000000             0.001                0.001               
+INFO:root:[678 690]     0.000                0.000000             0.001                0.001               
+INFO:root:[690 702]     0.000                0.000000             0.001                0.001               
+INFO:root:[702 714]     0.000                0.000000             0.001                0.001               
+INFO:root:[714 726]     0.000                0.000000             0.001                0.001               
+INFO:root:[726 738]     0.000                0.000000             0.001                0.001               
+INFO:root:[738 750]     0.000                0.000000             0.001                0.001               
+INFO:root:[750 762]     0.000                0.000000             0.001                0.001               
+INFO:root:[762 774]     0.000                0.000000             0.001                0.001               
+INFO:root:[774 786]     0.000                0.000000             0.001                0.001               
+INFO:root:[786 798]     0.000                0.000000             0.001                0.001               
+INFO:root:[798 810]     0.000                0.000000             0.001                0.001               
+INFO:root:[810 822]     0.000                0.000000             0.001                0.001               
+INFO:root:[822 834]     0.000                0.000000             0.001                0.001               
+INFO:root:[834 846]     0.000                0.000000             0.001                0.001               
+INFO:root:[846 858]     0.000                0.000000             0.001                0.001               
+INFO:root:[858 870]     0.000                0.000000             0.001                0.001               
+INFO:root:dimarch_data_in_out_reg
+INFO:root:[450 462]     0.048                0.000000             0.019                0.066               
+INFO:root:[462 474]     0.048                0.000000             0.019                0.066               
+INFO:root:[474 486]     0.048                0.000000             0.019                0.066               
+INFO:root:[486 498]     0.048                0.000000             0.019                0.066               
+INFO:root:[498 510]     0.048                0.000000             0.019                0.066               
+INFO:root:[510 522]     0.048                0.000000             0.019                0.066               
+INFO:root:[522 534]     0.048                0.000000             0.019                0.066               
+INFO:root:[534 546]     0.048                0.000000             0.019                0.066               
+INFO:root:[546 558]     0.049                0.000000             0.019                0.068               
+INFO:root:[558 570]     0.054                0.002013             0.020                0.076               
+INFO:root:[570 582]     0.052                0.002013             0.020                0.074               
+INFO:root:[582 594]     0.048                0.000000             0.019                0.066               
+INFO:root:[594 606]     0.048                0.000000             0.019                0.066               
+INFO:root:[606 618]     0.048                0.000000             0.019                0.066               
+INFO:root:[618 630]     0.048                0.000000             0.019                0.066               
+INFO:root:[630 642]     0.048                0.000000             0.019                0.066               
+INFO:root:[642 654]     0.049                0.000000             0.019                0.068               
+INFO:root:[654 666]     0.053                0.002386             0.020                0.075               
+INFO:root:[666 678]     0.051                0.002386             0.020                0.074               
+INFO:root:[678 690]     0.048                0.000000             0.019                0.066               
+INFO:root:[690 702]     0.048                0.000000             0.019                0.066               
+INFO:root:[702 714]     0.048                0.000000             0.019                0.066               
+INFO:root:[714 726]     0.048                0.000000             0.019                0.066               
+INFO:root:[726 738]     0.048                0.000000             0.019                0.066               
+INFO:root:[738 750]     0.048                0.000000             0.019                0.066               
+INFO:root:[750 762]     0.048                0.000000             0.019                0.066               
+INFO:root:[762 774]     0.048                0.000000             0.019                0.066               
+INFO:root:[774 786]     0.048                0.000000             0.019                0.066               
+INFO:root:[786 798]     0.048                0.000000             0.019                0.066               
+INFO:root:[798 810]     0.048                0.000000             0.019                0.066               
+INFO:root:[810 822]     0.048                0.000000             0.019                0.066               
+INFO:root:[822 834]     0.048                0.000000             0.019                0.066               
+INFO:root:[834 846]     0.048                0.000000             0.019                0.066               
+INFO:root:[846 858]     0.048                0.000000             0.019                0.066               
+INFO:root:[858 870]     0.048                0.000000             0.019                0.066               

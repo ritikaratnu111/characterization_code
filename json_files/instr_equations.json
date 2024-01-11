@@ -10,7 +10,7 @@
     },
     "dimarch":{
         "start": "offset + (horizontal_hops + vertical_hops) * clock_period",
-        "end": "offset + (horizontal_hops + vertical_hops + 8) * clock_period"
+        "end":   "offset + (horizontal_hops + vertical_hops) * clock_period + 1 * clock_period"
     },
     "shadow_reg":{
         "start": "offset",
@@ -32,15 +32,15 @@
    },
    "dimarch_agu":{
        "start": "offset + (hops + 1) * clock_period",
-       "end": "offset + (hops + 5) * clock_period"
+       "end":   "offset + (hops + 1) * clock_period + (l2_iter + 1) * (l1_iter + 1) * clock_period + 3 * clock_period"
    },
    "sram":{
-       "start": "offset + (hops + 3) * clock_period",
-       "end": "offset + (hops + 5) * clock_period"
+       "start": "offset + 3 * clock_period + hops * clock_period",
+       "end":   "offset + 3 * clock_period + hops * clock_period + (l2_iter + 1) * (l1_iter + 1) * clock_period + 1 * clock_period"
    },
    "dimarch":{
-       "start": "offset + (hops + 3) * clock_period",
-       "end": "offset + (hops + 4) * clock_period"
+       "start": "offset",
+       "end": "offset + (l2_iter + 1) * (l1_iter + 1) * clock_period + 6 * clock_period"
    },
     "shadow_reg":{
         "start": "offset",
@@ -52,7 +52,7 @@
     },
     "dimarch_data_in_out_reg":{
        "start": "offset + (hops + 6) * clock_period",
-       "end": "offset + (hops + 8) * clock_period"
+       "end":   "offset + (hops + 6) * clock_period + (l2_iter + 1) * (l1_iter + 1) * clock_period + 1 * clock_period"
     }
   },
   "REFI":{
@@ -66,7 +66,7 @@
       },
       "regfile":{
           "start": "offset",
-          "end": "offset + (init_delay - 2 + l1_iter + l2_iter + 4) * clock_period"
+          "end": "offset + init_delay * clock_period + (l2_iter + 1) * (l1_iter + 1 + l1_iter * l1_delay) * clock_period  + (l2_iter * l2_delay) * clock_period + 1 * clock_period"
       }
   },
   "SWB":{
@@ -76,11 +76,7 @@
         },
         "config_swb":{
             "start": "offset",
-            "end": "offset + 2 * clock_period"
-        },
-        "swb":{
-            "start": "offset",
-            "end": "offset + 2 * clock_period"
+            "end": "offset + 1 * clock_period"
         },
         "shadow_reg":{
             "start": "offset",
@@ -93,8 +89,8 @@
           "end": "offset + 1 * clock_period"
       },
       "raccu":{
-          "start": "offset + 1 * clock_period",
-          "end": "offset + 2 * clock_period"
+          "start": "offset - 2 * clock_period",
+          "end":   "offset - 2 * clock_period +  (no_of_loop_instructions + 1 ) * clock_period"
       }
   },
   "DPU":{
@@ -104,11 +100,11 @@
       },
       "dpu":{
           "start": "offset",
-          "end": "offset + 1 * clock_period"
+          "end": "offset + dpu_delay * clock_period + 3 * clock_period"
       },
       "swb":{
-          "start": "offset",
-          "end": "offset + 1 * clock_period"
+          "start": "offset + 1 * clock_period",
+          "end": "offset + 3* clock_period + swb_delay * clock_period"
       },
         "shadow_reg":{
             "start": "offset",

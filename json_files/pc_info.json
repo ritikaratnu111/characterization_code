@@ -1,0 +1,11 @@
+{
+    "ROUTE": "1",
+    "SRAM": "3",
+    "REFI": "1 + extra",
+    "SWB": "1",
+    "WAIT": "1",
+    "RACCU": "1",
+    "DPU": "1",
+    "LOOP": "1 + extra",
+    "HALT": "1"
+}

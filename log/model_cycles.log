@@ -1,0 +1,24 @@
+INFO:root:Testbench: conv
+INFO:root:About: Convolution of 16x16 matrix with 3x3 kernel. There is a problem in raccu with other loop, register 14 has zeros in it while register 13 has its values.
+INFO:root:Cell: cell_0_0
+INFO:root:Cell cell_0_0 created
+INFO:root:Cell cell_0_0 window: {'start': 1866, 'end': 4746}
+INFO:root:hop cycles: 0
+INFO:root:Assembly window: {'start': 1866, 'end': 4746}
+INFO:root:Added cell cell_0_0 to the assembly
+INFO:root:Cell: cell_0_1
+INFO:root:Cell cell_0_1 created
+INFO:root:Cell cell_0_1 window: {'start': 1866, 'end': 4746}
+INFO:root:hop cycles: 12
+INFO:root:Assembly window: {'start': 1878, 'end': 4758}
+INFO:root:Added cell cell_0_1 to the assembly
+INFO:root:Cell: cell_1_0
+INFO:root:Cell cell_1_0 created
+INFO:root:Cell cell_1_0 window: {'start': 1866, 'end': 4746}
+INFO:root:hop cycles: 12
+INFO:root:Assembly window: {'start': 1878, 'end': 4758}
+INFO:root:Added cell cell_1_0 to the assembly
+INFO:root:Cell: cell_1_1
+INFO:root:cell_0_0 Assembly: 1866 4746
+INFO:root:cell_0_1 Assembly: 1878 4758
+INFO:root:cell_1_0 Assembly: 1878 4758

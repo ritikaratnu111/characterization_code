@@ -34,7 +34,6 @@
     "SWB": [
       "sequencer",
       "config_swb",
-      "swb",
       "shadow_reg"
     ],
     "WAIT": [
