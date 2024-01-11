@@ -6,15 +6,19 @@ CODE_PATH = '/home/ritika/silago/characterization_code/simulation_scripts/'
 
 class Simulation():
 
-    def trigger_vsim(iter, start, end, per_cycle_flag, component_flag, state, tile, component):
+    def trigger_vsim(iter, start, end, per_cycle_flag):
         script = f'{CODE_PATH}/get_activity.do'
         os.system(
-            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} COMPONENT_FLAG={component_flag} STATE={state} TILE={tile} COMPONENT={component} vsim -64 -c -do {script}")
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} vsim -64 -c -do {script}")
 
-    def trigger_innovus(iter, start, end, per_cycle_flag, component_flag, state, tile, component):
+    def trigger_innovus(iter, start, end, per_cycle_flag):
         script = f'{CODE_PATH}/get_power.tcl'
         os.system(
-            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} COMPONENT_FLAG={component_flag} STATE={state} TILE={tile} COMPONENT={component} innovus -stylus -no_gui -files {script}")
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} innovus -stylus -no_gui -files {script}")
+
+    def remove_activity_file(file):
+        os.remove(file)
+
 
     def generate_randomized_mem_init_files(count):
         locations = []

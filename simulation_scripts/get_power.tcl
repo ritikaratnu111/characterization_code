@@ -5,10 +5,6 @@ set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
 set VCD_DIR $::env(VCD_DIR)
 set PER_CYCLE_FLAG $::env(PER_CYCLE_FLAG)
-set COMPONENT_FLAG $::env(COMPONENT_FLAG)
-set COMPONENT $::env(COMPONENT)
-set TILE $::env(TILE)
-set STATE $::env(STATE)
 
 set NUM_CPUS 8
 set_multi_cpu_usage -local_cpu ${NUM_CPUS} -cpu_per_remote_host 1 -remote_host 0 -keep_license true
@@ -22,12 +18,6 @@ set_power -reset
 set_dynamic_power_simulation -reset
 set_default_switching_activity -input_activity 0 -global_activity 0 -macro_activity 0 -sequential_activity 0
 
-if {${COMPONENT_FLAG} ==True} {
-        set VCDNAME "${VCD_DIR}/iter_${ITER}_${COMPONENT}_${STATE}_${START_TIME}.vcd";
-        set OUTFILE "${VCDNAME}.pwr"
-        read_activity_file -format VCD -scope /testbench/DUT -block {} ${VCDNAME} -start ${START_TIME}ns -end ${END_TIME}ns
-        report_power -no_wrap -cell {all} -out_file ${OUTFILE}
-} else {
     if {${PER_CYCLE_FLAG}==True} {
         set i ${START_TIME}
         while {$i < ${END_TIME}} {
@@ -50,5 +40,4 @@ if {${COMPONENT_FLAG} ==True} {
         read_activity_file -format VCD -scope /testbench/DUT -block {} ${VCDNAME} -start ${START_TIME}ns -end ${END_TIME}ns
         report_power -no_wrap -cell {all} -out_file ${OUTFILE}
     }
-}
 exit

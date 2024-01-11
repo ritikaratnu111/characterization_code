@@ -5,12 +5,7 @@ set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
 set VCD_DIR $::env(VCD_DIR)
 set PER_CYCLE_FLAG $::env(PER_CYCLE_FLAG)
-set COMPONENT_FLAG $::env(COMPONENT_FLAG)
 set RUN_TIME [expr $END_TIME - $START_TIME];
-set COMPONENT $::env(COMPONENT)
-set TILE $::env(TILE)
-set STATE $::env(STATE)
-set VCD_SIGNALS "{sim:/testbench/DUT/${TILE}/* }"
 
 vlib work
 vlib dware
@@ -37,15 +32,6 @@ vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd
 vcom -2008 -work work const_package.vhd
 vcom -2008 -work work testbench_rtl.vhd
 
-if {$COMPONENT_FLAG ==True} {
-	vsim work.testbench -t ps -vopt -voptargs=+acc;
-	run $START_TIME ns;
-    set VCDNAME "${VCD_DIR}/iter_${ITER}_${COMPONENT}_${STATE}_${START_TIME}.vcd";
-    vcd file $VCDNAME;
-    vcd add -r {sim:/testbench/DUT/* };
-	run $RUN_TIME ns;
-	quit -sim;
-} else {
     if {$PER_CYCLE_FLAG ==True} {
         set i ${START_TIME}
         while {$i < ${END_TIME}} {
@@ -69,6 +55,5 @@ if {$COMPONENT_FLAG ==True} {
 		run $RUN_TIME ns;
 		quit -sim;
         }
-}
 
 exit
