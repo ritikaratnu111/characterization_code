@@ -8,7 +8,7 @@ class Assembly():
         self.instructions = []
         self.window = {}
         self.loop_instr = {}
-        self.gloabal_start = 0
+        self.global_start = 0
         self.row = row if row is not None else 0
         self.col = col if col is not None else 0
 
@@ -51,7 +51,7 @@ class Assembly():
 
     def set_delay_for_dpu_swb(self):
         all_dpu_id = []
-        from_different_cell = 0
+        from_different_cell = 1
         for idx, instr in enumerate(self.instructions):
             if (instr.name == 'DPU'):
                 all_dpu_id.append(instr.id)

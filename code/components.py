@@ -19,7 +19,7 @@ class ActiveComponent():
         return False
 
     def init_profiler(self,total_window):
-        self.profiler.init(self.active_window, self.inactive_window,total_window)
+        self.profiler.init(self.active_window, self.inactive_window,total_window, self.signals)
 
     def print(self):
         print(f"Component: {self.name}, {self.active_window}, {self.inactive_window}")
@@ -31,12 +31,11 @@ class InactiveComponent():
         self.signals = signals
         self.window = window if window is not None else {}
         self.profiler = ComponentProfiler()
-        self.init_profiler(window)
 
     def init_profiler(self,total_window):
         inactive_window = []
         inactive_window.append(total_window)
-        self.profiler.init(0,inactive_window,total_window)
+        self.profiler.init(0,inactive_window,total_window,self.signals)
 
     def print(self):
         print(f"Component: {self.name}, {self.active_window}, {self.inactive_window}")
@@ -59,9 +58,13 @@ class ComponentSet():
     def reorder_components(self):
         my_isa = ISA()
         component_hierarchy = my_isa.component_hierarchy
+        for component in self.active:
+            print(component.name, component.signals)
         component_hierarchy_dict = {component: index for index, component in enumerate(component_hierarchy)}
         sorted_components = sorted(self.active, key=lambda component: component_hierarchy_dict.get(component.name, float('inf')))
         self.active = sorted_components
+        for component in self.active:
+            print(component.name)
 
     def add_active_window(self):
         for component in self.active:

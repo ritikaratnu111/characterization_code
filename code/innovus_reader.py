@@ -1,5 +1,6 @@
 import os
 import logging
+import re
 
 class InnovusPowerParser():
     def __init__(self):
@@ -43,16 +44,28 @@ class InnovusPowerParser():
         #logging.info('Signals: %s', signals)
         for signal in signals:
             signal_substrings = signal.split('*')
-            for name in self.nets:
-                net = self.nets[name]
-                label = net['label']
-                if (label == 'inactive'):
-                    if all(substring in name for substring in signal_substrings):
-                        self.nets[name]['label'] = signal
-                        #Log the net name if the switching power is not 0
-#                        if (net['switching'] != 0):
-#                            logging.info('Net: %s', name)
-                        count += 1
+            if (any("UXXX" in substring for substring in signal_substrings)):
+                print("Signal: ", signal)
+                pattern = f"{signal_substrings[0]}.*U\d+"
+                print("Pattern: ", pattern)
+                for name in self.nets:
+                    net = self.nets[name]
+                    label = net['label']
+                    if (label == 'inactive'):
+                        if re.search(pattern, name):
+                            self.nets[name]['label'] = signal
+                            count += 1
+            else:
+                for name in self.nets:
+                    net = self.nets[name]
+                    label = net['label']
+                    if (label == 'inactive'):
+                        if all(substring in name for substring in signal_substrings):
+                            self.nets[name]['label'] = signal
+                            #Log the net name if the switching power is not 0
+#                            if (net['switching'] != 0):
+#                                logging.info('Net: %s', name)
+                            count += 1
 #        logging.info('Active nets: %s', count)
 
     def get_power(self, signals):
@@ -99,7 +112,7 @@ class InnovusPowerParser():
         return(power,count)
 
 
-    def get_total_power(self,tiles):
+    def get_cell_power(self,tiles):
         internal_power = 0
         switching_power = 0
         leakage_power = 0
@@ -119,3 +132,15 @@ class InnovusPowerParser():
         logging.info('Total nets: %s', count)
 #        print("Total net count: ", count)
         return(power,count)
+
+
+    def log_remaining_nets(self,tiles):
+        count = 0
+        for name in self.nets:
+            for tile in tiles:
+                if tile in name:
+                    net = self.nets[name]
+                    if(net['label'] == 'inactive'):
+                        logging.info('Net: %s', name)
+                        count += 1
+        logging.info('Remaining nets: %s', count)

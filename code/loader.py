@@ -47,17 +47,20 @@ class Loader():
             print(f"Processing cell {cell.cell_id}")
             cell.set_pc()
             cell.set_delay_for_dpu()
+#            cell.adjust_swb()
             cell.unroll_loop()
 #            cell.append_segment_values()
             cell.add_active_cell_components()
             cell.add_inactive_cell_components()
             cell.set_instr_active_component_cycles()
-            #cell.modify_cycles_of_dependent_instructions()
+#            cell.modify_cycles_of_dependent_instructions()
             cell.set_component_active_cycles()
             cell.adjust_raccu()
             cell.set_component_inactive_cycles()
             cell.init_component_energy_profiler()
             cell.set_dimarch_tiles()
+            for component in cell.components.active:
+                print(component.name, component.active_window)
         self.get_dependency()
 
     def get_dependency(self):

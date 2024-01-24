@@ -138,6 +138,8 @@ class Cell():
         """
         for component in self.components.active:
             component.init_profiler(self.total_window)
+        for component in self.components.inactive:
+            component.init_profiler(self.total_window)
 
     def set_AEC_measurement(self,iter):
         """

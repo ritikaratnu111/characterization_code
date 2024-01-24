@@ -15,7 +15,28 @@
       "swb",
       "shadow_reg",
       "bus_selector",
-      "dimarch_data_in_out_reg"
+      "dimarch_data_in_out_reg",
+      "dimarch_data_in",
+      "instr_inp_out_reg",
+      "seq_address_rb",
+      "seq_address_cb",
+      "rf_block",
+      "CTS",
+      "data_selector",
+      "dimarch_data_in_out",
+      "dimarch_data_out",
+      "instr_inp",
+      "ext_v_input_bus_in",
+      "rst_n",
+      "sel_r_ext",
+      "valid_bot",
+      "immediate",
+      "data_in_this",
+      "seq_cond_status",
+      "address_assign",
+      "MTRF_cell",
+      "SILEGO_cell",
+      "others"
     ],
     "DRRA_components": {
       "raccu": {
@@ -24,61 +45,172 @@
       },
       "sequencer": {
         "about": "sequencer",
-        "signals": ["seq_gen"]
+        "signals": ["seq_gen", "instr_start_w", "dimarch_mode", "instr_ld", "dpu_acc_clear_rst_w"],
+        "correct": "yes, not sure about instr_start_w, dimarch_mode, instr_ld, dpu_acc_clear_rst_w"
       },
       "noc": {
         "about": "noc",
-        "signals": ["noc", "partition", "splitter"]
+        "signals": ["noc", "partition", "splitter"],
+        "correct": "yes"
       },
       "regfile": {
         "about": "regfile",
-        "signals": ["reg_top"]
+        "signals": ["reg_top", "rf_out_to_dimarch", "reg_port_type"],
+        "correct": "yes"
       },
       "dpu": {
         "about": "dpu",
-        "signals": ["dpu_gen"]
+        "signals": ["dpu_gen", "dpu_in", "h_bus_reg", "h_bus_dpu", "dpu_silego_interface"],
+        "correct": "yes"
       },
       "config_swb": {
         "about": "config_swb",
-        "signals": ["config_swb"]
+        "signals": ["config_swb"],
+        "correct": "no, starting is corect but end is not"
       },
       "swb": {
         "about": "swb",
-        "signals": ["swb"]
+        "signals": ["swb"],
+        "correct": "yes"
       },
       "shadow_reg": {
         "about": "shadow_reg",
-        "signals": ["shadowReg"]
+        "signals": ["shadowReg"],
+        "correct": "yes"
       },
       "bus_selector": {
         "about": "bus_selector",
-        "signals": ["u_bus_selector"]
+        "signals": ["u_bus_selector"],
+        "correct": "yes"
       },
       "dimarch_data_in_out_reg": {
         "about": "dimarch_data_in_out_reg",
-        "signals": ["dimarch_data_in_out_reg"]
+        "signals": ["dimarch_data_in_out_reg"],
+        "correct": "yes"
       },
       "dimarch_data_in": {
         "about": "dimarch_data_in",
-        "signals": ["dimarch_data_in"]
+        "signals": ["dimarch_data_in"],
+        "correct": "yes"
+      },
+      "instr_inp_out_reg": {
+        "about": "instr_inp_out_reg",
+        "signals": ["instr_inp_out_reg"],
+        "correct": "yes"
+      },
+      "seq_address_rb": {
+        "about": "seq_address_rb",
+        "signals": ["seq_address_rb"],
+        "correct": "yes"
+      },
+      "seq_address_cb": {
+        "about": "seq_address_cb",
+        "signals": ["seq_address_cb"],
+        "correct": "yes"
+      },
+      "CTS": {
+        "about": "CTS",
+        "signals": ["CTS"],
+        "correct": "yes"
+      },
+      "rf_block": {
+        "about": "rf_block, par of DPU instr",
+        "signals": ["rf_block"]
+      },
+      "data_selector": {
+        "about": "data_selector",
+        "signals": ["u_data_selector"],
+        "correct": "yes"
+        },
+      "dimarch_data_in_out":{
+         "about": "dimarch_data_in_out",
+         "signals": ["dimarch_data_in_out"],
+          "correct": "yes"
+      },
+      "dimarch_data_out": {
+        "about": "dimarch_data_out",
+        "signals": ["dimarch_data_out"],
+        "correct": "yes"
+      },
+      "instr_inp": {
+        "about": "instr_inp",
+        "signals": ["instr_inp"],
+        "correct": "yes"
+      },
+      "ext_v_input_bus_in": {
+        "about": "ext_v_input_bus_in",
+        "signals": ["ext_v_input_bus_in"],
+        "correct": "yes"
+      },
+      "rst_n":{
+        "about": "rst_n",
+        "signals": ["rst_n"],
+        "correct": "yes"
+      },
+      "sel_r_ext": {
+        "about": "sel_r_ext",
+        "signals": ["sel_r_ext"],
+        "correct": "yes"
+      },
+      "valid_bot": {
+        "about": "valid_bot",
+        "signals": ["valid_bot"],
+        "correct": "yes"
+      },
+      "immediate": {
+        "about": "immediate",
+        "signals": ["immediate"],
+        "correct": "yes"
+      },
+      "data_in_this": {
+        "about": "data_in_this",
+        "signals": ["data_in_this"],
+        "correct": "yes"
+      },
+      "seq_cond_status": {
+        "about": "seq_cond_status",
+        "signals": ["seq_cond_status"],
+        "correct": "yes"
+      },
+      "address_assign": {
+        "about": "address assign in the top tile",
+        "signals": ["u_addres_assign"],
+        "correct": "yes"
+      },
+      "MTRF_cell": {
+        "about": "MTRF_cell",
+        "signals": ["MTRF_cell"]
+      },
+      "SILEGO_cell": {
+        "about": "SILEGO_cell",
+        "signals": ["SILEGO_cell"]
+      },
+      "others": {
+        "about": "leftover logic",
+        "signals": ["FE","U"],
+        "flag": "incorrect but very minor"
       }
     },
     "DIMARCH_components": {
       "noc": {
         "about": "noc",
-        "signals": ["noc", "partition", "splitter"]
+        "signals": ["noc", "partition", "splitter"],
+        "correct": "yes"
       },
       "dimarch_agu": {
         "about": "dimarch_agu",
-        "signals": ["AGU"]
+        "signals": ["AGU"],
+        "correct": "yes"
       },
       "sram": {
         "about": "sram",
-        "signals": ["u_sram"]
+        "signals": ["u_sram"],
+        "correct": "yes"
       },
       "dimarch": {
         "about": "dimarch",
-        "signals": ["DiMArch"]
+        "signals": ["DiMArch"],
+        "correct": "yes"
       }
     }
   },
@@ -87,55 +219,58 @@
     "component_hierarchy": {
       "data_selector": {
         "about": "data_selector",
-        "signals": ["u_data_selector"] 
+        "signals": ["u_data_selector"],
+        "flag": "correct" 
         },
       "dimarch_data_in_out":{
          "about": "dimarch_data_in_out",
-         "signals": ["diamarch_data_in_out"]
+         "signals": ["dimarch_data_in_out"],
+          "flag": "correct"
       },
       "dimarch_data_out": {
         "about": "dimarch_data_out",
-        "signals": ["dimarch_data_out"]
-      },
-      "seq_address_rb": {
-        "about": "seq_address_rb",
-        "signals": ["seq_address_rb"]
-      },
-      "seq_address_cb": {
-        "about": "seq_address_cb",
-        "signals": ["seq_address_cb"]
-      },
-      "instr_inp_out_reg": {
-        "about": "instr_inp_out_reg",
-        "signals": ["instr_inp_out_reg"]
+        "signals": ["dimarch_data_out"],
+        "flag": "correct"
       },
       "instr_inp": {
         "about": "instr_inp",
-        "signals": ["instr_inp"]
+        "signals": ["instr_inp"],
+        "flag": "correct"
       },
       "ext_v_input_bus_in": {
         "about": "ext_v_input_bus_in",
-        "signals": ["ext_v_input_bus_in"]
-      },
-      "CTS": {
-        "about": "CTS",
-        "signals": ["CTS"]
+        "signals": ["ext_v_input_bus_in"],
+        "flag": "correct"
       },
       "rst_n":{
         "about": "rst_n",
-        "signals": ["rst_n"]
+        "signals": ["rst_n"],
+        "flag": "correct"
       },
-      "h_bus_reg": {
-        "about": "h_bus_reg",
-        "signals": ["h_bus_reg"]
+      "sel_r_ext": {
+        "about": "sel_r_ext",
+        "signals": ["sel_r_ext"],
+        "flag": "correct"
       },
-      "h_bus_dpu": {
-        "about": "h_bus_dpu",
-        "signals": ["h_bus_dpu"]
+      "valid_bot": {
+        "about": "valid_bot",
+        "signals": ["valid_bot"],
+        "flag": "correct"
       },
-      "dpu_silego_interface": {
-        "about": "dpu_silego_interface",
-        "signals": ["dpu_in"]
+      "immediate": {
+        "about": "immediate",
+        "signals": ["immediate"],
+        "flag": "correct"
+      },
+      "data_in_this": {
+        "about": "data_in_this",
+        "signals": ["data_in_this"],
+        "flag": "correct"
+      },
+      "seq_cond_status": {
+        "about": "seq_cond_status",
+        "signals": ["seq_cond_status"],
+        "flag": "correct"
       }
     }
   }

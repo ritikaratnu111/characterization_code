@@ -21,6 +21,7 @@ class ISA():
         self.DRRA_components =      json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["DRRA_components"]
         self.drra_signals =         json.load(open(f"{JSON_FILE_PATH}/drra_signals.json"))
         self.DIMARCH_components =   json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["DIMARCH_components"]
+#        self.tile_components =   json.load(open(f"{JSON_FILE_PATH}/components.json"))["active_components"]["tile_components"]
         self.dimarch_signals =      json.load(open(f"{JSON_FILE_PATH}/dimarch_signals.json"))
         self.components =           json.load(open(f"{JSON_FILE_PATH}/instr_components.json"))
         self.instr_equations =      json.load(open(f"{JSON_FILE_PATH}/instr_equations.json"))
@@ -91,6 +92,8 @@ class ISA():
                 signals = self.DRRA_components[component]["signals"]
             elif (component in self.DIMARCH_components):
                 signals = self.DIMARCH_components[component]["signals"]
+#            elif (component in self.tile_components):
+#                signals = self.tile_components[component]["signals"]
             updated_signals = []
 
             #For each signal, get the cell_signal
@@ -116,6 +119,15 @@ class ISA():
                                                     "active": {},
                                                     "inactive": {}
                                                  }
+#            elif (component in self.tile_components):
+#                for signal in signals:
+#                    cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
+#                    updated_signals.append(cell_signal)
+#                updated_components[component] = {   "name": component,
+#                                                        "signals": updated_signals,
+#                                                        "active": {},
+#                                                        "inactive": {}
+#                                                     }
         return updated_components 
 
     def set_active_cycles(self,name,start, segment_values):
