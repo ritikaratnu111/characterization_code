@@ -20,10 +20,10 @@ class Characterize():
         self.count = 0
         self.reader = InnovusPowerParser()
 
-    def run_simulation(self, window, i):
+    def run_simulation(self, window, i, tbout):
         start = window['start']
         end = window['end']
-        Simulation.trigger_vsim(i, start, end, False)
+        Simulation.trigger_vsim(i, start, end, False, tbout)
         Simulation.trigger_innovus(i, start, end, False)
         Simulation.remove_file(f"{self.tb}/{self.vcd_dir}/iter_{i}.vcd")
 
@@ -35,11 +35,11 @@ class Characterize():
         Simulation.generate_randomized_mem_init_files(start, end)
         for i in range(start, end):
             print(i)
-            Simulation.update_mem_init_file(self.tb, i)
+            tbout = Simulation.update_mem_init_file(self.tb, i)
             for cell in self.cells:
-#                self.run_simulation(cell.total_window, i)
-                cell.get_measurement(self.reader,cell.tiles,i)
-                Simulation.remove_file(f"{self.tb}/{self.vcd_dir}/iter_{i}.vcd.pwr")
+#                self.run_simulation(cell.total_window, i, tbout)
+                cell.get_measurement(self.reader,cell.tiles,i,self.tb)
+#                Simulation.remove_file(f"{self.tb}/{self.vcd_dir}/iter_{i}.vcd.pwr")
 
 #    def get_cell_measurements(self,start,end):
 #        for i in range(start,end):

@@ -4,6 +4,7 @@ set START_TIME $::env(START_TIME)
 set END_TIME $::env(END_TIME)
 set CLOCK_PERIOD $::env(CLOCK_PERIOD)
 set VCD_DIR $::env(VCD_DIR)
+set TB $::env(TB)
 set PER_CYCLE_FLAG $::env(PER_CYCLE_FLAG)
 set RUN_TIME [expr $END_TIME - $START_TIME];
 
@@ -30,7 +31,7 @@ vlog -work work $FABRIC_PATH/phy/db/silagonn_simulation.v
 vcom -2008 -work work $FABRIC_PATH/rtl/SRAM/SRAM_model.vhd
 
 vcom -2008 -work work const_package.vhd
-vcom -2008 -work work testbench_rtl.vhd
+vcom -2008 -work work $TB
 
     if {$PER_CYCLE_FLAG ==True} {
         set i ${START_TIME}

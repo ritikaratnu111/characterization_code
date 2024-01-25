@@ -191,7 +191,7 @@ class Cell():
         print(f"Active components:")
         self.components.print()
     
-    def get_measurement(self,reader,tiles,iter):
+    def get_measurement(self,reader,tiles,iter,tb):
         """
         Get the energy measurements of the cell and the components
         """
@@ -248,5 +248,5 @@ class Cell():
             }
         }
 
-        with open(f"{self.tb}/vcd/iter_{iter}.json", "w") as file:
+        with open(f"{tb}/vcd/iter_{iter}.json", "w") as file:
             json.dump(data, file, indent=2)

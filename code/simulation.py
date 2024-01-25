@@ -1,15 +1,16 @@
 import os
 import random
 import constants
+import uuid
 
 CODE_PATH = '/home/ritika/silago/characterization_code/simulation_scripts/'
 
 class Simulation():
 
-    def trigger_vsim(iter, start, end, per_cycle_flag):
+    def trigger_vsim(iter, start, end, per_cycle_flag, tbout):
         script = f'{CODE_PATH}/get_activity.do'
         os.system(
-            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} vsim -64 -c -do {script}")
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} TB={tbout} vsim -64 -c -do {script}")
 
     def trigger_innovus(iter, start, end, per_cycle_flag):
         script = f'{CODE_PATH}/get_power.tcl'
@@ -44,6 +45,9 @@ class Simulation():
 
     def update_mem_init_file(tb,i):
         tbfile = f"{tb}/testbench_rtl.vhd"
+        uid = str(uuid.uuid4())
+        tbout = f"testbench_rtl_{uid}.vhd"
+        tboutfile = f"{tb}/{tbout}"
         with open(tbfile, 'r') as f:
             lines = f.readlines()
     
@@ -53,6 +57,8 @@ class Simulation():
         print(lines[138])
 
 
-        with open(tbfile, 'w') as f:
+        with open(tboutfile, 'w') as f:
             f.writelines(lines)
+        
+        return tbout   
 
