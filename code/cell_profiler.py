@@ -2,13 +2,13 @@ import constants
 import logging
 from innovus_reader import InnovusPowerParser
 from measurement import Measurement
+import matplotlib.pyplot as plt
+import json
 
 class AverageMeasurement():
     def __init__(self):
-        self.active = Measurement()
-        self.inactive = Measurement()
-        self.diff_active = Measurement()
-        self.diff_inactive = Measurement()
+        self.current = Measurement()
+        self.diff = Measurement()
         self.count = 0
 
 class CellProfiler():
@@ -20,9 +20,24 @@ class CellProfiler():
         self.error_measurement = Measurement()
         self.nets = 0
         self.average_measurement = []
+        self.cell_id = ""
 
-    def init(self, total_window):
+    def init(self, total_window, id):
         self.window = total_window
+        self.cell_id = id
+
+    def set_avg_measurement_size(self,iter):
+        self.average_measurement = [AverageMeasurement() for i in range(iter)]
+
+    def add_avg_measurement(self,measurement,iter):
+        if(iter > 0):
+            self.average_measurement[iter].current.average(self.average_measurement[iter-1].current,measurement,iter)
+            self.average_measurement[iter].diff.diff(self.average_measurement[iter].current,self.average_measurement[iter-1].current)
+        else:
+            self.average_measurement[iter].current.average(measurement,measurement,iter)
+            self.average_measurement[iter].diff.diff(self.average_measurement[iter].current,self.average_measurement[iter].current)
+
+        self.average_measurement[iter].count = iter
 
     def set_active_AEC_measurement(self,active_components,iter):
         """
@@ -68,3 +83,26 @@ class CellProfiler():
         self.error_measurement.energy.leakage = 100 * (self.total_measurement.energy.leakage - self.active_AEC_measurement.energy.leakage - self.inactive_AEC_measurement.energy.leakage) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
         self.error_measurement.energy.total = 100 * (self.total_measurement.energy.total - self.active_AEC_measurement.energy.total - self.inactive_AEC_measurement.energy.total) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
 
+
+    def plot(self):
+        # Extracting diff energy measurements for plotting
+        diff_switching_values = [ avg_measurement.diff.energy.switching
+            for avg_measurement in self.average_measurement
+        ]
+
+        #Plot the diff switching energy measurements
+        plt.plot(diff_switching_values, label='Diff Switching Energy')
+        # Adding labels and title
+        plt.xlabel('Measurements')
+        plt.ylabel('Energy Values')
+        plt.title('Diff Energy Measurements')
+        plt.savefig('diff_switching_energy_plot.png')
+        # Display the plot
+        print(diff_switching_values) 
+        #plt.show()
+
+    def print_avg_results(self,iter):
+        print(f"Cell average Results for iteration {iter}")
+        self.average_measurement[iter].current.log_power()
+        print(f"Diff:")
+        self.average_measurement[iter].diff.log_power()

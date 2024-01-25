@@ -16,11 +16,10 @@ class Simulation():
         os.system(
             f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} innovus -stylus -no_gui -files {script}")
 
-    def remove_activity_file(file):
+    def remove_file(file):
         os.remove(file)
 
-
-    def generate_randomized_mem_init_files(count):
+    def generate_randomized_mem_init_files(start,end):
         locations = []
         os.makedirs("mem_init_values", exist_ok=True)
         with open('./mem_init_values.txt', 'r') as f:
@@ -33,7 +32,7 @@ class Simulation():
                 locations.append([address, row, col])
                 current += 1
         
-        for i in range(count):
+        for i in range(start,end):
             randomized_filename = "./mem_init_values/mem_init_values_" + str(i) + ".txt"
             with open(randomized_filename, 'w') as f:
                 for location in range(len(locations)):
@@ -48,8 +47,12 @@ class Simulation():
         with open(tbfile, 'r') as f:
             lines = f.readlines()
     
-        update_mem_init_file_string = f'          file_open(fstatus, fptr, "../mem_init_values/mem_init_values_{i}.txt", read_mode);\n'
-        lines[144] = update_mem_init_file_string
+        update_mem_init_file_string = f'          file_open(fstatus, fptr, "./mem_init_values/mem_init_values_{i}.txt", read_mode);\n'
+        print(lines[138])
+        lines[138] = update_mem_init_file_string
+        print(lines[138])
 
-        with open('self.tb', 'w') as f:
+
+        with open(tbfile, 'w') as f:
             f.writelines(lines)
+

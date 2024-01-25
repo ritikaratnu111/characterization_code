@@ -5,6 +5,8 @@ from isa import ISA
 from cell_profiler import CellProfiler
 from helper_functions import AssemblyProcessing
 import logging
+import json
+from measurement import Measurement
 
 class Cell():
     """
@@ -38,7 +40,7 @@ class Cell():
         window['start'] = self.total_window['start']
         window['end'] = self.total_window['end']
         window['clock_cycles'] = int((self.total_window['end'] - self.total_window['start'] )/constants.CLOCK_PERIOD)
-        self.profiler.init(window)
+        self.profiler.init(window,self.cell_id)
 
     def add_active_cell_components(self):
         """
@@ -183,10 +185,68 @@ class Cell():
                 sorted_window = AssemblyProcessing.sort(component.active_window)
                 component.active_window = sorted_window
 
- 
     def print(self):
         print(f"Cell: {self.cell_id}")
         self.assembly.print()
         print(f"Active components:")
         self.components.print()
     
+    def get_measurement(self,reader,tiles,iter):
+        """
+        Get the energy measurements of the cell and the components
+        """
+        self.profiler.set_total_measurement(reader,tiles,iter)
+        total_measurement = self.profiler.total_measurement
+        total_nets = self.profiler.nets
+        error = Measurement()
+        measurement = Measurement()
+        measurement.set_window(self.total_window)
+        error.set_window(self.total_window)
+        balance = 0
+        accounted_nets = 0
+        data = {}
+        for component in self.components.active:
+            print(component.name, component.signals, component.active_window)
+            component.profiler.set_active_measurement(reader,iter)
+            component.profiler.set_inactive_measurement(reader,iter)
+            component.profiler.set_total_measurement(reader,iter)
+            component.profiler.set_error_measurement()
+            accounted_nets += component.profiler.nets
+            balance = total_nets - accounted_nets
+            measurement.add_energy(component.profiler.total_measurement)
+            error.diff_energy(total_measurement,measurement)
+            error.log_energy("Error")
+            print("--------------------------------------------------------------------------------------")
+            print(balance, (balance / total_nets) * 100)
+            data[component.name] = {
+                "active": {
+                    "window": f"{component.profiler.active_window['windows']}" if component.active_window else "None",
+                    "cycles": component.profiler.active_window['clock_cycles'] if component.active_window else 0,
+                    "power": {
+                        "internal": component.profiler.active_measurement.power.internal,
+                        "switching": component.profiler.active_measurement.power.switching,
+                        "leakage": component.profiler.active_measurement.power.leakage
+                    }
+                },
+                "inactive": {
+                    "window": f"{component.profiler.inactive_window['windows']}" if component.inactive_window else "None",
+                    "cycles": component.profiler.inactive_window['clock_cycles'] if component.inactive_window else 0,
+                    "power": {
+                        "internal": component.profiler.inactive_measurement.power.internal,
+                        "switching": component.profiler.inactive_measurement.power.switching,
+                        "leakage": component.profiler.inactive_measurement.power.leakage
+                    }
+                }
+            }
+        data[self.cell_id] = {
+            "window": f"{self.total_window}",
+            "cycles": self.total_window['clock_cycles'],
+            "power": {
+                "internal": self.profiler.total_measurement.power.internal,
+                "switching": self.profiler.total_measurement.power.switching,
+                "leakage": self.profiler.total_measurement.power.leakage
+            }
+        }
+
+        with open(f"{self.tb}/vcd/iter_{iter}.json", "w") as file:
+            json.dump(data, file, indent=2)

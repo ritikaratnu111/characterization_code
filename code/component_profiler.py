@@ -7,8 +7,8 @@ class AverageMeasurement():
     def __init__(self):
         self.active = Measurement()
         self.inactive = Measurement()
-        self.diff_active = Measurement()
-        self.diff_inactive = Measurement()
+        self.total = Measurement()
+        self.diff = Measurement()
         self.count = 0
 
 class ComponentProfiler():
@@ -59,15 +59,17 @@ class ComponentProfiler():
 
     def add_avg_measurement(self,active_measurement,inactive_measurement,iter):
         if(iter > 0):
-            self.average_measurement[iter].active.average_power(self.average_measurement[iter-1].active,active_measurement,iter)
-            self.average_measurement[iter].inactive.average_power(self.average_measurement[iter-1].inactive,inactive_measurement,iter)
-            self.average_measurement[iter].diff_active.diff_power(self.average_measurement[iter].active,self.average_measurement[iter-1].active)
-            self.average_measurement[iter].diff_inactive.diff_power(self.average_measurement[iter].inactive,self.average_measurement[iter-1].inactive)
+            self.average_measurement[iter].active.average(self.average_measurement[iter-1].active,active_measurement,iter)
+            self.average_measurement[iter].inactive.average(self.average_measurement[iter-1].inactive,inactive_measurement,iter)
+            self.average_measurement[iter].total.add_energy(self.average_measurement[iter].active)
+            self.average_measurement[iter].total.add_energy(self.average_measurement[iter].inactive)
+            self.average_measurement[iter].diff.diff(self.average_measurement[iter].total,self.average_measurement[iter-1].total)
         else:
-            self.average_measurement[iter].active.average_power(self.average_measurement[iter].active,active_measurement,iter)
-            self.average_measurement[iter].inactive.average_power(self.average_measurement[iter].inactive,inactive_measurement,iter)
-            self.average_measurement[iter].diff_active.diff_power(self.average_measurement[iter].active,self.average_measurement[iter].active)
-            self.average_measurement[iter].diff_inactive.diff_power(self.average_measurement[iter].inactive,self.average_measurement[iter].inactive)
+            self.average_measurement[iter].active.average(self.average_measurement[iter].active,active_measurement,iter)
+            self.average_measurement[iter].inactive.average(self.average_measurement[iter].inactive,inactive_measurement,iter)
+            self.average_measurement[iter].total.add_energy(self.average_measurement[iter].active)
+            self.average_measurement[iter].total.add_energy(self.average_measurement[iter].inactive)
+            self.average_measurement[iter].diff.diff(self.average_measurement[iter].total,self.average_measurement[iter].total)
 
         self.average_measurement[iter].count = iter
 
@@ -231,11 +233,11 @@ class ComponentProfiler():
 
     def print_avg_results(self,iter):
         print(f"Average Results for iteration {iter}")
-        print(f"Active: ")
-        self.average_measurement[iter].active.log_power()
-        print(f"Inactive: ")
-        self.average_measurement[iter].inactive.log_power()
-        print(f"Diff Active: ")
-        self.average_measurement[iter].diff_active.log_power()
-        print(f"Diff Inactive: ")
-        self.average_measurement[iter].diff_inactive.log_power()
+        print(f"Active:")
+        self.average_measurement[iter].active.log_energy("Active")
+        print(f"Inactive:")
+        self.average_measurement[iter].inactive.log_energy("Inactive")
+        print(f"Total:")
+        self.average_measurement[iter].total.log_energy("Total")
+        print(f"Diff:")
+        self.average_measurement[iter].diff.log_energy("Diff")
