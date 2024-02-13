@@ -1,6 +1,7 @@
 {
   "active_components":{
     "component_hierarchy": [
+      "CTS",
       "raccu",
       "sequencer",
       "noc",
@@ -21,7 +22,6 @@
       "seq_address_rb",
       "seq_address_cb",
       "rf_block",
-      "CTS",
       "data_selector",
       "dimarch_data_in_out",
       "dimarch_data_out",
@@ -46,171 +46,249 @@
       "sequencer": {
         "about": "sequencer",
         "signals": ["seq_gen", "instr_start_w", "dimarch_mode", "instr_ld", "dpu_acc_clear_rst_w"],
-        "correct": "yes, not sure about instr_start_w, dimarch_mode, instr_ld, dpu_acc_clear_rst_w"
+        "correct": "yes, not sure about instr_start_w, dimarch_mode, instr_ld, dpu_acc_clear_rst_w",
+        "p_inactive_internal": "uncharacterized",
+        "p_inactive_leakage": "0.590278056375"
       },
       "noc": {
         "about": "noc",
         "signals": ["noc", "partition", "splitter"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.015999488"
       },
       "regfile": {
         "about": "regfile",
         "signals": ["reg_top", "rf_out_to_dimarch", "reg_port_type"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.7026771",
+        "p_inactive_leakage": "0.625175001212"
       },
       "dpu": {
         "about": "dpu",
         "signals": ["dpu_gen", "dpu_in", "h_bus_reg", "h_bus_dpu", "dpu_silego_interface"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.1719328",
+        "p_inactive_leakage": "0.835371905465"
       },
       "config_swb": {
         "about": "config_swb",
         "signals": ["config_swb"],
-        "correct": "no, starting is corect but end is not"
+        "correct": "no, starting is corect but end is not",
+        "p_inactive_internal": "0.0287908",
+        "p_inactive_leakage": "0.024529402"
       },
       "swb": {
         "about": "swb",
         "signals": ["swb"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.1274187219"
       },
       "shadow_reg": {
         "about": "shadow_reg",
         "signals": ["shadowReg"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0348968",
+        "p_inactive_leakage": "0.026341576"
       },
       "bus_selector": {
         "about": "bus_selector",
         "signals": ["u_bus_selector"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.0007552"
       },
       "dimarch_data_in_out_reg": {
         "about": "dimarch_data_in_out_reg",
         "signals": ["dimarch_data_in_out_reg"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0930804",
+        "p_inactive_leakage": "0.01894144"
       },
       "dimarch_data_in": {
         "about": "dimarch_data_in",
         "signals": ["dimarch_data_in"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.01569738"
       },
       "instr_inp_out_reg": {
         "about": "instr_inp_out_reg",
         "signals": ["instr_inp_out_reg"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0098329",
+        "p_inactive_leakage": "0.00199773"
       },
       "seq_address_rb": {
         "about": "seq_address_rb",
         "signals": ["seq_address_rb"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0007253",
+        "p_inactive_leakage": "0.00030601"
       },
       "seq_address_cb": {
         "about": "seq_address_cb",
         "signals": ["seq_address_cb"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0029085",
+        "p_inactive_leakage": "0.00111917"
       },
       "CTS": {
         "about": "CTS",
         "signals": ["CTS"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.03699555",
+        "p_inactive_leakage": "0.01041318"
       },
       "rf_block": {
         "about": "rf_block, par of DPU instr",
-        "signals": ["rf_block"]
+        "signals": ["rf_block"],
+        "correct": "yes",
+        "p_inactive_internal": "0.000727",
+        "p_inactive_leakage": "0.0003334"
       },
       "data_selector": {
         "about": "data_selector",
         "signals": ["u_data_selector"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.01176466"
         },
       "dimarch_data_in_out":{
          "about": "dimarch_data_in_out",
          "signals": ["dimarch_data_in_out"],
-          "correct": "yes"
+          "correct": "yes",
+          "p_inactive_internal": "0",
+          "p_inactive_leakage": "0"
       },
       "dimarch_data_out": {
         "about": "dimarch_data_out",
         "signals": ["dimarch_data_out"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.0012617"
       },
       "instr_inp": {
         "about": "instr_inp",
         "signals": ["instr_inp"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.003252305"
       },
       "ext_v_input_bus_in": {
         "about": "ext_v_input_bus_in",
         "signals": ["ext_v_input_bus_in"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.0025095"
       },
       "rst_n":{
         "about": "rst_n",
         "signals": ["rst_n"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.00150266"
       },
       "sel_r_ext": {
         "about": "sel_r_ext",
         "signals": ["sel_r_ext"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "valid_bot": {
         "about": "valid_bot",
         "signals": ["valid_bot"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "immediate": {
         "about": "immediate",
         "signals": ["immediate"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "data_in_this": {
         "about": "data_in_this",
         "signals": ["data_in_this"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "seq_cond_status": {
         "about": "seq_cond_status",
         "signals": ["seq_cond_status"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "address_assign": {
         "about": "address assign in the top tile",
         "signals": ["u_addres_assign"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.0021742",
+        "p_inactive_leakage": "0.001511671"
       },
       "MTRF_cell": {
         "about": "MTRF_cell",
-        "signals": ["MTRF_cell"]
+        "signals": ["MTRF_cell"],
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.007450121703"
       },
       "SILEGO_cell": {
         "about": "SILEGO_cell",
-        "signals": ["SILEGO_cell"]
+        "signals": ["SILEGO_cell"],
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.015383805"
       },
       "others": {
         "about": "leftover logic",
         "signals": ["FE","U"],
-        "flag": "incorrect but very minor"
+        "flag": "incorrect but very minor",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.007289469703"
       }
     },
     "DIMARCH_components": {
+      "CTS": {
+        "about": "CTS",
+        "signals": ["CTS"],
+        "correct": "yes",
+        "p_inactive_internal": "0.03699555",
+        "p_inactive_leakage": "0.01041318"
+      },
       "noc": {
         "about": "noc",
         "signals": ["noc", "partition", "splitter"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0.015999488"
       },
       "dimarch_agu": {
         "about": "dimarch_agu",
         "signals": ["AGU"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.2405344",
+        "p_inactive_leakage": "0.088452250806"
       },
       "sram": {
         "about": "sram",
         "signals": ["u_sram"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.019504",
+        "p_inactive_leakage": "0.021250416986"
       },
       "dimarch": {
         "about": "dimarch",
         "signals": ["DiMArch"],
-        "correct": "yes"
+        "correct": "yes",
+        "p_inactive_internal": "0.6702023",
+        "p_inactive_leakage": "0.443469666125"
       }
     }
   },
