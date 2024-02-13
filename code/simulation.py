@@ -1,16 +1,16 @@
-import os
+import os, shutil
 import random
 import constants
 import uuid
 
-CODE_PATH = '/home/ritika/silago/characterization_code/simulation_scripts/'
+CODE_PATH = '/media/storage1/ritika/characterization_code/simulation_scripts/'
 
 class Simulation():
 
-    def trigger_vsim(iter, start, end, per_cycle_flag, tbout):
+    def trigger_vsim(iter, start, end, per_cycle_flag, uid):
         script = f'{CODE_PATH}/get_activity.do'
         os.system(
-            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} TB={tbout} vsim -64 -c -do {script}")
+            f" ITER={iter} START_TIME={start} END_TIME={end} CLOCK_PERIOD={constants.CLOCK_PERIOD} PER_CYCLE_FLAG={per_cycle_flag} UNID={uid} vsim -64 -c -do {script}")
 
     def trigger_innovus(iter, start, end, per_cycle_flag):
         script = f'{CODE_PATH}/get_power.tcl'
@@ -19,6 +19,9 @@ class Simulation():
 
     def remove_file(file):
         os.remove(file)
+
+    def remove_dir(dir):
+        shutil.rmtree(dir)
 
     def generate_randomized_mem_init_files(start,end):
         locations = []
@@ -50,15 +53,9 @@ class Simulation():
         tboutfile = f"{tb}/{tbout}"
         with open(tbfile, 'r') as f:
             lines = f.readlines()
-    
         update_mem_init_file_string = f'          file_open(fstatus, fptr, "./mem_init_values/mem_init_values_{i}.txt", read_mode);\n'
-        print(lines[138])
         lines[138] = update_mem_init_file_string
-        print(lines[138])
-
-
         with open(tboutfile, 'w') as f:
             f.writelines(lines)
-        
-        return tbout   
+        return uid   
 

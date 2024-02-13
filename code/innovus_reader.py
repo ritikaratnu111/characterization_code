@@ -9,7 +9,7 @@ class InnovusPowerParser():
 
     def update_nets(self,file):
         self.POWER_FILE = file
-        header = 104
+        header = 106
         tail = 15
         try:
             with open(self.POWER_FILE) as file:
@@ -39,34 +39,50 @@ class InnovusPowerParser():
         except FileNotFoundError:
             logging.error(f"File {self.POWER_FILE} not found")
 
-    def set_active_nets(self,signals):
+
+    def label_nets(self,signals):
         count = 0
-        #logging.info('Signals: %s', signals)
+#        logging.info('Signals: %s', signals)
         for signal in signals:
             signal_substrings = signal.split('*')
-            if (any("UXXX" in substring for substring in signal_substrings)):
-                print("Signal: ", signal)
-                pattern = f"{signal_substrings[0]}.*U\d+"
-                print("Pattern: ", pattern)
-                for name in self.nets:
-                    net = self.nets[name]
-                    label = net['label']
-                    if (label == 'inactive'):
-                        if re.search(pattern, name):
-                            self.nets[name]['label'] = signal
-                            count += 1
-            else:
-                for name in self.nets:
-                    net = self.nets[name]
-                    label = net['label']
-                    if (label == 'inactive'):
-                        if all(substring in name for substring in signal_substrings):
-                            self.nets[name]['label'] = signal
+            for name in self.nets:
+                net = self.nets[name]
+                label = net['label']
+                if (label == 'inactive'):
+                    if all(substring in name for substring in signal_substrings):
+                        #logging.info(name)
+                        self.nets[name]['label'] = signal
                             #Log the net name if the switching power is not 0
 #                            if (net['switching'] != 0):
 #                                logging.info('Net: %s', name)
-                            count += 1
-#        logging.info('Active nets: %s', count)
+                        count += 1
+
+
+    def get_count_of_inactive_labels(self,signals):
+        count = 0
+        for signal in signals:
+            signal_substrings = signal.split('*')
+            for name in self.nets:
+                net = self.nets[name]
+                label = net['label']
+                if (label == 'inactive'):
+                    if all(substring in name for substring in signal_substrings):
+                        count += 1
+
+
+
+    def remove_labels(self,signals):
+        count = 0
+        for signal in signals:
+            signal_substrings = signal.split('*')
+            for name in self.nets:
+                net = self.nets[name]
+                label = net['label']
+                if (label == signal):
+                    if all(substring in name for substring in signal_substrings):
+                        self.nets[name]['label'] = 'inactive'
+                        count += 1
+
 
     def get_power(self, signals):
         count = 0

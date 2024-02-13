@@ -27,13 +27,14 @@ class Cell():
         self.profiler = CellProfiler()
         self.init_profiler()
         logging.info(f"Cell {self.cell_id} created")
-        logging.info(f"Cell {self.cell_id} window: {self.total_window}")
 
     def set_assembly(self,instructions):
         self.assembly.set_ISA(self.ISA)
         self.assembly.set_hop_cycles(self.row,self.col)
         self.assembly.set_window(self.total_window)
+        self.total_window = self.assembly.window
         self.assembly.set_assembly(instructions)
+        logging.info(f"Cell {self.cell_id} window: {self.total_window}")
 
     def init_profiler(self):
         window = {}
@@ -47,6 +48,8 @@ class Cell():
         Adds active components to the cell based on instructions.
         """
         print(f"Adding active components to cell {self.cell_id}")
+        for idx,instr in enumerate(self.assembly.instructions):
+            instr.set_tile(self.row,self.col,self.ISA)
         for idx,instr in enumerate(self.assembly.instructions):
             instr.set_components(self.row,self.col,self.ISA)
             for component in instr.components.active:
@@ -140,8 +143,8 @@ class Cell():
         """
         for component in self.components.active:
             component.init_profiler(self.total_window)
-        for component in self.components.inactive:
-            component.init_profiler(self.total_window)
+#        for component in self.components.inactive:
+#            component.init_profiler(self.total_window)
 
     def set_AEC_measurement(self,iter):
         """
@@ -156,6 +159,7 @@ class Cell():
         self.dimarch_tiles = self.ISA.get_dimarch_tiles()
         self.tiles.extend(self.dimarch_tiles)
         self.tiles.append(self.drra_tile)
+        print(self.tiles)
 
     def set_remaining_measurement(self,reader,iter):
         """

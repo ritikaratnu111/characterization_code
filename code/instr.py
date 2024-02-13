@@ -14,6 +14,9 @@ class Instr():
 
         self.pc = my_isa.get_pc(self.name,self.id,prev_instr)
 
+    def set_tile(self,row,col,my_isa):
+        my_isa.get_tile(self.name,row,col, self.segment_values)
+
     def set_components(self,row,col,my_isa):
         from_isa = my_isa.get_components(self.name,row,col,self.segment_values)
         for key,info in from_isa.items():
@@ -21,7 +24,9 @@ class Instr():
             signals = info["signals"]
             active = info["active"]
             inactive = info["inactive"]
-            new_component = ActiveComponent(name, signals, active, inactive)
+            c_internal = info["p_inactive_internal"]
+            c_leakage = info["p_inactive_leakage"]
+            new_component = ActiveComponent(name, signals, active, inactive, c_internal, c_leakage)
             self.components.add_active_component(new_component)
 
     def set_active_cycles(self,my_isa):

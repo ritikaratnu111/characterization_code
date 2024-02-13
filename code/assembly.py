@@ -22,8 +22,9 @@ class Assembly():
         logging.info(f"hop cycles: {self.hop_cycles}")
 
     def set_window(self,window):
-        self.window['start'] = window['start'] + self.hop_cycles
+        self.window['start'] = window['start'] + self.hop_cycles 
         self.window['end'] = window['end'] + self.hop_cycles
+        self.window['clock_cycles'] = (window['end'] - window['start'])/ constants.CLOCK_PERIOD
         self.global_start = window['start']
         logging.info(f"Assembly window: {self.window}")
 

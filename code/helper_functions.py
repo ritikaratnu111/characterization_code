@@ -1,13 +1,10 @@
 import os
 import re
 import random
-
-CLOCK_PERIOD = 12
-HALF_PERIOD = 6
-
+import constants
 
 class VesylaOutput():
-    # Write a function to change the clock_period from 10NS to CLOCK_PERIOD and half_period from 5NS to HALF_PERIOD
+    # Write a function to change the clock_period from 10NS to constants.CLOCK_PERIOD and half_period from 5NS to constants.HALF_PERIOD
     def update_clock_period(tb):
 
         PACKAGE_FILE = f"{tb}/const_package.vhd"
@@ -21,12 +18,12 @@ class VesylaOutput():
                 contents,
                 ).group(1)
             )
-            # Replace the old values with the new values if file_clock_period is not the same as self.CLOCK_PERIOD
-            if(file_clock_period != CLOCK_PERIOD):
+            # Replace the old values with the new values if file_clock_period is not the same as self.constants.CLOCK_PERIOD
+            if(file_clock_period != constants.CLOCK_PERIOD):
                 updated_contents = contents.replace("CONSTANT period                 : time    := 10 NS;",
-                                                 f"CONSTANT period                 : time    := {CLOCK_PERIOD} NS;")
+                                                 f"CONSTANT period                 : time    := {constants.CLOCK_PERIOD} NS;")
                 updated_contents = updated_contents.replace("CONSTANT half_period            : time    := 5 NS;",
-                                                         f"CONSTANT half_period            : time    := {HALF_PERIOD} NS;")
+                                                         f"CONSTANT half_period            : time    := {constants.HALF_PERIOD} NS;")
 
             # Write the updated contents back to the file
                 with open(PACKAGE_FILE, "w") as file:
@@ -55,8 +52,8 @@ class VesylaOutput():
             ).group(1)
         )
 
-        execution_start_time = CLOCK_PERIOD * execution_start_cycle + HALF_PERIOD 
-        execution_end_time = CLOCK_PERIOD * total_execution_cycle + HALF_PERIOD 
+        execution_start_time = constants.CLOCK_PERIOD * execution_start_cycle + constants.HALF_PERIOD 
+        execution_end_time = constants.CLOCK_PERIOD * total_execution_cycle + constants.HALF_PERIOD 
 
         return execution_start_time, execution_end_time
 

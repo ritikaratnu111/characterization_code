@@ -1,9 +1,10 @@
-import os
+import sys,os
 import logging
 import json
 from loader import Loader
 from characterize import Characterize
 from helper_functions import VesylaOutput
+logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 class RunSimulations():
     def __init__(self):
@@ -53,14 +54,15 @@ class RunSimulations():
                 loader = Loader(tb,self.logger)
                 loader.read()
                 loader.process()
-                characterize = Characterize(tb,loader.cells)
-#                characterize.generate_randomized_mem_init_files(10)
+                start = int(sys.argv[1])
+                end = int(sys.argv[2])
+                vcd_dir = f"./vcd/"
+                print(f"Characterizing for {start} to {end}")
+                characterize = Characterize(tb, vcd_dir, loader.cells)
+#                characterize.run_randomized_simulation(start,end)
+                characterize.get_cell_measurements(start,end)  
 #                characterize.run_simulation_per_cycle()
-#                characterize.run_randomized_simulation(10)
-                #characterize.get_per_cycle_measurement()
-                #characterize.get_AEC_measurements_from_per_cycle()
-                #characterize.get_cell_measurements()
-#                characterize.write_db()
+#                characterize.get_per_cycle_measurement()
 #                loader.log_window()
                 #loader.log_AEC_measurements_from_per_cycle()
                 #loader.log_cell_measurements()
@@ -71,6 +73,8 @@ class RunSimulations():
 #                characterize.write_db()
 #                characterize.log()
 #
+#Get average from json
+#                characterize.get_average(start,end)  
 #                predictor = Predictor(tb,assembly)
 #                predictor.read_db()
 #                predictor.get_active_component_active_energy()

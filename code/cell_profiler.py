@@ -1,7 +1,7 @@
 import constants
 import logging
 from innovus_reader import InnovusPowerParser
-from measurement import Measurement
+from measurement import Measurement, MeasurementSet
 import matplotlib.pyplot as plt
 import json
 
@@ -18,6 +18,7 @@ class CellProfiler():
         self.inactive_AEC_measurement = Measurement()
         self.total_measurement = Measurement()
         self.error_measurement = Measurement()
+        self.measurement_set = MeasurementSet()
         self.nets = 0
         self.average_measurement = []
         self.cell_id = ""
@@ -39,50 +40,17 @@ class CellProfiler():
 
         self.average_measurement[iter].count = iter
 
-    def set_active_AEC_measurement(self,active_components,iter):
-        """
-        Sum up the energies of the active components in the cell
-        """
-        for component in active_components:
-            print(component.name, component.active_window)
-            #self.active_AEC_measurement.set_window(self.window)
-            #self.active_AEC_measurement.nets += component.profiler.total_measurement_from_per_cycle.nets
-            #self.active_AEC_measurement.add_power(component.profiler.total_measurement_from_per_cycle)
-            #self.active_AEC_measurement.add_energy(component.profiler.total_measurement_from_per_cycle)
-
-    def set_inactive_AEC_measurement(self,inactive_components,iter):
-        """
-        Sum up the energies of the inactive components in the cell
-        """
-        for component in inactive_components:
-            self.inactive_AEC_measurement.set_window(self.window)
-            self.inactive_AEC_measurement.nets += component.profiler.total_measurement_from_per_cycle.nets
-            self.inactive_AEC_measurement.add_power(component.profiler.total_measurement_from_per_cycle)
-            self.inactive_AEC_measurement.add_energy(component.profiler.total_measurement_from_per_cycle)
-
-    def set_total_measurement(self,reader,tiles,iter):
-        """
-        Set total power of the cell 
-        """
-        file = f"./vcd/iter_{iter}.vcd.pwr"
-        self.total_measurement.set_window(self.window)
-        self.total_measurement.read_cell_power(reader,file,tiles)
-        self.total_measurement.get_energy()
-        self.total_measurement.log_power()
-        self.total_measurement.log_energy("Cell Total")
-        self.nets = self.total_measurement.nets
-
-    def set_error_measurement(self):
-        """
-        Set the errorerence between total and remaining power of the cell
-        """
-        self.error_measurement.set_window(self.window)
-        self.error_measurement.nets = 100 *  (self.total_measurement.nets - self.active_AEC_measurement.nets - self.inactive_AEC_measurement.nets) / max(self.total_measurement.nets,self.active_AEC_measurement.nets+self.inactive_AEC_measurement.nets)
-        self.error_measurement.energy.internal = 100 * (self.total_measurement.energy.internal - self.active_AEC_measurement.energy.internal - self.inactive_AEC_measurement.energy.internal)/ max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
-        self.error_measurement.energy.switching = 100 * (self.total_measurement.energy.switching - self.active_AEC_measurement.energy.switching - self.inactive_AEC_measurement.energy.switching) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
-        self.error_measurement.energy.leakage = 100 * (self.total_measurement.energy.leakage - self.active_AEC_measurement.energy.leakage - self.inactive_AEC_measurement.energy.leakage) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
-        self.error_measurement.energy.total = 100 * (self.total_measurement.energy.total - self.active_AEC_measurement.energy.total - self.inactive_AEC_measurement.energy.total) / max(self.total_measurement.energy.internal,self.active_AEC_measurement.energy.internal+self.inactive_AEC_measurement.energy.internal)
-
+    def set_measurement(self, reader, tiles, active_components):
+        self.measurement_set.set_T(
+            self.window, self.window, 0
+        )
+        self.measurement_set.active.set_zero()
+        self.measurement_set.inactive.set_zero()
+        self.measurement_set.set_predicted()
+        print(tiles)
+        self.measurement_set.set_actual(reader, tiles)
+        self.measurement_set.set_error()
+        self.measurement_set.log()
 
     def plot(self):
         # Extracting diff energy measurements for plotting
@@ -90,16 +58,32 @@ class CellProfiler():
             for avg_measurement in self.average_measurement
         ]
 
-        #Plot the diff switching energy measurements
-        plt.plot(diff_switching_values, label='Diff Switching Energy')
-        # Adding labels and title
-        plt.xlabel('Measurements')
-        plt.ylabel('Energy Values')
-        plt.title('Diff Energy Measurements')
-        plt.savefig('diff_switching_energy_plot.png')
-        # Display the plot
-        print(diff_switching_values) 
-        #plt.show()
+        diff_total_values = [ avg_measurement.diff.energy.total
+            for avg_measurement in self.average_measurement
+        ]
+
+        diff_internal_values = [ avg_measurement.diff.energy.internal
+            for avg_measurement in self.average_measurement
+        ]
+
+        diff_leakage_values = [ avg_measurement.diff.energy.leakage
+            for avg_measurement in self.average_measurement
+        ]
+
+        #Plot internal, switching, leakage, total diff values
+        plt.plot(diff_internal_values, label="Internal")
+        plt.plot(diff_switching_values, label="Switching")
+        plt.plot(diff_leakage_values, label="Leakage")
+        plt.plot(diff_total_values, label="Total")
+        plt.legend()
+        plt.show()
+        plt.xlabel("Samples")
+        plt.ylabel("Avg Energy Error (%)")
+        plt.title("Avg Energy Error (%) vs Samples")
+        plt.savefig(f"avg_energy_error.png")
+
+
+
 
     def print_avg_results(self,iter):
         print(f"Cell average Results for iteration {iter}")

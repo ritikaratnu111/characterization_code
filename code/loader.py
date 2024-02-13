@@ -60,7 +60,8 @@ class Loader():
             cell.init_component_energy_profiler()
             cell.set_dimarch_tiles()
             for component in cell.components.active:
-                print(component.name, component.active_window)
+                print(component.name, component.active_window, component.signals)
+                #logging.info(component.name, component.active_window)
         self.get_dependency()
 
     def get_dependency(self):

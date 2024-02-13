@@ -116,7 +116,7 @@ class Assembly():
 #        print(self.cells)
 
 assembly = Assembly()
-assembly.set_assembly_file('/home/ritika/silago/SiLagoNN/tb/char/data_transfer')
+assembly.set_assembly_file('/media/storage1/ritika/SiLagoNN/tb/char/data_transfer')
 assembly.set_instructions()
 assembly.set_active_components()
 assembly.set_instr_active_component_cycles()

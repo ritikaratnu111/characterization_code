@@ -13,7 +13,7 @@ class Simulation():
 
     def __init__(self):
         self.TB_DIR_FILE = "../input_files/TB_DIR_FILE.txt"
-        os.environ['FABRIC_PATH'] = '/home/ritika/silago/SiLagoNN/'
+        os.environ['FABRIC_PATH'] = '/media/storage1/ritika/SiLagoNN/'
         os.environ['VCD_DIR'] ='./vcd/'
 
     def run_sim_cycle(self):

@@ -1,4 +1,4 @@
-import os
+import sys,os
 import logging
 import json
 from loader import Loader
@@ -30,7 +30,7 @@ class RunSimulations():
             self.logger = None
 
     def set_fabric_path(self):
-        self.FABRIC_PATH = '/home/ritika/silago/SiLagoNN/'
+        self.FABRIC_PATH = '/media/storage1/ritika/SiLagoNN/'
         os.environ['FABRIC_PATH'] = self.FABRIC_PATH
 
     def get_testbenches(self):
@@ -54,17 +54,15 @@ class RunSimulations():
                 loader = Loader(tb,self.logger)
                 loader.read()
                 loader.process()
-                start = 0
-                end = 1
-                vcd_dir = f"./vcd_{start}_{end}/"
+                start = int(sys.argv[1])
+                end = int(sys.argv[2])
+                vcd_dir = f"./vcd/"
+                print(f"Characterizing for {start} to {end}")
                 characterize = Characterize(tb, vcd_dir, loader.cells)
-#                characterize.generate_randomized_mem_init_files(start,end)
                 characterize.run_randomized_simulation(start,end)
+#                characterize.get_cell_measurements(start,end)  
 #                characterize.run_simulation_per_cycle()
 #                characterize.get_per_cycle_measurement()
-                #characterize.get_AEC_measurements_from_per_cycle()
-#                characterize.get_cell_measurements(start,end)
-                characterize.get_average(start,end)
 #                loader.log_window()
                 #loader.log_AEC_measurements_from_per_cycle()
                 #loader.log_cell_measurements()
@@ -75,6 +73,8 @@ class RunSimulations():
 #                characterize.write_db()
 #                characterize.log()
 #
+#Get average from json
+#                characterize.get_average(start,end)  
 #                predictor = Predictor(tb,assembly)
 #                predictor.read_db()
 #                predictor.get_active_component_active_energy()

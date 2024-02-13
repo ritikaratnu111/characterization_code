@@ -54,7 +54,7 @@ class EnergyCalculator():
             start = start + self.CLOCK_PERIOD
 
 
-tb = "/home/ritika/silago/SiLagoNN/tb/char/sequencer"
+tb = "/media/storage1/ritika/SiLagoNN/tb/char/sequencer"
 energy_calculator = EnergyCalculator()
 energy_calculator.set_assembly_file(tb)
 energy_calculator.set_db()

@@ -1,1 +1,1 @@
-/home/ritika/silago/SiLagoNN/tb/char/dpu_add/top_left/
+/media/storage1/ritika/SiLagoNN/tb/char/dpu_add/top_left/

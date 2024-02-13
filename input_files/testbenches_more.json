@@ -1,76 +1,76 @@
 {
     "data_mov":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/data_transfer/top_left/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/data_transfer/top_left/",
         "about":"Data movement testbench from dimarch to drra",
         "dimarch":"0_0",
         "drra":"0_0",
         "to_run":false
     },
     "l1_vec_add_top_l":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_l/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_l/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_0",
         "drra":"0_0",
         "to_run":false
     },
     "l1_vec_add_bot_l":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_l/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_l/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_0",
         "drra":"1_0",
         "to_run":false
     },
     "l1_vec_add_top":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"0_1",
         "to_run":false
     },
     "l1_vec_add_bot":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"1_1",
         "to_run":true
     },
     "l1_vec_sub_top_l":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top_l/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top_l/",
         "about":"Pointwise vector sub of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_0",
         "drra":"0_0",
         "to_run":true
     },
     "l1_vec_sub_bot_l":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/bot_l/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/bot_l/",
         "about":"Pointwise vector sub of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_0",
         "drra":"1_0",
         "to_run":true
     },
     "l1_vec_sub_top":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/",
         "about":"Pointwise vector sub of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"0_1",
         "to_run":true
     },
     "l1_vec_sub_bot":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/bot/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/bot/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"1_1",
         "to_run":true
     },
     "conv":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/convolution/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/convolution/",
         "about":"Convolution of 16x16 matrix with 3x3 kernel. There is a problem in raccu with other loop, register 14 has zeros in it while register 13 has its values.",
         "dimarch":"0_0, 0_1",
         "drra":"0_0, 1_0, 0_1",
         "to_run":false
     },
     "mmm":{
-        "path":"/home/ritika/silago/SiLagoNN/tb/char/mmm/left_col",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/mmm/left_col",
         "about":"MMM of two 16x16 matrix",
         "dimarch":"0_0",
         "drra":"0_0, 0_1",

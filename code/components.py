@@ -3,11 +3,13 @@ from isa import ISA
 import logging
 
 class ActiveComponent():
-    def __init__(self, name, signals, active_window, inactive_window):
+    def __init__(self, name, signals, active_window, inactive_window, c_internal, c_leakage):
         self.name = name
         self.signals = signals
         self.active_window = active_window if active_window is not None else []
         self.inactive_window = inactive_window if inactive_window is not None else []
+        self.c_internal = c_internal
+        self.c_leakage = c_leakage
         self.profiler = ComponentProfiler()
 
     def __eq__(self, other):
@@ -19,7 +21,7 @@ class ActiveComponent():
         return False
 
     def init_profiler(self,total_window):
-        self.profiler.init(self.active_window, self.inactive_window,total_window, self.signals)
+        self.profiler.init(self.active_window, self.inactive_window,total_window, self.signals, self.c_internal, self.c_leakage)
 
     def print(self):
         print(f"Component: {self.name}, {self.active_window}, {self.inactive_window}")
@@ -58,13 +60,9 @@ class ComponentSet():
     def reorder_components(self):
         my_isa = ISA()
         component_hierarchy = my_isa.component_hierarchy
-        for component in self.active:
-            print(component.name, component.signals)
         component_hierarchy_dict = {component: index for index, component in enumerate(component_hierarchy)}
         sorted_components = sorted(self.active, key=lambda component: component_hierarchy_dict.get(component.name, float('inf')))
         self.active = sorted_components
-        for component in self.active:
-            print(component.name)
 
     def add_active_window(self):
         for component in self.active:

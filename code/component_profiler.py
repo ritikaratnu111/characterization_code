@@ -1,7 +1,7 @@
 import constants
 import logging
 from innovus_reader import InnovusPowerParser
-from measurement import Measurement
+from measurement import Measurement, Power, Energy, Net, MeasurementSet
 
 class AverageMeasurement():
     def __init__(self):
@@ -17,21 +17,18 @@ class ComponentProfiler():
         self.inactive_window = []
         self.per_cycle_window = []
         self.per_cycle_active_window = []
-        self.active_measurement = Measurement
-        self.inactive_measurement = Measurement
-        self.total_measurement = Measurement
-        self.error_measurement = Measurement()
+        self.measurement = MeasurementSet()
         self.per_cycle_measurement = []
         self.active_measurement_from_per_cycle = []
         self.inactive_measurement_from_per_cycle = []
         self.total_measurement_from_per_cycle = Measurement()
         self.nets = 0
         self.signals = [] 
-        self.active_factor = 0
-        self.inactive_factor = 0
         self.average_measurement = [] 
+        self.c_internal = 0
+        self.c_leakage = 0
 
-    def init(self, active_window, inactive_window,total_window, signals):
+    def init(self, active_window, inactive_window,total_window, signals, c_internal, c_leakage):
         if(active_window):
             self.active_window= {
                 'windows': [{'start': window['start'], 'end': window['end']} for window in active_window],
@@ -44,15 +41,14 @@ class ComponentProfiler():
             }
 
         self.total_window = total_window
-        if(self.active_window):
-            self.active_factor = self.active_window['clock_cycles'] / self.total_window['clock_cycles']
-        if(self.inactive_window):
-            self.inactive_factor = self.inactive_window['clock_cycles'] / self.total_window['clock_cycles']
         self.signals = signals
         current_start = total_window['start']
         while current_start < total_window['end']:
             self.per_cycle_window.append({'start': current_start, 'end': current_start + constants.CLOCK_PERIOD, 'clock_cycles' : 1})
             current_start += constants.CLOCK_PERIOD        
+
+        self.c_internal = float(c_internal) if c_internal != "uncharacterized" else 0
+        self.c_leakage = float(c_leakage)
 
     def set_avg_measurement_size(self,iter):
         self.average_measurement = [AverageMeasurement() for i in range(iter)]
@@ -77,6 +73,7 @@ class ComponentProfiler():
         for window in self.per_cycle_window:
             file = f"./vcd/{window['start']}.vcd.pwr"
             print(f"File: {file}")
+            logging.info(f"File: {file}")
             measurement = Measurement()
             measurement.set_window(window)
             measurement.read_power(reader,file,signals)
@@ -144,92 +141,32 @@ class ComponentProfiler():
         self.total_measurement_from_per_cycle.adjust_power()
         print(self.total_measurement_from_per_cycle.window,self.total_measurement_from_per_cycle.power.internal,self.total_measurement_from_per_cycle.power.switching,self.total_measurement_from_per_cycle.power.leakage)
 
-    def set_total_measurement(self,reader,iter):
-        file = f"./vcd/iter_{iter}.vcd.pwr"
-        print(f"File: {file}")
-        print("Total measurement: ", self.total_window["clock_cycles"])
-        measurement = Measurement()
-        measurement.set_window(self.total_window)
-        measurement.read_power(reader,file,self.signals)
-        measurement.get_energy()
-        measurement.log_power()
-        measurement.log_energy("Total")
-        self.nets = measurement.nets
-        self.total_measurement = measurement
 
-    def set_inactive_measurement(self,reader,iter):
-        """
-        Set the power of the component in the inactive window
-        """
+    def set_measurement(self, reader):
+        print(f"Active Window: {self.active_window}, Inactive Window {self.inactive_window}, Total Window: {self.total_window}")
+        print(f"c_internal, c_leakage: {self.c_internal}, {self.c_leakage}")
+        self.measurement.set_T(
+            self.total_window, self.active_window, self.inactive_window
+            )
         if(self.inactive_window):
-            file = f"./vcd/iter_{iter}.vcd.pwr"
-            print(f"File: {file}")
-            print("Inactive measurement: ", self.inactive_window["clock_cycles"])
-            measurement = Measurement()
-            measurement.set_window(self.inactive_window)
-            measurement.read_inactive_power(reader,file,self.signals)
-            measurement.get_energy()
-            measurement.log_power()
-            measurement.log_energy("Inactive")
-            self.nets = measurement.nets
-            self.inactive_measurement = measurement
+            self.measurement.set_inactive(
+                self.c_internal, self.c_leakage
+        )
         else:
-            self.inactive_measurement = Measurement()
-            self.inactive_measurement.set_window(self.inactive_window)
-            self.inactive_measurement.energy.internal = 0
-            self.inactive_measurement.energy.switching = 0
-            self.inactive_measurement.energy.leakage = 0
-            self.inactive_measurement.energy.total = 0
-            self.inactive_measurement.power.internal = 0
-            self.inactive_measurement.power.switching = 0
-            self.inactive_measurement.power.leakage = 0
-            self.inactive_measurement.power.total = 0
-            self.inactive_measurement.nets = 0
-            self.inactive_measurement.log_energy("Inactive")
-
-    def set_active_measurement(self,reader,iter):
-        """
-        Set the power of the component in the active window
-        """
+            self.measurement.inactive.set_zero()
+        
         if(self.active_window):
-            file = f"./vcd/iter_{iter}.vcd.pwr"
-            print("Active measurement: ", self.active_window["clock_cycles"])
-            measurement = Measurement()
-            measurement.set_window(self.active_window)
-            measurement.set_factor(self.active_factor)
-            measurement.read_power(reader,file,self.signals)
-            measurement.get_energy()
-            measurement.log_power()
-            measurement.log_energy("Active")
-            self.nets = measurement.nets
-            self.active_measurement = measurement
+            self.measurement.set_active(
+                reader, self.signals
+            )
         else:
-            self.active_measurement = Measurement()
-            self.active_measurement.set_window(self.active_window)
-            self.active_measurement.energy.internal = 0
-            self.active_measurement.energy.switching = 0
-            self.active_measurement.energy.leakage = 0
-            self.active_measurement.energy.total = 0
-            self.active_measurement.power.internal = 0
-            self.active_measurement.power.switching = 0
-            self.active_measurement.power.leakage = 0
-            self.active_measurement.power.total = 0
-            self.active_measurement.nets = 0
-            self.active_measurement.log_energy("Active")
+            self.measurement.active.set_zero()
 
-    def set_error_measurement(self):
-        """
-        Set the error between total and active + inactive energy of the cell
-        """
-        print("Error measurement: ")
-        measurement = Measurement()
-        measurement.set_window(self.total_window)
-        measurement.add_energy(self.active_measurement)
-        measurement.add_energy(self.inactive_measurement)
-        self.error_measurement.set_window(self.total_window)
-        self.error_measurement.diff_energy(self.total_measurement,measurement)
-        self.error_measurement.log_energy("Error")
-
+        self.measurement.set_predicted()
+        reader.remove_labels(self.signals)
+        self.measurement.set_actual(reader, self.signals)
+        self.measurement.set_error()
+        self.measurement.log()
 
     def print_avg_results(self,iter):
         print(f"Average Results for iteration {iter}")

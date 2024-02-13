@@ -67,7 +67,7 @@ class EnergyCalculator():
                     start = start + self.CLOCK_PERIOD
 
 
-tb = "/home/ritika/silago/SiLagoNN/tb/char/data_transfer_signal_db_debug"
+tb = "/media/storage1/ritika/SiLagoNN/tb/char/data_transfer_signal_db_debug"
 assembly = Assembly()
 assembly.set_assembly_file(tb)
 assembly.set_model()

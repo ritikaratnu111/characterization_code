@@ -1,9 +1,9 @@
 import json
 import sympy as sp
-JSON_FILE_PATH = '/home/ritika/silago/characterization_code/json_files/'    
+import constants
+JSON_FILE_PATH = '/media/storage1/ritika/characterization_code/json_files/'    
 class ISA():
 
-    CLOCK_PERIOD = 12
 
     def __init__(self):
 
@@ -74,51 +74,55 @@ class ISA():
             info["signals"] = updated_signals
 
 #Get components for instruction of each cell
-    def get_components(self,instr_name,row,col,segment_values):
 
-#        print(f"Row: {row}, Col: {col}")
+    def get_tile(self,instr_name,row,col, segment_values):
         if (instr_name == "ROUTE"):
+            print("Route instr")
             self.dimarch_row = segment_values['vertical_hops'] + 1
             self.dimarch_col = segment_values['horizontal_hops'] + col
+            print(self.dimarch_row, self.dimarch_col)
+        
+
+    def get_components(self,instr_name,row,col,segment_values):
+
         #Append tile only if the tile is not present already in the list
-            if (self.get_dimarch_tile(self.dimarch_row,self.dimarch_col)) not in self.dimarch_tiles:
-                self.dimarch_tiles.append(self.get_dimarch_tile(self.dimarch_row,self.dimarch_col))
+        if (self.get_dimarch_tile(self.dimarch_row,self.dimarch_col)) not in self.dimarch_tiles:
+            self.dimarch_tiles.append(self.get_dimarch_tile(self.dimarch_row,self.dimarch_col))
         instr_components = self.components[instr_name]
         updated_components = {}
 
         #For each component, get the signals
         for component in instr_components:
+            updated_signals = []
             if (component in self.DRRA_components):
                 signals = self.DRRA_components[component]["signals"]
-            elif (component in self.DIMARCH_components):
-                signals = self.DIMARCH_components[component]["signals"]
-#            elif (component in self.tile_components):
-#                signals = self.tile_components[component]["signals"]
-            updated_signals = []
-
-            #For each signal, get the cell_signal
-            if(component in self.DRRA_components):
+                p_inactive_internal = self.DRRA_components[component]["p_inactive_internal"]
+                p_inactive_leakage = self.DRRA_components[component]["p_inactive_leakage"]
                 for signal in signals:
                     cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
                     updated_signals.append(cell_signal)
-                updated_components[component] = {   "name": component,
-                                                    "signals": updated_signals,
-                                                    "active": {},
-                                                    "inactive": {}
-                                                 }
-
-            elif (component in self.DIMARCH_components):
+            
+            if (component in self.DIMARCH_components):
+                signals = self.DIMARCH_components[component]["signals"]
+                p_inactive_internal = self.DIMARCH_components[component]["p_inactive_internal"]
+                p_inactive_leakage = self.DIMARCH_components[component]["p_inactive_leakage"]
                 dimarch_row = self.dimarch_row
                 dimarch_col = self.dimarch_col
                 for signal in signals:
-#                    print(f"Signal: {signal}, Row: {dimarch_row}, Col: {dimarch_col}")
                     cell_signal = f"{self.dimarch_signals[str(dimarch_row)][str(dimarch_col)]}{signal}"
                     updated_signals.append(cell_signal)
-                updated_components[component] = {   "name": component,
+            
+            updated_components[component] = {   "name": component,
                                                     "signals": updated_signals,
                                                     "active": {},
-                                                    "inactive": {}
+                                                    "inactive": {},
+                                                    "p_inactive_internal": p_inactive_internal,
+                                                    "p_inactive_leakage": p_inactive_leakage
                                                  }
+#            elif (component in self.tile_components):
+#                signals = self.tile_components[component]["signals"]
+
+            #For each signal, get the cell_signal
 #            elif (component in self.tile_components):
 #                for signal in signals:
 #                    cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
@@ -136,7 +140,7 @@ class ISA():
             variables = {}
         else:
             variables = segment_values
-        variables['clock_period'] = self.CLOCK_PERIOD
+        variables['clock_period'] = constants.CLOCK_PERIOD
         variables['offset'] = start
 #        print(name,start,variables)
         equations = self.instr_equations[name]
