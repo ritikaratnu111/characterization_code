@@ -1,4 +1,4 @@
-python main.py 3 25 &
+python main.py 0 25 &
 python main.py 25 50 &
 python main.py 50 75 &
 python main.py 75 100 &

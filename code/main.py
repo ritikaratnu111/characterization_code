@@ -1,9 +1,11 @@
 import sys,os
 import logging
 import json
-from loader import Loader
-from characterize import Characterize
 from helper_functions import VesylaOutput
+from loader import Loader
+from simulator import Simulator
+from power_tracker import SimulationPowerTracker
+from predictor import Predictor
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 class RunSimulations():
@@ -46,43 +48,39 @@ class RunSimulations():
     def run_simulations(self):
         for name, info in self.testbenches.items():
             if info["to_run"] == True:
+                # Get info
+                tb = info["path"]
+                start = int(sys.argv[1])
+                end = int(sys.argv[2])
+                # Log testbench info
                 self.set_logfile(info["path"])
                 self.logger.info(f"Testbench: {name}")
                 self.logger.info(f"About: {info['about']}")
-                tb = info["path"]
+                # Update clock period to the netlist period
                 VesylaOutput.update_clock_period(tb)
+                # Objects for characterization
                 loader = Loader(tb,self.logger)
+                simulator = Simulator(tb, start, end)
+                power_tracker = SimulationPowerTracker(tb, start, end)
+                predictor = Predictor(tb, start, end)
+
+                # Load the instructions
                 loader.read()
                 loader.process()
-                start = int(sys.argv[1])
-                end = int(sys.argv[2])
-                vcd_dir = f"./vcd/"
-                print(f"Characterizing for {start} to {end}")
-                characterize = Characterize(tb, vcd_dir, loader.cells)
-                characterize.run_randomized_simulation(start,end)
-#                characterize.get_cell_measurements(start,end)  
-#                characterize.run_simulation_per_cycle()
-#                characterize.get_per_cycle_measurement()
-#                loader.log_window()
-                #loader.log_AEC_measurements_from_per_cycle()
-                #loader.log_cell_measurements()
-                #loader.log_AEC_per_cycle_measurement()
-#                characterize.get_remaining_measurement()
-#                characterize.get_total_measurement()
-#                characterize.get_diff_measurement()
-#                characterize.write_db()
-#                characterize.log()
-#
-#Get average from json
-#                characterize.get_average(start,end)  
-#                predictor = Predictor(tb,assembly)
-#                predictor.read_db()
-#                predictor.get_active_component_active_energy()
-#                predictor.get_active_component_inactive_energy()
-#                predictor.get_inactive_component_energy()
-#                predictor.get_total_energy()
-#                predictor.log()
-#
+                cells = loader.cells
+                # Run post layout simulations
+#                simulator.run_randomized_simulations(cells)
+#                simulator.run_simulation_per_cycle()
+#                simulator.get_per_cycle_measurement()
+
+                # Get power measurements
+                #power_tracker.get_measurements(cells)  
+
+                # Predict the measurments from the simulations of this testbench
+                predictor.get_prediction()
+                predictor.write_json()
+                predictor.get_running_error()
+                predictor.plot_running_average_error()
 #                comparator = Comparator(characterize, predictor)
 #                comparator.log()
 #                comparator.print()
