@@ -6,32 +6,32 @@
         "drra":"0_0",
         "to_run":false
     },
-    "blas_l1_vec_add_top_l":{
-        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_l/",
+    "blas_l1_vec_add_top":{
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_1/",
+        "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
+        "dimarch":"0_1",
+        "drra":"0_1",
+        "to_run":false
+    },
+    "blas_l1_vec_add_top_2":{
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_2/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_0",
         "drra":"0_0",
         "to_run":false
     },
-    "blas_l1_vec_add_bot_l":{
-        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_l/",
-        "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
-        "dimarch":"0_0",
-        "drra":"1_0",
-        "to_run":false
-    },
-    "blas_l1_vec_add_top":{
-        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top/",
-        "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
-        "dimarch":"0_1",
-        "drra":"0_1",
-        "to_run":true
-    },
     "blas_l1_vec_add_bot":{
-        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot/",
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_1_1/",
         "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"1_1",
+        "to_run":false
+    },
+    "blas_l1_vec_add_bot_2":{
+        "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_1_2/",
+        "about":"Pointwise vector addition of two vectors read from dimarch and written back to dimarch",
+        "dimarch":"0_0",
+        "drra":"1_0",
         "to_run":false
     },
     "blas_l1_vec_sub_top_l":{
@@ -81,7 +81,7 @@
         "about":"Pointwise vector dot of two vectors read from dimarch and written back to dimarch",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":false
+        "to_run":true
     },
     "blas_l1_vec_dot_bot":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/bot/",

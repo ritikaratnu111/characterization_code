@@ -23,7 +23,7 @@ class Simulation():
     def remove_dir(dir):
         shutil.rmtree(dir)
 
-    def generate_randomized_mem_init_files(start,end):
+    def generate_randomized_mem_init_files(i):
         locations = []
         os.makedirs("mem_init_values", exist_ok=True)
         with open('./mem_init_values.txt', 'r') as f:
@@ -36,15 +36,19 @@ class Simulation():
                 locations.append([address, row, col])
                 current += 1
         
-        for i in range(start,end):
-            randomized_filename = "./mem_init_values/mem_init_values_" + str(i) + ".txt"
-            with open(randomized_filename, 'w') as f:
-                for location in range(len(locations)):
-                    address = locations[location][0]
-                    row = locations[location][1]
-                    col = locations[location][2]
-                    value = format(random.getrandbits(256), '0256b')
-                    f.write(address + " " + row + " " + col + " " + value + "\n")
+        randomized_filename = "./mem_init_values/mem_init_values_" + str(i) + ".txt"
+        with open(randomized_filename, 'w') as f:
+            for location in range(len(locations)):
+                address = locations[location][0]
+                row = locations[location][1]
+                col = locations[location][2]
+                # Generate 16 random 16-bit numbers within the range of -100 to 100
+                values = [random.randint(-100, 100) for _ in range(16)]
+                # Convert each 16-bit number to a binary string with leading zeros
+                binary_values = [format(value & 0xFFFF, '016b') for value in values]
+                # Concatenate the binary strings to get a 256-bit binary string
+                value = ''.join(binary_values)
+                f.write(address + " " + row + " " + col + " " + value + "\n")
 
     def update_mem_init_file(tb,i):
         tbfile = f"{tb}/testbench_rtl.vhd"

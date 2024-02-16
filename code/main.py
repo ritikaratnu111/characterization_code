@@ -69,12 +69,12 @@ class RunSimulations():
                 loader.process()
                 cells = loader.cells
                 # Run post layout simulations
-#                simulator.run_randomized_simulations(cells)
+                simulator.run_randomized_simulations(cells)
 #                simulator.run_simulation_per_cycle()
 #                simulator.get_per_cycle_measurement()
 
                 # Get power measurements
-                #power_tracker.get_measurements(cells)  
+                power_tracker.get_measurements(cells)  
 
                 # Predict the measurments from the simulations of this testbench
                 predictor.get_prediction()

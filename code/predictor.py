@@ -86,7 +86,7 @@ class Predictor():
 
         # Get a list of powers up to current i
         for i in range(self.start, i):
-            i, s, l, t = self.get_power(component, self.data[i][component])
+            i, s, l, t = self.get_power(component, self.data[i - self.start][component])
             internal.append(i)
             switching.append(s)
             leakage.append(l)
@@ -120,8 +120,8 @@ class Predictor():
         error = self.get_struct(component, value)
 
         # Get a list of powers up to current i
-        i1, s1, l1, t1 = self.get_power(component, self.running_average[i-1][component])
-        i2, s2, l2, t2 = self.get_power(component, self.running_average[i][component])
+        i1, s1, l1, t1 = self.get_power(component, self.running_average[i-1 -self.start][component])
+        i2, s2, l2, t2 = self.get_power(component, self.running_average[i -self.start][component])
 
         if (max(i1,i2)== 0):
             error_internal = 0
@@ -156,22 +156,23 @@ class Predictor():
 
     def write_json(self):
         with open(self.avg_file, "w") as file:
-            json.dump(self.running_average[(self.end - 2)], file, indent=2)
+            json.dump(self.running_average[(self.end - self.start -2)], file, indent=2)
 
 
     def get_running_error(self):
         for i in range(self.start + 1, self.end - 1):
             current_error = {}
-            for component, value in self.running_average[i].items():
+            for component, value in self.running_average[i -self.start].items():
                 current_error.update( self.get_error(component, value, i))
             self.running_average_error.append(current_error)
         print(self.running_average_error)
 
     def get_prediction(self):
         self.read_data()
+        print(len(self.data))
         for i in range(self.start + 1, self.end):
             current_avg = {}
-            for component,value in self.data[i].items():
+            for component,value in self.data[i - self.start].items():
                 #if(component != "dimarch_agu"):
                 #    continue
                 current_avg.update( self.get_average(component, value, i) )
@@ -179,16 +180,19 @@ class Predictor():
 
     def plot_running_average_error(self):
         cell_error = []
-        for i in range(self.start, self.end-2):
+        for i in range( 0, self.end - self.start -2):
             for component, value in self.running_average_error[i].items():
                 if ("cell_" in component):
                     cell_error.append( self.running_average_error[i][component]["power"]["total"] )  
         plt.figure()
+        plt.ylabel('Running average error')
+        plt.xlabel('Samples')
+        plt.title('Total')
         plt.plot(cell_error)
         plt.savefig('running_total_error')
 
         cell_error = []
-        for i in range(self.start, self.end-2):
+        for i in range( 0, self.end - self.start -2):
             for component, value in self.running_average_error[i].items():
                 if ("cell_" in component):
                     cell_error.append( self.running_average_error[i][component]["power"]["internal"] )  
@@ -198,21 +202,27 @@ class Predictor():
         plt.savefig('running_internal_error')
 
         cell_error = []
-        for i in range(self.start, self.end-2):
+        for i in range( 0, self.end - self.start -2):
             for component, value in self.running_average_error[i].items():
                 if ("cell_" in component):
                     cell_error.append( self.running_average_error[i][component]["power"]["switching"] )  
 
         plt.figure()
+        plt.ylabel('Running average error')
+        plt.xlabel('Samples')
+        plt.title('Switching')
         plt.plot(cell_error)
         plt.savefig('running_switching_error')
 
         cell_error = []
-        for i in range(self.start, self.end-2):
+        for i in range( 0, self.end - self.start -2):
             for component, value in self.running_average_error[i].items():
                 if ("cell_" in component):
                     cell_error.append( self.running_average_error[i][component]["power"]["leakage"] )
 
         plt.figure()
+        plt.ylabel('Running average error')
+        plt.xlabel('Samples')
+        plt.title('Leakage')
         plt.plot(cell_error)
         plt.savefig('running_leakage_error')
