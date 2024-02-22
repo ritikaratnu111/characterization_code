@@ -39,10 +39,10 @@ class Simulator():
                 continue
             else:
                 Simulation.generate_randomized_mem_init_files(i)
-#                uid = Simulation.update_mem_init_file(self.tb, i)
-#                print("Running randomized simulation number ", i, "unique_id: ", uid)
-#                for cell in cells:
-#                    self.run_simulation(cell.total_window, i, uid)
+                uid = Simulation.update_mem_init_file(self.tb, i)
+                print("Running randomized simulation number ", i, "unique_id: ", uid)
+                for cell in cells:
+                    self.run_simulation(cell.total_window, i, uid)
     
     def run_simulation_per_cycle(self):
         uid = "per_cycle"
