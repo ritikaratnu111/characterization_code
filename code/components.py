@@ -21,6 +21,7 @@ class ActiveComponent():
         return False
 
     def init_profiler(self,total_window):
+#        logging.info(f"{self.name}, {self.active_window}")
         self.profiler.init(self.active_window, self.inactive_window,total_window, self.signals, self.c_internal, self.c_leakage)
 
     def print(self):

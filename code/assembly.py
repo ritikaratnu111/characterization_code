@@ -36,6 +36,7 @@ class Assembly():
                             None,
                             instr['segment_values'],
                             None)
+       # logging.info(f"{new_instr.name}, {new_instr.start}")
         self.instructions.append(new_instr)
 
     def set_assembly(self,instructions):
@@ -93,8 +94,11 @@ class Assembly():
                 instr.segment_values['first'] = 1
 
     def identify_loop_instructions(self):
+        print("Indentifying loop instructions------------------------------------------------------------------------------------")
+
         for idx, instr in enumerate(self.instructions):
             if (instr.name == 'LOOP'):
+                print("LOOP------------------------------------------------------------------------------------")
                 loop_instr_pc = instr.pc
                 startpc = instr.pc + 1
                 endpc = instr.segment_values['endpc']
@@ -115,7 +119,7 @@ class Assembly():
                             end = instr.start
                 no_of_instructions = len(repeating_instructions)
                 self.instructions[idx + 1].segment_values["no_of_loop_instructions"] = no_of_instructions
-                
+                print(self.instructions[idx+1].name)
                 self.loop_instr[loop_instr_pc] = {"startpc": startpc, 
                                                   "endpc": endpc, 
                                                   "iter": iter, 

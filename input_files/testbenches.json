@@ -25,70 +25,98 @@
         "about":"Pointwise vector addition of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"1_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_add_bot_2":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/bot_1_2/",
         "about":"Pointwise vector addition of two vectors read from dimarch ",
         "dimarch":"0_0",
         "drra":"1_0",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_sub_top":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/",
         "about":"Pointwise vector sub of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_sub_bot":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/bot/",
         "about":"Pointwise vector sub of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"1_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_dot_top":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/top/",
         "about":"Pointwise vector dot of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_dot_bot":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/bot/",
         "about":"Pointwise vector dot of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"1_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_scale_top":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/top/",
         "about":"Pointwise vector scale of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_scale_bot":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/bot/",
         "about":"Pointwise vector scale of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"1_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_axpy_top":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/top/",
         "about":"Pointwise vector scale of one vector and add with another",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":true
+        "to_run":false
     },
     "blas_l1_vec_axpy_bot":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/bot/",
         "about":"Pointwise vector scale of one vector and add with another",
         "dimarch":"0_1",
         "drra":"1_1",
+        "to_run":false
+    },
+    "blas_l2_mvm":{
+        "path": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l2_matrix_vec_ops/mvm/8x8/",
+        "about": "Matrix and vector multiplication",
+        "dimarch":"0_1,0_2",
+        "drra":"0_1,0_2",
         "to_run":true
+    },
+    "blas_l2_mvm_add":{
+        "path": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l2_matrix_vec_ops/mvm_add/8x8/",
+        "about": "Matrix and vector multiplication and addition with another vector",
+        "dimarch":"0_1,0_2",
+        "drra":"0_1,0_2,1_1,1_2",
+        "to_run": false
+    },
+    "blas_l2_amvm_add":{
+        "path": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l2_matrix_vec_ops/amvm_add/8x8/",
+        "about": "Matrix and vector multiplication and scalar scaling followed by addition with another vector",
+        "dimarch":"0_1,0_2",
+        "drra":"0_1,0_2,1_1,1_2",
+        "to_run": false
+    },
+    "blas_l2_vtv_m_add":{
+        "path": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l2_matrix_vec_ops/vtv_m_add/8x8/",
+        "about": "Vector and vector cross product followed by addition with another matrix",
+        "dimarch":"0_1,0_2",
+        "drra":"0_1,0_2,1_1,1_2",
+        "to_run": false
     },
     "conv":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/convolution/",

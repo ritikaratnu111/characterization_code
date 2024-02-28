@@ -183,7 +183,8 @@ class Cell():
         for component in self.components.active:
             if(component.name == "raccu"):
                 start_window = {'start': self.assembly.window['start'], 
-                                    'end': self.assembly.window['start'] + 4 * constants.CLOCK_PERIOD
+                                    'end': self.assembly.window['start'] + 4 * constants.CLOCK_PERIOD,
+                                    'clock_cycles': 4
                 }
                 component.active_window.append(start_window)
                 sorted_window = AssemblyProcessing.sort(component.active_window)
@@ -210,7 +211,7 @@ class Cell():
         accounted_nets = 0
         data = {}
         for component in self.components.active:
-            print(component.name, component.signals, component.active_window)
+            logging.info(f"{component.name}, {component.signals}, {component.active_window}")
             component.profiler.set_active_measurement(reader,iter)
             component.profiler.set_inactive_measurement(reader,iter)
             component.profiler.set_total_measurement(reader,iter)

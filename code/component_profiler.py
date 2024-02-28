@@ -70,33 +70,27 @@ class ComponentProfiler():
         self.average_measurement[iter].count = iter
 
     def set_per_cycle_measurement(self,reader,signals):
-        for window in self.per_cycle_window:
-            file = f"./vcd/{window['start']}.vcd.pwr"
-            print(f"File: {file}")
-            logging.info(f"File: {file}")
-            measurement = Measurement()
-            measurement.set_window(window)
-            measurement.read_power(reader,file,signals)
-            measurement.get_energy()
-            measurement.log_power()
-            self.per_cycle_measurement.append(measurement)
+        measurement = Measurement()
+        measurement.set_measurement(reader, signals, constants.CLOCK_PERIOD, constants.CLOCK_PERIOD, 0, self.c_internal, self.c_leakage)
+        measurement.log()
+        self.per_cycle_measurement.append(measurement)
         active_window = []
         inactive_window = []
         current_window = []
         
-        for i, measurement in enumerate(self.per_cycle_measurement):
-            if measurement.power.switching > 0:
-                if not current_window:
-                    current_window.append(measurement.window['start'])
-            else:
-                if current_window:
-                    current_window.append(measurement.window['start'])
-                    active_window.append(current_window)
-                    current_window = []
-                if i < len(self.per_cycle_measurement) - 1:  
-                    inactive_window.append([measurement.window['start'], self.per_cycle_measurement[i + 1].window['start'] ])
+        #for i, measurement in enumerate(self.per_cycle_measurement):
+        #    if measurement.power.switching > 0:
+        #        if not current_window:
+        #            current_window.append(measurement.window['start'])
+        #    else:
+        #        if current_window:
+        #            current_window.append(measurement.window['start'])
+        #            active_window.append(current_window)
+        #            current_window = []
+        #        if i < len(self.per_cycle_measurement) - 1:  
+        #            inactive_window.append([measurement.window['start'], self.per_cycle_measurement[i + 1].window['start'] ])
 
-        self.per_cycle_active_window = active_window
+        #self.per_cycle_active_window = active_window
     def set_active_measurement_from_per_cycle(self):
         iter = 0
         for window in self.active_window:

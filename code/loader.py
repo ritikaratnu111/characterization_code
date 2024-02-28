@@ -17,7 +17,6 @@ class Loader():
         self.window['start'], self.window['end'] = VesylaOutput.return_execution_cycle(self.tb)
 
     def add_cell(self, cell_id, row, col, instructions):
-        print(f"Adding cell {cell_id} to the assembly")
         new_cell = Cell(cell_id, row, col, self.window)
         new_cell.set_assembly(instructions)
         self.cells.append(new_cell)
@@ -59,8 +58,8 @@ class Loader():
             cell.set_component_inactive_cycles()
             cell.init_component_energy_profiler()
             cell.set_dimarch_tiles()
-            for component in cell.components.active:
-                print(component.name, component.active_window, component.signals)
+#            for component in cell.components.active:
+#                print(component.name, component.active_window, component.signals)
                 #logging.info(component.name, component.active_window)
         self.get_dependency()
 

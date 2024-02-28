@@ -16,6 +16,26 @@ class SimulationPowerTracker():
         self.end = end
         self.reader = InnovusPowerParser()
 
+    def get_per_cycle_measurement(self, cells):
+            print("Getting per cycle measurement")
+            per_cycle_window = []
+            for cell in cells:
+                current_start = cell.total_window['start']
+                while current_start < cell.total_window['end']:
+                    per_cycle_window.append({'start': current_start, 'end': current_start + constants.CLOCK_PERIOD, 'clock_cycles' : 1})
+                    current_start += constants.CLOCK_PERIOD        
+                logging.info("Setting per_cycle measurement for %s", cell.drra_tile)
+                for component in cell.components.active:
+                    logging.info("Setting per_cycle measurement for %s", component.name)
+                    for window in per_cycle_window:
+                        pwr_file = f"./vcd/{window['start']}.vcd.pwr"
+                        if os.path.exists(pwr_file):
+                            self.reader.update_nets(pwr_file)
+                            # if(component.name != "noc"):
+                            #     continue
+                            logging.info(f"{component.name}, {window}, {pwr_file}")
+                            component.profiler.set_per_cycle_measurement(self.reader, component.signals)
+
     def set_cell_measurement_and_nets(self, cell):
         print(cell.cell_id,cell.tiles,cell.total_window)
         cell.profiler.set_measurement(self.reader,cell.tiles, cell.components.active)
@@ -44,7 +64,6 @@ class SimulationPowerTracker():
             self.reader = InnovusPowerParser()
             pwr_file=f"{self.tb}/vcd/iter_{i}.vcd.pwr"
             json_file=f"{self.tb}/vcd/iter_{i}.json"
-            print(pwr_file,json_file)
 
             if os.path.exists(pwr_file) and not os.path.exists(json_file):
                 total_nets = 0

@@ -399,7 +399,7 @@
     },
     "raccu":{
         "start": "offset - 2 * clock_period",
-        "end":   "offset - 2 * clock_period +  (no_of_loop_instructions + 1 ) * clock_period"
+        "end":   "offset - 2 * clock_period +   1 * clock_period"
     },
     "CTS":{
         "start": "offset",

@@ -8,8 +8,6 @@
       "dimarch_agu",
       "sram",
       "dimarch",
-      "dimarch_rest",
-      "dimarch_wrap",
       "regfile",
       "dpu",
       "config_swb",
@@ -41,7 +39,10 @@
     "DRRA_components": {
       "raccu": {
         "about": "raccu",
-        "signals": ["u_Raccu"]
+        "signals": ["u_Raccu"],
+        "correct": "no",
+        "p_inactive_internal": "0",
+        "p_inactive_leakage": "0"
       },
       "sequencer": {
         "about": "sequencer",

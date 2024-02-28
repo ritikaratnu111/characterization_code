@@ -44,29 +44,17 @@ class Simulator():
                 for cell in cells:
                     self.run_simulation(cell.total_window, i, uid)
     
-    def run_simulation_per_cycle(self):
-        uid = "per_cycle"
-        window = self.cells[0].total_window
-        Simulation.trigger_vsim(0, window['start'], window['end'],  True, uid)
-        Simulation.trigger_innovus(0, window['start'], window['end'],  True)
+    def run_simulation_per_cycle(self, cells, i):
+        uid = Simulation.update_mem_init_file(self.tb, 0)
+        window = cells[0].total_window
+        factor = int((window['end'] - window['start']) / 8)
+        start = window['start'] + i * factor
+        end = min(start + factor, window['end'])
+        print(f"Window start: {window['start']}, Factor: {factor}, i: {i}")
+        print("Capturing cycles" ,start,end)
+        Simulation.trigger_vsim(0, start, end,  True, uid)
+        Simulation.trigger_innovus(0, start, end,  True)
 
-    def get_per_cycle_measurement(self):
-            print("Getting per cycle measurement")
-            # Add an indented block here
-            for cell in self.cells:
-                logging.info("Setting per_cycle measurement for %s", cell.drra_tile)
-                for component in cell.components.active:
-                    # if(component.name != "noc"):
-                    #     continue
-                    print(component.name)
-                    logging.info("Setting per_cycle measurement for %s", component.name)
-                    component.profiler.set_per_cycle_measurement(self.reader, component.signals)
-            for component in cell.components.inactive:
-                # if(component.name != "data_selector"):
-                #     continue
-                print(component.name, component.signals)
-                logging.info("Setting per_cycle measurement for %s", component.name)
-                component.profiler.set_per_cycle_measurement(self.reader, component.signals)
 #
 #    def get_AEC_measurements_from_per_cycle(self):
 #        print("Getting per cycle component measurement")

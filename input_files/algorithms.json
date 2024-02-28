@@ -1,0 +1,11 @@
+{
+    "blas": {
+        "l1":{
+            "vec_add": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_1/",
+            "vec_sub": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/",
+            "vec_dot": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/top/",
+            "vec_scale": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/top/",
+            "vec_axpy": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/top/"
+             }
+    }
+}

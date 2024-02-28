@@ -11,6 +11,7 @@ logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 class RunSimulations():
     def __init__(self):
         self.testbenches = {}
+        self.algorithms = {}
         self.LOGFILE = ""
         self.FABRIC_PATH = ""
         self.logger = None
@@ -61,8 +62,8 @@ class RunSimulations():
                 # Objects for characterization
                 loader = Loader(tb,self.logger)
                 simulator = Simulator(tb, start, end)
-                power_tracker = SimulationPowerTracker(tb, start, end)
-                predictor = Predictor(tb, start, end)
+#                power_tracker = SimulationPowerTracker(tb, start, end)
+#                predictor = Predictor(tb, start, end)
 
                 # Load the instructions
                 loader.read()
@@ -74,22 +75,36 @@ class RunSimulations():
 #                simulator.get_per_cycle_measurement()
 
                 # Get power measurements
-                power_tracker.get_measurements(cells)  
+#                power_tracker.get_measurements(cells)  
 
                 # Predict the measurments from the simulations of this testbench
-                predictor.get_prediction()
-                predictor.write_json()
-                predictor.get_running_error()
-                predictor.plot_running_average_error()
+#                predictor.get_prediction()
+#                predictor.write_json()
+#                predictor.get_running_error()
+#                predictor.plot_running_average_error()
 #                comparator = Comparator(characterize, predictor)
 #                comparator.log()
 #                comparator.print()
+#
+    def get_algorithm_predictions(self):
+        try:
+            algorithm_file_path = "../input_files/algorithms.json"
+            with open(tb_file_path) as file:
+                self.algorithms = json.load(file)
+        except FileNotFoundError:
+            print(f"Testbench file '{tb_file_path}' not found.")
+        except Exception as e:
+            print(f"Error loading testbenches: {e}")
+        
+#        for name, info in self.algorithms.items():
             
+
 def main():
     job = RunSimulations()
     job.set_fabric_path()
     job.get_testbenches()
     job.run_simulations()
+    #job.get_algorithm_predictions()
     return
 
 if __name__ == "__main__":

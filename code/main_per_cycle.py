@@ -5,23 +5,19 @@ from helper_functions import VesylaOutput
 from loader import Loader
 from simulator import Simulator
 from power_tracker import SimulationPowerTracker
-from cross_algorithm_predictor import Predictor
-
+from predictor import Predictor
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 class RunSimulations():
-    def __init__(self,start,end):
-        self.start = start
-        self.end = end
+    def __init__(self):
         self.testbenches = {}
-        self.algorithms = {}
         self.LOGFILE = ""
         self.FABRIC_PATH = ""
         self.logger = None
         logging.basicConfig(level=logging.DEBUG)
 
     def set_logfile(self,path):
-        self.LOGFILE = f"{path}/char_energy.log"
+        self.LOGFILE = f"{path}/char_per_cycle_energy.log"
         print(f"Logfile: {self.LOGFILE}")
         try:
               # Use context manager for file operations
@@ -39,21 +35,9 @@ class RunSimulations():
         self.FABRIC_PATH = '/media/storage1/ritika/SiLagoNN/'
         os.environ['FABRIC_PATH'] = self.FABRIC_PATH
 
-    def get_algorithms(self):
-        try:
-            algorithms_path = "../input_files/algorithms.json"
-            
-            with open(algorithms_path) as file:
-                self.algorithms = json.load(file)
-        except FileNotFoundError:
-            print(f"Testbench file '{tb_file_path}' not found.")
-        except Exception as e:
-            print(f"Error loading testbenches: {e}") 
-
     def get_testbenches(self):
         try:
             tb_file_path = "../input_files/testbenches.json"
-            
             with open(tb_file_path) as file:
                 self.testbenches = json.load(file)
         except FileNotFoundError:
@@ -66,6 +50,8 @@ class RunSimulations():
             if info["to_run"] == True:
                 # Get info
                 tb = info["path"]
+                start = int(sys.argv[1])
+                end = int(sys.argv[2])
                 # Log testbench info
                 self.set_logfile(info["path"])
                 self.logger.info(f"Testbench: {name}")
@@ -74,8 +60,9 @@ class RunSimulations():
                 VesylaOutput.update_clock_period(tb)
                 # Objects for characterization
                 loader = Loader(tb,self.logger)
-                simulator = Simulator(tb, self.start, self.end)
-                power_tracker = SimulationPowerTracker(tb, self.start, self.end)
+                simulator = Simulator(tb, start, end)
+                power_tracker = SimulationPowerTracker(tb, start, end)
+                predictor = Predictor(tb, start, end)
 
                 # Load the instructions
                 loader.read()
@@ -83,36 +70,26 @@ class RunSimulations():
                 cells = loader.cells
                 # Run post layout simulations
 #                simulator.run_randomized_simulations(cells)
-#                simulator.run_simulation_per_cycle()
-#                simulator.get_per_cycle_measurement()
+#                simulator.run_simulation_per_cycle(cells, start)
 
                 # Get power measurements
-                power_tracker.get_measurements(cells)  
+#                power_tracker.get_measurements(cells)  
+                power_tracker.get_per_cycle_measurement(cells)
 
                 # Predict the measurments from the simulations of this testbench
+#                predictor.get_prediction()
+#                predictor.write_json()
+#                predictor.get_running_error()
+#                predictor.plot_running_average_error()
 #                comparator = Comparator(characterize, predictor)
 #                comparator.log()
 #                comparator.print()
-
-    def get_prediction_and_error(self):
-        predictor = Predictor(self.start,self.end)
-        l1_algorithms = self.algorithms['blas']["l1"]
-        predictor.average_algorithms(l1_algorithms)
-        predictor.test('VEC_ADD', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_1/')
-        predictor.test('VEC_SUB', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/')
-        predictor.test('VEC_DOT', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/top/')
-        predictor.test('VEC_SCALE', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/top/')
-        predictor.test('VEC_AXPY', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/top/')
-
+            
 def main():
-    start = int(sys.argv[1])
-    end = int(sys.argv[2])
-    job = RunSimulations(start,end)
+    job = RunSimulations()
     job.set_fabric_path()
     job.get_testbenches()
-    job.get_algorithms()
     job.run_simulations()
-    job.get_prediction_and_error()
     return
 
 if __name__ == "__main__":
