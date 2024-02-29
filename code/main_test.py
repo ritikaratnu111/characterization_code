@@ -10,9 +10,11 @@ from cross_algorithm_predictor import Predictor
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 
 class RunSimulations():
-    def __init__(self,start,end):
-        self.start = start
-        self.end = end
+    def __init__(self,predict_start,predict_end, test_start, test_end):
+        self.predict_start = predict_start
+        self.predict_end = predict_end
+        self.test_start = test_start
+        self.test_end = test_end
         self.testbenches = {}
         self.algorithms = {}
         self.LOGFILE = ""
@@ -21,7 +23,7 @@ class RunSimulations():
         logging.basicConfig(level=logging.DEBUG)
 
     def set_logfile(self,path):
-        self.LOGFILE = f"{path}/char_energy.log"
+        self.LOGFILE = f"{path}/char_test.log"
         print(f"Logfile: {self.LOGFILE}")
         try:
               # Use context manager for file operations
@@ -74,8 +76,8 @@ class RunSimulations():
                 VesylaOutput.update_clock_period(tb)
                 # Objects for characterization
                 loader = Loader(tb,self.logger)
-                simulator = Simulator(tb, self.start, self.end)
-                power_tracker = SimulationPowerTracker(tb, self.start, self.end)
+                simulator = Simulator(tb, self.predict_start, self.predict_end)
+                power_tracker = SimulationPowerTracker(tb, self.predict_start, self.predict_end)
 
                 # Load the instructions
                 loader.read()
@@ -95,19 +97,22 @@ class RunSimulations():
 #                comparator.print()
 
     def get_prediction_and_error(self):
-        predictor = Predictor(self.start,self.end)
-        l1_algorithms = self.algorithms['blas']["l1"]
-        predictor.average_algorithms(l1_algorithms)
-        predictor.test('VEC_ADD', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_1/')
-        predictor.test('VEC_SUB', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/')
-        predictor.test('VEC_DOT', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/top/')
-        predictor.test('VEC_SCALE', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/top/')
-        predictor.test('VEC_AXPY', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/top/')
+        predictor = Predictor(self.predict_start,self.predict_end, self.test_start, self.test_end)
+        avg_algorithms = self.algorithms['train']['blas']["l1"]
+        predictor.average_algorithms(avg_algorithms)
+        test_algorithms = self.algorithms['test']['blas']["l1"]
+        predictor.test_algorithms(test_algorithms)
+#        predictor.test('VEC_SUB', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_sub/top/')
+#        predictor.test('VEC_DOT', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_dot/top/')
+#        predictor.test('VEC_SCALE', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_scale/top/')
+#        predictor.test('VEC_AXPY', '/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/axpy/top/')
 
 def main():
-    start = int(sys.argv[1])
-    end = int(sys.argv[2])
-    job = RunSimulations(start,end)
+    predict_start = int(sys.argv[1])
+    predict_end = int(sys.argv[2])
+    test_start = int(sys.argv[3])
+    test_end = int(sys.argv[4])
+    job = RunSimulations(predict_start,predict_end, test_start, test_end)
     job.set_fabric_path()
     job.get_testbenches()
     job.get_algorithms()

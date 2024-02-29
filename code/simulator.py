@@ -17,6 +17,12 @@ class Simulator():
         os.makedirs(self.vcd_dir, exist_ok=True)
         self.start = start
         self.end = end
+        self.total_window = {   'start': 1000000,
+                                'end':0,
+                                'clock_cycles': 0
+                                }
+        
+
 
     def run_simulation(self, window, i, uid):
         start = window['start']
@@ -30,7 +36,19 @@ class Simulator():
     def generate_randomized_mem_init_files(self):
         Simulation.generate_randomized_mem_init_files(start, end)
 
+    def get_total_window(self,cells):
+        for cell in cells:
+            if (int(cell.total_window['start']) < self.total_window['start']) :
+                self.total_window['start'] = cell.total_window['start']
+            if (int(cell.total_window['end']) > self.total_window['end']):
+                self.total_window['end'] = cell.total_window['end']
+
+        self.total_window['clock_cycles'] = (self.total_window['end'] - self.total_window['start']) / constants.CLOCK_PERIOD
+        print(self.total_window)
+
     def run_randomized_simulations(self, cells):
+
+        self.get_total_window(cells)
 
         for i in range(self.start, self.end):
             pwr_file=f"{self.tb}/vcd/iter_{i}.vcd.pwr"
@@ -41,8 +59,7 @@ class Simulator():
                 Simulation.generate_randomized_mem_init_files(i)
                 uid = Simulation.update_mem_init_file(self.tb, i)
                 print("Running randomized simulation number ", i, "unique_id: ", uid)
-                for cell in cells:
-                    self.run_simulation(cell.total_window, i, uid)
+                self.run_simulation(self.total_window, i, uid)
     
     def run_simulation_per_cycle(self, cells, i):
         uid = Simulation.update_mem_init_file(self.tb, 0)

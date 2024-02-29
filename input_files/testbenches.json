@@ -11,7 +11,7 @@
         "about":"Pointwise vector addition of two vectors read from dimarch ",
         "dimarch":"0_1",
         "drra":"0_1",
-        "to_run":false
+        "to_run":true
     },
     "blas_l1_vec_add_top_2":{
         "path":"/media/storage1/ritika/SiLagoNN/tb/char/blas/l1_vec_ops/vec_add/top_0_2/",
@@ -95,7 +95,7 @@
         "about": "Matrix and vector multiplication",
         "dimarch":"0_1,0_2",
         "drra":"0_1,0_2",
-        "to_run":true
+        "to_run":false
     },
     "blas_l2_mvm_add":{
         "path": "/media/storage1/ritika/SiLagoNN/tb/char/blas/l2_matrix_vec_ops/mvm_add/8x8/",
