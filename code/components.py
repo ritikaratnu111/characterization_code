@@ -11,6 +11,7 @@ class ActiveComponent():
         self.c_internal = c_internal
         self.c_leakage = c_leakage
         self.profiler = ComponentProfiler()
+        self.mode = None
 
     def __eq__(self, other):
         if isinstance(other, ActiveComponent):

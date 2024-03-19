@@ -9,7 +9,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-class SimulationPowerTracker():
+class PowerParser():
     def __init__(self, tb, start, end):     
         self.tb = tb
         self.start = start
@@ -65,51 +65,55 @@ class SimulationPowerTracker():
             pwr_file=f"{self.tb}/vcd/iter_{i}.vcd.pwr"
             json_file=f"{self.tb}/vcd/iter_{i}.json"
 
-            if os.path.exists(pwr_file) and not os.path.exists(json_file):
+#            if os.path.exists(pwr_file) and not os.path.exists(json_file):
+            if os.path.exists(pwr_file):
                 total_nets = 0
                 balance = 0
                 accounted_nets = 0
                 self.reader.update_nets(pwr_file)
 
-                for cell in cells:
-                    total_nets = self.set_cell_measurement_and_nets(cell)
-                    balance_nets = total_nets
-
-                    logging.debug('%s %s', balance_nets, (balance_nets / total_nets) * 100)
-                    
-                    self.reader.remove_labels(cell.tiles)
-                    
-                    for component in cell.components.active:
-                        self.reader.get_count_of_inactive_labels(cell.tiles)
-                        #if(component.name != "dpu"):
-                        #    continue
-                        component_nets = self.set_component_measurement_and_nets(component)
-                        accounted_nets += component_nets
-                        balance_nets = total_nets - accounted_nets
-                        self.update_cell_measurement(cell, component)
-
-                        logging.info('%s %s %s',component_nets, balance_nets, (balance_nets / total_nets) * 100)
+#                for cell in cells:
+#                    total_nets = self.set_cell_measurement_and_nets(cell)
+#                    balance_nets = total_nets
+#
+#                    logging.debug('%s %s', balance_nets, (balance_nets / total_nets) * 100)
+#                    
+#                    self.reader.remove_labels(cell.tiles)
+#                    
+#                    for component in cell.components.active:
+#                        self.reader.get_count_of_inactive_labels(cell.tiles)
+#                        #if(component.name != "dpu"):
+#                        #    continue
+#                        component_nets = self.set_component_measurement_and_nets(component)
+#                        accounted_nets += component_nets
+#                        balance_nets = total_nets - accounted_nets
+#                        self.update_cell_measurement(cell, component)
+#
+#                        logging.info('%s %s %s',component_nets, balance_nets, (balance_nets / total_nets) * 100)
 #                        
-                self.write_json(i,cells)
 
     def get_component_dict(self, component):
         dict = {
-                "active": {
-                    "window": f"{component.profiler.active_window['windows']}" if component.active_window else "None",
-                    "cycles": component.profiler.active_window['clock_cycles'] if component.active_window else 0,
-                    "power": {
-                        "internal": component.profiler.measurement.active.power.internal,
-                        "switching": component.profiler.measurement.active.power.switching,
-                        "leakage": component.profiler.measurement.active.power.leakage
-                    }
-                },
-                "inactive": {
-                    "window": f"{component.profiler.inactive_window['windows']}" if component.inactive_window else "None",
-                    "cycles": component.profiler.inactive_window['clock_cycles'] if component.inactive_window else 0,
-                    "power": {
-                        "internal": component.profiler.measurement.inactive.power.internal,
-                        "switching": component.profiler.measurement.inactive.power.switching,
-                        "leakage": component.profiler.measurement.inactive.power.leakage
+                "mode": {
+                    str(component.mode): {
+                        "active": {
+                            "window": f"{component.profiler.active_window['windows']}" if component.active_window else "None",
+                            "cycles": component.profiler.active_window['clock_cycles'] if component.active_window else 0,
+                            "power": {
+                                "internal": component.profiler.measurement.active.power.internal,
+                                "switching": component.profiler.measurement.active.power.switching,
+                                "leakage": component.profiler.measurement.active.power.leakage
+                                }
+                        },
+                        "inactive": {
+                            "window": f"{component.profiler.inactive_window['windows']}" if component.inactive_window else "None",
+                            "cycles": component.profiler.inactive_window['clock_cycles'] if component.inactive_window else 0,
+                            "power": {
+                                "internal": component.profiler.measurement.inactive.power.internal,
+                                "switching": component.profiler.measurement.inactive.power.switching,
+                                "leakage": component.profiler.measurement.inactive.power.leakage
+                            }
+                        }
                     }
                 }
             }
@@ -125,21 +129,46 @@ class SimulationPowerTracker():
                     "leakage": cell.profiler.measurement_set.actual.power.leakage
                 }
             }
+        dict = {
+                "mode": {
+                    str("running"): {
+                        "active": {
+                            "window": f"{cell.total_window}",
+                            "cycles": cell.total_window['clock_cycles'],
+                            "power": {
+                                "internal": cell.profiler.measurement_set.actual.power.internal,
+                                "switching": cell.profiler.measurement_set.actual.power.switching,
+                                "leakage": cell.profiler.measurement_set.actual.power.leakage
+                            }
+                        },
+                        "inactive": {
+                            "window": 0,
+                            "cycles": 0,
+                            "power": {
+                                "internal": 0,
+                                "switching": 0,
+                                "leakage": 0
+                            }
+                        }
+                    }
+                }
+            }
         return dict
 
 
-    def write_json(self,i,cells):
-        data = {}
-        for cell in cells:
-            for component in cell.components.active:
-                #if(component.name != "dpu"):
-                #    continue
-                #Write the component, active cycles of the component, and power of all three types in a json file in the same directory
-                #as the testbench
-                data[component.name] = self.get_component_dict(component)
-            data[cell.cell_id] = self.get_cell_dict(cell)
-        with open(f"{self.tb}/vcd/iter_{i}.json", "w") as file:
-            json.dump(data, file, indent=2)
+    def write_json(self, cells):
+        for i in range(self.start,self.end):
+            data = {}
+            for cell in cells:
+                for component in cell.components.active:
+                    #if(component.name != "dpu"):
+                    #    continue
+                    #Write the component, active cycles of the component, and power of all three types in a json file in the same directory
+                    #as the testbench
+                    data[component.name] = self.get_component_dict(component)
+                data[cell.cell_id] = self.get_cell_dict(cell)
+            with open(f"{self.tb}/vcd/iter_{i}.json", "w") as file:
+                json.dump(data, file, indent=2)
 
 
 #            for component in cell.components.active:

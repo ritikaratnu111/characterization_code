@@ -30,9 +30,13 @@ class Instr():
             self.components.add_active_component(new_component)
 
     def set_active_cycles(self,my_isa):
-        component_active_cycles = my_isa.get_active_cycles(self.start, self.name, self.segment_values)
+        active_cycles = my_isa.get_active_cycles(self.start, self.name, self.segment_values)
+        mode = my_isa.get_mode(self.name)
         for component in self.components.active:
-            component.active_window = component_active_cycles[component.name]
+            component.active_window = active_cycles[component.name]
+            component.mode = mode[component.name]
+#            if(self.name == "DPU"):
+#                print(self.name, component.name, component.mode)
 
     def print(self):
         print(f"Instr: {self.name}")

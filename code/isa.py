@@ -11,6 +11,7 @@ class ISA():
         self.read_segment_values = {}
         self.components = {}
         self.active_cycles = {}
+        self.component_modes = {}
         self.dimarch_row = 0
         self.dimarch_col = 0
         self.dimarch_tiles = []
@@ -96,16 +97,16 @@ class ISA():
             updated_signals = []
             if (component in self.DRRA_components):
                 signals = self.DRRA_components[component]["signals"]
-                p_inactive_internal = self.DRRA_components[component]["p_inactive_internal"]
-                p_inactive_leakage = self.DRRA_components[component]["p_inactive_leakage"]
+                p_inactive_internal = self.DRRA_components[component]["mode"]["running"]["inactive"]["internal"]
+                p_inactive_leakage = self.DRRA_components[component]["mode"]["running"]["inactive"]["leakage"]
                 for signal in signals:
                     cell_signal = f"{self.drra_signals[str(row)][str(col)]}{signal}"
                     updated_signals.append(cell_signal)
             
             if (component in self.DIMARCH_components):
                 signals = self.DIMARCH_components[component]["signals"]
-                p_inactive_internal = self.DIMARCH_components[component]["p_inactive_internal"]
-                p_inactive_leakage = self.DIMARCH_components[component]["p_inactive_leakage"]
+                p_inactive_internal = self.DIMARCH_components[component]["mode"]["running"]["inactive"]["internal"]
+                p_inactive_leakage = self.DIMARCH_components[component]["mode"]["running"]["inactive"]["leakage"]
                 dimarch_row = self.dimarch_row
                 dimarch_col = self.dimarch_col
                 for signal in signals:
@@ -145,6 +146,7 @@ class ISA():
 #        print(name,start,variables)
         equations = self.instr_equations[name]
         self.active_cycles[name] = {}
+        self.component_modes[name] = {}
 
         symbols = {var: sp.symbols(var) for var in variables}
         values = [(symbols[var], val) for var, val in variables.items()]
@@ -153,11 +155,16 @@ class ISA():
             self.active_cycles[name][component] = {}
             start_time = sp.sympify(equations[component]['start']).subs(values)
             end_time = sp.sympify(equations[component]['end']).subs(values)
+            mode = sp.sympify(equations[component]['mode']).subs(values)
  #           print(f"Component: {component}, Start time: {start_time}, End time: {end_time}")
             self.active_cycles[name][component] = {
                 'start': start_time,
                 'end': end_time
             }
+            self.component_modes[name][component] = mode
+
+    def get_mode(self, name):
+         return self.component_modes[name]
 
     def get_active_cycles(self, start, name, segment_values):
         self.set_segment_values(name, segment_values)
