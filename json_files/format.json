@@ -1,0 +1,730 @@
+{
+  "CTS": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "sequencer": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "noc": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch_agu": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "sram": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "regfile": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dpu": {
+    "mode": {
+      "1": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      },
+      "4": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      },
+      "10": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      },
+      "7": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "config_swb": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "swb": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "shadow_reg": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "bus_selector": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch_data_in_out_reg": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch_data_in": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "instr_inp_out_reg": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "seq_address_rb": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "seq_address_cb": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "rf_block": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "data_selector": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch_data_in_out": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "dimarch_data_out": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "instr_inp": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "ext_v_input_bus_in": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "rst_n": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "sel_r_ext": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "valid_bot": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "immediate": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "data_in_this": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "seq_cond_status": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "address_assign": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "MTRF_cell": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "SILEGO_cell": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "others": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  },
+  "cell_0_1": {
+    "mode": {
+      "running": {
+        "active": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        },
+        "inactive": {
+          "power": {
+            "internal": 0,
+            "switching": 0,
+            "leakage": 0
+          }
+        }
+      }
+    }
+  }
+}

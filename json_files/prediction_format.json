@@ -1,970 +1,631 @@
 {
     "cell_0_1": {
         "CTS": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "raccu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "sequencer": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "noc": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch_agu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "sram": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "regfile": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
+            "mode": {
+                "running": {
+                    "inactive": {
+                        "internal": "0.7026771",
+                        "switching": "0",
+                        "leakage": "0.625175001212"
+                    },
+                    "active": {
+                        "internal": "0.7026771",
+                        "switching": "0",
+                        "leakage": "0.625175001212"
+                    }
+                }
         },
         "dpu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running":{
+                    "inactive": {
+                        "internal": "0.1719328",
+                        "switching": "0",
+                        "leakage": "0.835371905465"
+                    },
+                    "active": {
+                        "internal": "0.1719328",
+                        "switching": "0",
+                        "leakage": "0.835371905465"
+                    }
+                },
+                "add": {
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "subt":{
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "subt_abs": {
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "mult":{
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "mult_const": {
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "mac": {
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                },
+                "axpy": {
+                    "inactive": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    },
+                    "active": {
+                        "internal": 0,
+                        "switching": 0,
+                        "leakage": 0
+                    }
+                }
             }
         },
         "config_swb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "swb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "shadow_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "bus_selector": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch_data_in_out_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch_data_in": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "instr_inp_out_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "seq_address_rb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "seq_address_cb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "rf_block": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "data_selector": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch_data_in_out": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "dimarch_data_out": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "instr_inp": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "ext_v_input_bus_in": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "rst_n": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "sel_r_ext": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "valid_bot": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "immediate": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "data_in_this": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "seq_cond_status": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "address_assign": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "MTRF_cell": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "SILEGO_cell": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
         },
         "others": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
+            "mode": {
+                "running": {
+                    "active": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    },
+                    "inactive": {
+                        "internal": "0",
+                        "switching": "0",
+                        "leakage": "0"
+                    }
+                  }
             }
-        },
-        "cell_0_1": {
-            "internal": 0,
-            "switching": 0,
-            "leakage": 0,
-            "total": 0
-        }
-    },
-    "cell_1_1": {
-        "CTS": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "raccu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "sequencer": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "noc": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch_agu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "sram": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "regfile": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dpu": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "config_swb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "swb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "shadow_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "bus_selector": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch_data_in_out_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch_data_in": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "instr_inp_out_reg": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "seq_address_rb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "seq_address_cb": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "rf_block": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "data_selector": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch_data_in_out": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "dimarch_data_out": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "instr_inp": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "ext_v_input_bus_in": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "rst_n": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "sel_r_ext": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "valid_bot": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "immediate": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "data_in_this": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "seq_cond_status": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "address_assign": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "MTRF_cell": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "SILEGO_cell": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "others": {
-          "active": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            },
-          "inactive": {
-              "internal": 0,
-              "switching": 0,
-              "leakage": 0,
-              "total": 0
-            }
-        },
-        "cell_1_1": {
-            "internal": 0,
-            "switching": 0,
-            "leakage": 0,
-            "total": 0
         }
     }
 }
